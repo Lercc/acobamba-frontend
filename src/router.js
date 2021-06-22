@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+import Page from '@/views/Page/Page.vue'
 import ApkAdmin from '@/views/ApkAdmin/ApkAdmin'
 import ApkAuth from '@/views/ApkAuth/ApkAuth'
-import NotFound from '@/views/DefaultViews/NotFound'
+import NotFound from '@/views/DefaultViews/NotFound.vue'
 
  import store from '@/store'
 
@@ -13,6 +15,29 @@ export default new Router({
   mode: 'history',
   linkExactActiveClass: 'active',
   routes: [
+    {
+      path: '',
+      // redirect: 'about',
+      component: Page,
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: () => import(/* webpackChunkName: "about" */ '@/views/Page/components/Home.vue')
+        },
+        {
+          path: 'about',
+          name: 'about',
+          component: () => import(/* webpackChunkName: "about" */ '@/views/Page/components/About.vue')
+        },
+        {
+          path: 'info',
+          name: 'info',
+          component: () => import(/* webpackChunkName: "about" */ '@/views/Page/components/Info.vue')
+        },
+      ]
+    },
+
     {
       path: '/',
       redirect: 'login',
@@ -325,6 +350,7 @@ export default new Router({
         }
       ]
     },
+
     { path: '*', component: NotFound }
   ]
 })
