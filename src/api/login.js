@@ -9,7 +9,6 @@ function login(pFormData) {
         // 'Authorization' : `Bearer ${token}`
         'Accept' : 'application/json'
     }
-
     return axios.post(`http://127.0.0.1:8000/api/login`, pFormData, { headers })
 }
 

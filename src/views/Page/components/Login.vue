@@ -20,6 +20,11 @@
                                 </b-form-input>
                             </b-form-group>
                         </b-col>
+                        <ul>
+                            <li v-for="(showInputError, index) in  showInputErrors('email')" :key="`email-${index}`">
+                                {{ showInputError }}
+                            </li>
+                        </ul>
                     </b-form-row>
 
                     <b-form-row>
@@ -48,6 +53,7 @@
                 <p> {{ email }} </p>
                 <p> {{ password }} </p>
                 <p> {{ loginLoading }} </p>
+                <p> {{ inputErrors }} </p>
             </b-col>
             <!--  -->
         </b-row>
@@ -80,12 +86,32 @@ export default {
             // guardar en el localstorage
 
             // redirigir dependiendo del rol del que logeo
+        },
+        showInputErrors(pInputName) {
+            console.log('no : ',pInputName)
+    
+            // let inputKeys = Object.keys(this.inputErrors)
+            // let errorByInput = inputKeys.includes(pInputName)
+
+            console.log('debug :', this.inputErrors['email'])
+          
+        //   if (errorByInput) {
+        //         console.log('LOs errores: ', this.inputErrors[errorByInput])
+        //     }
+
+            // if (Object.keys(this.showInputErrors).includes(pInputName)) {
+            //     console.log('asdsadas',this.showInputErrors[pInputName])
+            // }
         }
+
     },
 
     computed: {
         loginLoading () {
             return this.$store.state.user.loading 
+        },
+        inputErrors() {
+            return this.$store.state.user.inputErrors
         }
     }
 }

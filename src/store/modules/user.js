@@ -16,7 +16,13 @@ export default  {
         },
         SET_USER_DATA (state, payload) {
             state.data = payload
-       }
+        },
+        SET_INPUT_ERRORS (state, payload) {
+            state.inputErrors = payload
+        },
+        DELETE_INPUT_ERRORS (state, payload) {
+            state.inputErrors = payload
+        }
        
         // setUserStoreData(state, payload) {
         //     state.data = payload
@@ -32,6 +38,7 @@ export default  {
     actions: {
         userLogin (context, payload) {
             context.commit('SET_LOADING_STATE', true)
+            context.commit('DELETE_INPUT_ERRORS', {})
 
             // peticion api-login
             let userFormData = new FormData()
@@ -40,10 +47,14 @@ export default  {
 
             login(userFormData)
                 .then( response => {
-                    console.log(response);
+                    console.log('HERE 1', response);
                 })
                 .catch( err => {
-                    console.log(err)
+                    // console.log('HERE 2', err)
+                    if (err.response) {
+                        console.log(err.response.data.errors)
+                        context.commit('SET_INPUT_ERRORS', err.response.data.errors)
+                    }
                 })
                 .finally(() => {
                     context.commit('SET_LOADING_STATE', false)
