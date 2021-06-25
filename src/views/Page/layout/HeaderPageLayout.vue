@@ -17,6 +17,40 @@
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
+
+        <b-container fluid v-if="showAlert">
+            <b-row>
+                <b-col cols="12" class="text-center bg-red opacity-9">
+                    <span class="text-white">{{ globalRequestErrorMessage }}</span>
+                </b-col>
+            </b-row>
+        </b-container>
         <!-- fin de navbar --> 
     </div>
 </template>
+<script>
+export default {
+
+    data() {
+        return {
+            'showAlert': false
+        }
+    },
+
+    computed: {
+        globalRequestErrorMessage() {
+            return this.$store.state.errors.globalRequestErrorMessage
+        }
+    },
+
+    watch: {
+        globalRequestErrorMessage() {
+            if (this.$store.state.errors.globalRequestErrorMessage != '') {
+                this.showAlert = true
+            } else {
+                this.showAlert = false
+            }
+        }
+    }
+}
+</script>
