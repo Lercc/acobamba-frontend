@@ -10,10 +10,12 @@ import Externo from '@/views/Externo/Externo.vue'
 // import ApkAuth from '@/views/ApkAuth/ApkAuth'
 import NotFound from '@/views/DefaultViews/NotFound.vue'
 
-//  import store from '@/store'
+ import store from '@/store'
 
 
 Vue.use(Router)
+
+
 
 export default new Router({
   mode: 'history',
@@ -26,7 +28,7 @@ export default new Router({
         {
           path: '',
           name: 'home',
-          component: () => import(/* webpackChunkName: "about" */ '@/views/Page/components/Home.vue')
+          component: () => import(/* webpackChunkName: "home" */ '@/views/Page/components/Home.vue')
         },
         {
           path: 'about',
@@ -36,14 +38,35 @@ export default new Router({
         {
           path: 'info',
           name: 'info',
-          component: () => import(/* webpackChunkName: "about" */ '@/views/Page/components/Info.vue')
+          component: () => import(/* webpackChunkName: "info" */ '@/views/Page/components/Info.vue')
         },
         {
           path: 'login',
           name: 'login',
-          component: () => import(/* webpackChunkName: "about" */ '@/views/Page/components/Login.vue')
+          component: () => import(/* webpackChunkName: "login" */ '@/views/Page/components/Login.vue')
         },
-      ]
+      ],
+      beforeEnter: (to, from, next) => {
+        if (Object.keys(store.state.user.data).length !== 0) {
+          switch (store.state.user.data.role) {
+            case 'Admin':
+              next({ name: 'admin' })
+              break;
+            case 'Interno':
+              next({ name: 'interno' })
+              break;
+            case 'Externo':
+              next({ name: 'externo' })
+              break;
+            default:
+              console.log('break')
+              break;
+          }
+        } else {
+          console.log('next')
+          next ()
+        }
+      },
     },
 
     {
@@ -65,7 +88,27 @@ export default new Router({
           name: 'admin-users',
           component: () => import(/* webpackChunkName: "admin-users" */ '@/views/Admin/components/Users.vue')
         }
-      ]
+      ],
+      beforeEnter: (to, from, next) => {
+        if (Object.keys(store.state.user.data).length !== 0) {
+          switch (store.state.user.data.role) {
+            case 'Admin':
+              next()
+              break;
+            case 'Interno':
+              next({ name: 'interno' })
+              break;
+            case 'Externo':
+              next({ name: 'externo' })
+              break;
+            default:
+              console.log('break')
+              break;
+          }
+        } else {
+          next({ name: 'home' })
+        }
+      }
     },
    
     {
@@ -87,7 +130,27 @@ export default new Router({
           name: 'interno-bandeja',
           component: () => import(/* webpackChunkName: "interno-bandeja" */ '@/views/Interno/components/Bandeja.vue')
         }
-      ]
+      ],
+      beforeEnter: (to, from, next) => {
+        if (Object.keys(store.state.user.data).length !== 0) {
+          switch (store.state.user.data.role) {
+            case 'Admin':
+              next({ name: 'admin' })
+              break;
+            case 'Interno':
+              next()
+              break;
+            case 'Externo':
+              next({ name: 'externo' })
+              break;
+            default:
+              console.log('break')
+              break;
+          }
+        } else {
+          next({ name: 'home' })
+        }
+      }
     },
   
     {
@@ -109,7 +172,27 @@ export default new Router({
           name: 'externo-bandeja',
           component: () => import(/* webpackChunkName: "externo-bandeja" */ '@/views/Externo/components/Bandeja.vue')
         }
-      ]
+      ],
+      beforeEnter: (to, from, next) => {
+        if (Object.keys(store.state.user.data).length !== 0) {
+          switch (store.state.user.data.role) {
+            case 'Admin':
+              next({ name: 'admin' })
+              break;
+            case 'Interno':
+              next({ name: 'interno' })
+              break;
+            case 'Externo':
+              next()
+              break;
+            default:
+              console.log('break')
+              break;
+          }
+        } else {
+          next({ name: 'home' })
+        }
+      }
     },
 
 

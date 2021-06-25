@@ -74,6 +74,7 @@
 
 <script>
 import { MoonLoader } from '@saeris/vue-spinners'
+import { mapState } from 'vuex'
 // import swal from 'sweetalert'
 
 export default {
@@ -100,21 +101,8 @@ export default {
             // llama a la accion userLoading definida en VUEX
             this.$store.dispatch('user/userLogin', { 'email':this.email, 'password':this.password }, { root: true})
             // redirigir dependiendo del rol del que logeo
-            if (this.$store.state.user.data) {
-                switch (this.$store.state.user.role) {
-                    case 'Admin':
-                        // this.$router.push({ name : 'admin' })
-                        break;
-                    case 'Interno':
-                        // this.$router.push({ name : 'Interno' })
-                        break;
-                    case 'Externo':
-                        // this.$router.push({ name : 'Externo' })
-                        break;
-                    default:
-                        break;
-                }
-            }
+
+           
         },
 
         showInputErrors (pInputName) {
@@ -140,6 +128,8 @@ export default {
     },
 
     computed: {
+        ...mapState('user', ['data']),
+
         loginLoading () {
             return this.$store.state.user.loading 
         },
@@ -147,7 +137,7 @@ export default {
             return this.$store.state.user.inputErrors
         },
         apiRequestErrorMessage () {
-                return this.$store.state.user.apiRequestErrorMessage
+            return this.$store.state.user.apiRequestErrorMessage
         },
     },
 
@@ -157,6 +147,29 @@ export default {
                 this.showErrorAlert = true
             } else {
                 this.showErrorAlert = false
+            }
+        },
+        data () {
+            if (Object.keys(this.data).length !== 0 ) {
+                console.log('debug data computed :' , this.data)
+                if (this.data) {
+                    switch (this.data.role) {
+                        case 'Admin':
+                            this.$router.push({ name : 'admin' })
+                            break;
+                        case 'Interno':
+                            this.$router.push({ name : 'interno' })
+                            break;
+                        case 'Externo':
+                            this.$router.push({ name : 'externo' })
+                            break;
+                        default:
+                            console.log('LOGIN BREAK')
+                            break;
+                    }
+                }
+            } else {
+                console.log('no paso el login!!')
             }
         }
     }
