@@ -99,12 +99,22 @@ export default {
             this.inputInitialValues = false
             // llama a la accion userLoading definida en VUEX
             this.$store.dispatch('user/userLogin', { 'email':this.email, 'password':this.password }, { root: true})
-
-            // guardar en un stado global con vuex
-
-            // guardar en el localstorage
-
             // redirigir dependiendo del rol del que logeo
+            if (this.$store.state.user.data) {
+                switch (this.$store.state.user.role) {
+                    case 'Admin':
+                        // this.$router.push({ name : 'admin' })
+                        break;
+                    case 'Interno':
+                        // this.$router.push({ name : 'Interno' })
+                        break;
+                    case 'Externo':
+                        // this.$router.push({ name : 'Externo' })
+                        break;
+                    default:
+                        break;
+                }
+            }
         },
 
         showInputErrors (pInputName) {
