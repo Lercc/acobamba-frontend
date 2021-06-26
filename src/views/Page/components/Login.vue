@@ -151,7 +151,6 @@ export default {
         },
         data () {
             if (Object.keys(this.data).length !== 0 ) {
-                console.log('debug data computed :' , this.data)
                 if (this.data) {
                     switch (this.data.role) {
                         case 'Admin':
@@ -168,8 +167,6 @@ export default {
                             break;
                     }
                 }
-            } else {
-                console.log('no paso el login!!')
             }
         }
     }
