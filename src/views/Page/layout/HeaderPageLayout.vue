@@ -9,7 +9,7 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="ml-auto">
                     <b-navbar-nav>
-                        <b-nav-item href="#">M.D.A </b-nav-item>
+                        <b-nav-item href="#">TUPA</b-nav-item>
                         <b-nav-item href="about" >Go to about</b-nav-item>
                         <b-nav-item href="info" >Go to info</b-nav-item>
                         <b-nav-item href="login" >Go to login</b-nav-item>
