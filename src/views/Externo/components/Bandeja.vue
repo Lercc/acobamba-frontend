@@ -9,7 +9,7 @@
                 </b-col>
             </b-row>
 
-            <b-row align-h="end ">
+            <b-row align-h="end">
                 <!-- <b-col cols="auto" class="mb-2">
                     <b-button :to="{name: 'externo-tramite'}" variant="info" size="md">activos</b-button>
                 </b-col> -->
@@ -22,10 +22,44 @@
             </b-row>
         </base-header>
         
-        <b-container fluid class="border border-red mt--6">
+        <b-container fluid class="mt--6">
             <b-row>
                 <b-col cols="12">
-                    <b-card img-src="/img/guide/guide.png" overlay></b-card>
+                    <b-card v-show="!hasExpedients">
+                        <p class="text-center">No tiene tramites realizados</p>
+                    </b-card>
+
+                    <b-card v-show="hasExpedients" >
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                <th scope="col">Codigo</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Cabeecera</th>
+                                <th scope="col">Asunto</th>
+                                <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(expedient, index) in expedients" :key="`${index}-ext-exp-ent`">
+                                    <th scope="row">{{ expedient.attributes.code }}</th>
+                                    <td>{{ expedient.attributes.document_type }}</td>
+                                    <td>{{ expedient.attributes.header }}</td>
+                                    <td>{{ expedient.attributes.subject }}</td>
+                                    <td>
+                                        <b-button :to="{name: 'externo-tramite'}" variant="info" size="sm">ver detalles</b-button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <b-pagination
+                            v-model="pagination.currentPage"
+                            :total-rows="pagination.total"
+                            :per-page="pagination.per_page" 
+                            aria-controls="my-table">
+                        </b-pagination>
+                    </b-card>
                 </b-col>    
             </b-row>
         </b-container>
@@ -33,41 +67,52 @@
     </div>
 </template>
 <script>
-import { getNotification } from '@/api/user'
+import { getExpedients } from '@/api/expedient'
 
 export default {
     data () {
         return {
-            
-            notifications: {}, 
-
-            "id": 1,
-            "expedient_id": 55,
-            "expedient_code": "65723-5440",
-            "area": "RRHH",
-            "exp_status": "archivado",
-            "status": "no visto",
-            "created_at": "hace 4 días"
+            'hasExpedients': false,
+            'expedientsLoading': false,
+            //
+            'expedients': {},
+            //
+            'pagination': {}
         }
     },
 
     beforeMount() {
-        this.getUserNotification()
+        this.getUserexpedients()
     },
 
     methods: {
-        getUserNotification() {
-            // window.alert('hola')
-            getNotification()
+        getUserexpedients () {
+            this.expedientsLoading = true
+
+            getExpedients(this.$store.state.user.data.processor_id)
                 .then (response => {
-                    console.log(response.data.data)
-                    this.notifications = response.data.data.filter((el, index) => index < 3)
+                    this.hasExpedients = true
+                    console.log('RESPONSE/EXPD:',response.data);
+                    this.expedients = response.data.data;
+                    [this.pagination]=[response.data.meta];
                 })
                 .catch (err => {
-                    console.log(err.response)
+                    this.hasExpedients = false
+                    console.log('THIS .E404' ,err.response.status)
+                     if (err.response) {
+                        if (err.response.status == 404) {
+                            this.expedients = {}
+                        } else {
+                            console.log( 'ERROR EXPEDIENT STATAUS:',err.response.status)
+                        }
+                    } else {
+                        // context.commit('errors/SET_GLOBAL_ERROR_MESSAGE', , { root: true })
+                        console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
+                    }
                 })
                 .finally ( () => {
-                    console.log('peticion terminada')
+                    console.log('peticion de  expedientes terminada')
+                    this.expedientsLoading = false
                 })
         }
     },

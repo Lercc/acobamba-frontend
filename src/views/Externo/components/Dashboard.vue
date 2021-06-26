@@ -63,16 +63,7 @@ import { getNotification } from '@/api/user'
 export default {
     data () {
         return {
-            
-            notifications: {}, 
-
-            "id": 1,
-            "expedient_id": 55,
-            "expedient_code": "65723-5440",
-            "area": "RRHH",
-            "exp_status": "archivado",
-            "status": "no visto",
-            "created_at": "hace 4 días"
+            notifications: {},
         }
     },
 
@@ -90,7 +81,7 @@ export default {
                     console.log(err.response)
                 })
                 .finally ( () => {
-                    console.log('peticion terminada')
+                    console.log('peticion de notificaciones terminada')
                 })
         }
     },
