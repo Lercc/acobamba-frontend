@@ -1,5 +1,5 @@
 <template>
-    <h2>Gnamoees
+    <h2>Carrousel
     </h2>
 </template>
 

@@ -25,17 +25,29 @@
         <b-container fluid class="mt--6">
             <b-row>
                 <b-col cols="12">
-                    <b-card v-show="!hasExpedients">
-                        <p class="text-center">No tiene tramites realizados</p>
+                    <b-card v-show="!hasExpedients" class="loader-expedients" no-body>
+                        <p v-show="!expedientsLoading" class="text-center">No tiene tramites realizados</p>
+                        <moon-loader v-show="expedientsLoading" :size="100" :color="'#225ba5'" />
                     </b-card>
 
-                    <b-card v-show="hasExpedients" >
-                        <table class="table ">
+                    <b-card v-show="hasExpedients" class="table-responsive">
+                        <template #header>
+                            <b-row align-h="between">
+                                <b-col cols="auto">
+                                    TRÁMITES
+                                </b-col>
+                                <b-col cols="auto">
+                                    <b-button @click="cargarDatos" variant="danger" size="sm">recargar</b-button>
+                                </b-col>
+                            </b-row>
+                        </template>
+
+                        <table class="table">
                             <thead>
                                 <tr>
-                                <th scope="col">Codigo</th>
+                                <th scope="col">Código</th>
                                 <th scope="col">Tipo</th>
-                                <th scope="col">Cabeecera</th>
+                                <th scope="col">Cabecera</th>
                                 <th scope="col">Asunto</th>
                                 <th scope="col"></th>
                                 </tr>
@@ -47,18 +59,24 @@
                                     <td>{{ expedient.attributes.header }}</td>
                                     <td>{{ expedient.attributes.subject }}</td>
                                     <td>
-                                        <b-button :to="{name: 'externo-tramite'}" variant="info" size="sm">ver detalles</b-button>
+                                        <b-button 
+                                            :to="{name: 'externo-detalle-expediente', params: {id: expedient.attributes.id}}"
+                                            variant="info"
+                                            size="sm">ver detalles
+                                        </b-button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <b-pagination
-                            v-model="pagination.currentPage"
-                            :total-rows="pagination.total"
-                            :per-page="pagination.per_page" 
-                            aria-controls="my-table">
-                        </b-pagination>
+                        <template #footer>
+                            <base-pagination 
+                                :pageCount="meta.last_page" 
+                                :perPage="meta.per_page"
+                                :value="meta.current_page"
+                                @input="cargarDatos">
+                            </base-pagination>
+                        </template>
                     </b-card>
                 </b-col>    
             </b-row>
@@ -72,33 +90,32 @@ import { getExpedients } from '@/api/expedient'
 export default {
     data () {
         return {
-            'hasExpedients': false,
-            'expedientsLoading': false,
+            hasExpedients: false,
+            expedientsLoading: false,
             //
-            'expedients': {},
+            expedients: [],
             //
-            'pagination': {}
+            meta: {}
         }
     },
 
     beforeMount() {
-        this.getUserexpedients()
+        this.cargarDatos()
     },
 
     methods: {
-        getUserexpedients () {
+        cargarDatos (pPage) {
             this.expedientsLoading = true
+            this.hasExpedients = false
 
-            getExpedients(this.$store.state.user.data.processor_id)
+            getExpedients(this.$store.state.user.data.processor_id, pPage)
                 .then (response => {
                     this.hasExpedients = true
-                    console.log('RESPONSE/EXPD:',response.data);
                     this.expedients = response.data.data;
-                    [this.pagination]=[response.data.meta];
+                    [this.meta]=[response.data.meta];
                 })
                 .catch (err => {
                     this.hasExpedients = false
-                    console.log('THIS .E404' ,err.response.status)
                      if (err.response) {
                         if (err.response.status == 404) {
                             this.expedients = {}
@@ -128,5 +145,11 @@ export default {
     font-family: 'Bungee', cursive;
     font-size: 2.5rem;
     text-align: center;
+}
+.loader-expedients {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
 }
 </style>

@@ -42,7 +42,7 @@ export default {
     value: {
       type: Number,
       default: 1,
-      description: "Pagination value"
+          description: "Pagination value"
     },
     size: {
       type: String,

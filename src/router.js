@@ -171,6 +171,11 @@ export default new Router({
           path: 'bandeja',
           name: 'externo-bandeja',
           component: () => import(/* webpackChunkName: "externo-bandeja" */ '@/views/Externo/components/Bandeja.vue')
+        },
+        {
+          path: 'detalle-expediente/:id',
+          name: 'externo-detalle-expediente',
+          component: () => import(/* webpackChunkName: "externo-bandeja" */ '@/views/Externo/components/DetalleExpediente.vue')
         }
       ],
       beforeEnter: (to, from, next) => {

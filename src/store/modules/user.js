@@ -57,7 +57,9 @@ export default {
 
             login(context.rootState.api.url, userFormData)
                 .then( response => {
-                    context.commit('SET_USER_DATA', response.data.attributes)
+                    if (Object.keys(response.data.attributes).length !== 0) {
+                        context.commit('SET_USER_DATA', response.data.attributes)
+                    }
                 })
                 .catch( err => {
                     if (err.response) {
