@@ -211,13 +211,11 @@ export default {
         getArchivationData () {
             getExpedientsArchivations(this.$route.params.id)
                 .then(response => {
-                    console.log('DEBUG 1 : ', response.data.data)
                     if (response.data.data === undefined) {
                         this.archivationData = {}
                     } else {
                         this.archivationData = response.data.data
                     }
-
                 })
                 .catch(err => {
                     console.log('ERROR ARCHIVATION: ' ,err)
