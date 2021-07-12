@@ -1,18 +1,18 @@
 <template>
     <div>
-        <!-- inicio de navbar -->
-        <b-navbar toggleable="lg" type="dark" variant="info">
-            <b-navbar-brand :to="{name: 'home'}">Inicio</b-navbar-brand>
+        <!-- inicio de navbar   -->
+        <b-navbar  toggleable="lg" type="dark" variant="primary"  style="border:2px red solid" >
+            <b-navbar-brand :to="{name: 'home'}">GESTRAM-MDA</b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="ml-auto">
                     <b-navbar-nav>
-                        <b-nav-item href="#">M.D.A </b-nav-item>
-                        <b-nav-item :to="{name: 'about'}">Go to about</b-nav-item>
-                        <b-nav-item :to="{name: 'info'}">Go to info</b-nav-item>
-                        <b-nav-item :to="{name: 'login'}">Go to login</b-nav-item>
+                  
+                        <b-nav-item :to="{name: 'about'}">TUPA</b-nav-item>
+                        <b-nav-item :to="{name: 'info'}"> MUNICIPALIDAD</b-nav-item>
+                        <b-nav-item :to="{name: 'login'}">Iniciar Sesión</b-nav-item>
                         <b-nav-item :to="{name: 'admin'}">Go to Admin</b-nav-item>
                         <b-nav-item :to="{name: 'interno'}">Go to Interno</b-nav-item>
                         <b-nav-item :to="{name: 'externo'}">Go to Externo</b-nav-item>
