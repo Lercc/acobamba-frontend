@@ -18,7 +18,7 @@
 
                     <p class="dropdown-item mb-0" style="cursor:pointer">
                       <i class="ni ni-user-run"></i>
-                      <span>Logout AQUI</span>
+                      <span >Logout AQUI X2</span>
                     </p>
                 </admin-dropdown>
             </li>

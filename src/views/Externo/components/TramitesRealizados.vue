@@ -110,22 +110,17 @@ export default {
 
             getExpedients(this.$store.state.user.data.processor_id, pPage)
                 .then (response => {
-                    this.hasExpedients = true
-                    this.expedients = response.data.data;
-                    [this.meta]=[response.data.meta];
+                     console.log('GET=EXP : ' ,response);
+                    if (response.data.data) {
+                        this.hasExpedients = true
+                        this.expedients = response.data.data;
+                        [this.meta]=[response.data.meta];
+                    } else {
+                        this.hasExpedients = false
+                    }
                 })
                 .catch (err => {
-                    this.hasExpedients = false
-                     if (err.response) {
-                        if (err.response.status == 404) {
-                            this.expedients = {}
-                        } else {
-                            console.log( 'ERROR EXPEDIENT STATAUS:',err.response.status)
-                        }
-                    } else {
-                        // context.commit('errors/SET_GLOBAL_ERROR_MESSAGE', , { root: true })
-                        console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
-                    }
+                    console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
                 })
                 .finally ( () => {
                     console.log('peticion de  expedientes terminada')

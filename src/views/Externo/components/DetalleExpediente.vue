@@ -62,6 +62,10 @@
                                     <td>{{ this.expedientData.createdAt }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Codigo</td>
+                                    <td>{{ this.expedientData.code }}</td>
+                                </tr>
+                                <tr>
                                     <td>Oficina</td>
                                     <td>Trámite externo</td>
                                 </tr>

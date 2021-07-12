@@ -86,12 +86,12 @@ export default {
 
     data () {
         return {
-            'email': '',
-            'password': '',
+            email: '',
+            password: '',
             // 
-            'showErrorAlert': false,
+            showErrorAlert: false,
             //
-            'inputInitialValues': true
+            inputInitialValues: true
         }
     },
 

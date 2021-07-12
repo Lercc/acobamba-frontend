@@ -168,9 +168,9 @@ export default new Router({
           component: () => import(/* webpackChunkName: "externo-tramite" */ '@/views/Externo/components/Tramite.vue')
         },
         {
-          path: 'bandeja',
-          name: 'externo-bandeja',
-          component: () => import(/* webpackChunkName: "externo-bandeja" */ '@/views/Externo/components/Bandeja.vue')
+          path: 'tramites-realizados',
+          name: 'tramites-realizados',
+          component: () => import(/* webpackChunkName: "tramites-realizados" */ '@/views/Externo/components/TramitesRealizados.vue')
         },
         {
           path: 'detalle-expediente/:id',
