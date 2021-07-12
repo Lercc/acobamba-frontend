@@ -10,7 +10,7 @@
         <sidebar-item :link="{name: 'Trámites Realizados', icon: 'ni ni-single-02 text-orange', path: '/externo/bandeja'}" />
       </template>
     </side-bar>
-    
+
     <div class="main-content" :data="sidebarBackground">
       <externo-navbar></externo-navbar>
 
