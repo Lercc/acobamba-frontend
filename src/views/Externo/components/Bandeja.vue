@@ -109,6 +109,7 @@ export default {
             this.hasExpedients = false
 
             getExpedients(this.$store.state.user.data.processor_id, pPage)
+         
                 .then (response => {
                     this.hasExpedients = true
                     this.expedients = response.data.data;
@@ -120,7 +121,7 @@ export default {
                         if (err.response.status == 404) {
                             this.expedients = {}
                         } else {
-                            console.log( 'ERROR EXPEDIENT STATAUS:',err.response.status)
+                            console.log( 'ERROR EXPEDIENT STATUS:',err.response.status)
                         }
                     } else {
                         // context.commit('errors/SET_GLOBAL_ERROR_MESSAGE', , { root: true })

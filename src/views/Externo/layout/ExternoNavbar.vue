@@ -18,7 +18,7 @@
 
                     <p class="dropdown-item mb-0" style="cursor:pointer">
                       <i class="ni ni-user-run"></i>
-                      <span>Logout AQUI</span>
+                      <span @click="cerrarSesion">Logout AQUI</span>
                     </p>
                 </admin-dropdown>
             </li>
@@ -44,7 +44,8 @@
       },
       toggleMenu() {
         this.showMenu = !this.showMenu;
-      }
+      },
+
     }
   };
 </script>
