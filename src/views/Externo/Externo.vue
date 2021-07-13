@@ -7,7 +7,7 @@
       <template slot="links">
         <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-folder-17 text-blue', path: '/externo'}" />
         <sidebar-item :link="{name: 'Nuevo Trámite', icon: 'ni ni-tag text-green', path: '/externo/tramite'}" />
-        <sidebar-item :link="{name: 'Trámites Realizados', icon: 'ni ni-single-02 text-orange', path: '/externo/bandeja'}" />
+        <sidebar-item :link="{name: 'Trámites Realizados', icon: 'ni ni-single-02 text-orange', path: '/externo/tramites-realizados'}" />
       </template>
     </side-bar>
 

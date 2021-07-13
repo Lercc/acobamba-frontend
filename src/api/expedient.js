@@ -18,6 +18,12 @@ function getExpedients(pProcessorId, pPage = 1) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+function getEmployeeExpedients(pEmployeeId, pPage = 1) {
+    const REQUEST = `api/employees/${pEmployeeId}/expedients?page=${pPage}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
 function getExpedient(pExpedientId) {
     const REQUEST = `api/expedients/${pExpedientId}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
@@ -40,5 +46,6 @@ export {
     getExpedients,
     getExpedient,
     getExpedientsDerivations,
-    getExpedientsArchivations
+    getExpedientsArchivations,
+    getEmployeeExpedients
 }
