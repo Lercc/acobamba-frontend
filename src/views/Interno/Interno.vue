@@ -7,7 +7,7 @@
       <template slot="links">
         <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-folder-17 text-blue', path: '/interno'}" />
         <sidebar-item :link="{name: 'Nuevo Trámite', icon: 'ni ni-tag text-green', path: '/interno/tramite'}" />
-        <sidebar-item :link="{name: 'Trámites Realizados', icon: 'ni ni-single-02 text-orange', path: '/interno/interno-tramites-realizados'}" />
+        <sidebar-item :link="{name: 'Trámites Realizados', icon: 'ni ni-single-02 text-orange', path: '/interno/tramites-realizados'}" />
         <sidebar-item :link="{name: 'Lista de Derivaciones', icon: 'ni ni-single-02 text-orange', path: '/interno/lista-derivaciones'}" />
         <sidebar-item :link="{name: 'Bandeja de Derivaciones', icon: 'ni ni-single-02 text-orange', path: '/interno/bandeja-derivaciones'}" />
         <sidebar-item :link="{name: 'Lista de Archivaciones', icon: 'ni ni-single-02 text-orange', path: '/interno/lista-archivaciones'}" />

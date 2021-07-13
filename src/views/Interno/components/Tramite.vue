@@ -181,7 +181,7 @@ export default {
                                     case true:
                                     case null:
                                     case false :
-                                        this.$router.push({name: 'tramites-realizados'})
+                                        this.$router.push({name: 'interno-tramites-realizados'})
                                         break
                                     default :
                                         console.log('swal break exp')
