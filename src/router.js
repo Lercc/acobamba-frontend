@@ -127,7 +127,7 @@ export default new Router({
         },
         {
           path: 'tramites-realizados',
-          name: 'tramites-realizados',
+          name: 'interno-tramites-realizados',
           component: () => import(/* webpackChunkName: "tramite-realizados" */ '@/views/Interno/components/TramitesRealizados.vue')
         },
         {
@@ -148,7 +148,7 @@ export default new Router({
         {
           path: 'detalle-expediente/:id',
           name: 'interno-detalle-expediente',
-          component: () => import(/* webpackChunkName: "interno-detalle-expediente" */ '@/views/Externo/components/DetalleExpediente.vue')
+          component: () => import(/* webpackChunkName: "interno-detalle-expediente" */ '@/views/Interno/components/DetalleExpediente.vue')
         }
       ],
       beforeEnter: (to, from, next) => {
@@ -189,7 +189,7 @@ export default new Router({
         },
         {
           path: 'tramites-realizados',
-          name: 'tramites-realizados',
+          name: 'externo-tramites-realizados',
           component: () => import(/* webpackChunkName: "tramites-realizados" */ '@/views/Externo/components/TramitesRealizados.vue')
         },
         {
