@@ -18,7 +18,7 @@
 
                     <p class="dropdown-item mb-0" style="cursor:pointer">
                       <i class="ni ni-user-run"></i>
-                      <span @click="cerrarSesion">Logout AQUI</span>
+                      <span @click="cerrarSesion">Logout</span>
                     </p>
                 </admin-dropdown>
             </li>
@@ -26,6 +26,8 @@
     </admin-nav>
 </template>
 <script>
+  
+  import { mapState } from 'vuex'
   export default {
     data() {
       return {
@@ -34,6 +36,10 @@
         searchQuery: ''
       };
     },
+    computed:{
+      //escuchamos los cambios del vuex user.js
+       ...mapState('user', ['data']),
+    }, 
     methods: {
     /** */
       toggleSidebar() {
@@ -45,8 +51,24 @@
       toggleMenu() {
         this.showMenu = !this.showMenu;
       },
+      cerrarSesion(){
 
+        this.$store.dispatch('user/userLogout' , null, {root : true})
+
+      }
+
+    },
+
+    // observamos la escuchacion del computed del vuex de user.js
+    watch: {
+
+        data () {
+            if (Object.keys(this.data).length == 0 ) {
+                this.$router.push({name:'login'})                 
+            }
+        }
     }
+
   };
 </script>
 <style scoped>

@@ -1,4 +1,5 @@
 import { login } from '@/api/login'
+import { logout } from '@/api/logout'
 
 const userInitialData = () => {
     if (localStorage.getItem('userData')) {
@@ -27,6 +28,7 @@ export default {
         },
         DELETE_USER_DATA (state) {
             state.data = {}
+            localStorage.removeItem('userData')
         },
 
         SET_API_REQUEST_ERROR_MESSAGE (state, payload) {
@@ -75,6 +77,25 @@ export default {
                 .finally(() => {
                     context.commit('SET_LOADING_STATE', false)
                 }) 
-        }
+        },
+
+        userLogout (context) {
+  
+            let logoutFormData = new FormData()
+                logoutFormData.append('id', context.state.data.id)
+            logout(context.state.data.token,context.rootState.api.url,logoutFormData)
+            .then(() => {          
+                context.commit('DELETE_USER_DATA')
+            }).catch((err) => {
+                console.log(err)
+            })
+              .finally(() => {
+               console.log("peticion de logout terminada")
+            }) 
+        },
+
+
+
+
     }
 };

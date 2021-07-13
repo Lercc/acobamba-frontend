@@ -1,4 +1,5 @@
 /**
+ * //ESTO ES EL rootState cuando usa namespace
  *  VUEX
  */
 import Vue from 'vue';

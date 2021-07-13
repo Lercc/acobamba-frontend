@@ -41,9 +41,9 @@
 
                         <div class="dropdown-divider"></div>
 
-                        <p class="dropdown-item mb-0" style="cursor:pointer" @click="salir">
+                        <p class="dropdown-item mb-0" style="cursor:pointer" @click="cerrarSesion">
                           <i class="ni ni-user-run"></i>
-                          <span>Logout</span>
+                        <span >Logout</span>
                         </p>
                     </base-dropdown>
                 </ul>
@@ -121,9 +121,9 @@
       // ...mapMutations('token',['clearTokenStoreData']),
       // ...mapMutations('clientAplication',['clearTokenCliAppStoreData']),
 
-      salir () {
-        window.alert('peticion de logout!!')
-      },
+      cerrarSesion(){
+        this.$store.dispatch('user/userLogout' , null, {root : true})
+      }, 
 
       /** */
       closeSidebar() {
