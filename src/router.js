@@ -126,9 +126,29 @@ export default new Router({
           component: () => import(/* webpackChunkName: "interno-tramite" */ '@/views/Interno/components/Tramite.vue')
         },
         {
-          path: 'bandeja',
-          name: 'interno-bandeja',
-          component: () => import(/* webpackChunkName: "interno-bandeja" */ '@/views/Interno/components/Bandeja.vue')
+          path: 'tramites-realizados',
+          name: 'tramites-realizados',
+          component: () => import(/* webpackChunkName: "tramite-realizados" */ '@/views/Interno/components/TramitesRealizados.vue')
+        },
+        {
+          path: 'lista-derivaciones',
+          name: 'interno-lista-derivaciones',
+          component: () => import(/* webpackChunkName: "lista-derivaciones" */ '@/views/Interno/components/ListaDerivaciones.vue')
+        },
+        {
+          path: 'bandeja-derivaciones',
+          name: 'interno-bandeja-derivaciones',
+          component: () => import(/* webpackChunkName: "bandeja-derivaciones" */ '@/views/Interno/components/BandejaDerivaciones.vue')
+        },
+        {
+          path: 'lista-archivaciones',
+          name: 'interno-lista-archivaciones',
+          component: () => import(/* webpackChunkName: "lista-archivaciones" */ '@/views/Interno/components/ListaArchivaciones.vue')
+        },
+        {
+          path: 'detalle-expediente/:id',
+          name: 'interno-detalle-expediente',
+          component: () => import(/* webpackChunkName: "interno-detalle-expediente" */ '@/views/Externo/components/DetalleExpediente.vue')
         }
       ],
       beforeEnter: (to, from, next) => {
