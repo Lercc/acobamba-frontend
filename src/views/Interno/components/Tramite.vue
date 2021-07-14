@@ -161,7 +161,7 @@ export default {
             this.inputErrors = {}
             let expedientFormData = new FormData()
 
-            expedientFormData.append('processor_id', this.$store.state.user.data.processor_id)
+            expedientFormData.append('employee_id', this.$store.state.user.data.employee_id)
             expedientFormData.append('document_type', this.document_type)
             expedientFormData.append('header', this.setHeader)
             expedientFormData.append('subject', this.subject)
