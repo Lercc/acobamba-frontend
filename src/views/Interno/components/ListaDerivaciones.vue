@@ -23,15 +23,15 @@
             <b-row>
                 <b-col cols="12">
                     <b-card v-show="!hasDerivations" class="loader-expedients" no-body>
-                        <p v-show="!expedientsLoading" class="text-center">No tiene tramites realizados</p>
-                        <moon-loader v-show="expedientsLoading" :size="100" :color="'#225ba5'" />
+                        <p v-show="!derivationsLoading" class="text-center">No tiene tramites realizados</p>
+                        <moon-loader v-show="derivationsLoading" :size="100" :color="'#225ba5'" />
                     </b-card>
 
                     <b-card v-show="hasDerivations" class="table-responsive">
                         <template #header>
                             <b-row align-h="between">
                                 <b-col cols="auto">
-                                DERIVACIONES
+                                LISTA  DERIVACIONES
                                 </b-col>
                                 <b-col cols="auto">
                                     <b-button @click="cargarDatos" variant="danger" size="sm">recargar</b-button>
@@ -42,22 +42,24 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                <th scope="col">Código</th>
-                                <th scope="col">Asunto</th>
-                                <th scope="col">Derivado a </th>
-                                 <th scope="col">Fecha de Derivación</th>
+                                <th scope="col">Código</th>                             
+                                <th scope="col">Derivado a  </th>
+                                 <th scope="col">Fecha de Derivado</th>
+                                    <th scope="col">Estado</th>
                                 <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(derivation, index) in derivations" :key="`${index}-ext-exp-ent`">
-                                    <th scope="row">{{ derivation.attributes.code }}</th>
-                                        <td>{{ derivation.attributes.subject }}</td>
-                                        <td>{{ derivation.attributes.subject }}</td>
-                                        <td>{{ derivation.attributes.subject }}</td>
+                                    <th scope="row">{{ derivation.attributes.expedient_code }}</th>
+                                      
+                               <!--        {{ derivation.attributes.employee_name }} -->
+                                        <td>{{derivation.attributes.employee_area}} <br>{{derivation.attributes.employee_name}} </td>
+                                        <td>{{ derivation.attributes.createdAt }}</td>
+                                        <td>{{ derivation.attributes.status }}</td>
                                         <td>
                                         <b-button 
-                                            :to="{name: 'interno-detalle-expediente', params: {id: expedient.attributes.id}}"
+                                            :to="{name: 'interno-detalle-expediente', params: {id: derivation.attributes.id}}"
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
@@ -82,13 +84,13 @@
     </div>
 </template>
 <script>
-import { getEmployeeDerivations } from '@/api/employee'
+import { getUserDerivations } from '@/api/user'
 
 export default {
     data () {
         return {
             hasDerivations: false,
-            expedientsLoading: false,
+            derivationsLoading: false,
             //
             derivations: [],
             //
@@ -102,10 +104,10 @@ export default {
 
     methods: {
         cargarDatos (pPage) {
-            this.expedientsLoading = true
+            this.derivationsLoading = true
             this.hasDerivations = false
 
-            getEmployeeDerivations(this.$store.state.user.data.employee_id, pPage)
+            getUserDerivations(this.$store.state.user.data.id, pPage)
          
                 .then ((response) => {
                       console.log('GET=EXP : ' ,response);
@@ -126,7 +128,7 @@ export default {
                 })
                 .finally ( () => {
                     console.log('peticion de  expedientes terminada')
-                   // this.expedientsLoading = false
+                     this.derivationsLoading = false
                 })
         }
     },
