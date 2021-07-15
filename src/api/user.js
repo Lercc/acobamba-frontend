@@ -8,4 +8,18 @@ function getNotification() {
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
     return axios.get(`${API_URL}/${REQUEST}`, { headers})
 }
-export { getNotification }
+
+function getUserDerivations(pUserId, pPage = 1) {
+    const REQUEST = `api/users/${pUserId}/derivations?page=${pPage}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
+
+function getUserArchivations(pUserId, pPage = 1) {
+    const REQUEST = `api/users/${pUserId}/archivations?page=${pPage}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
+export { getNotification ,getUserDerivations, getUserArchivations  }

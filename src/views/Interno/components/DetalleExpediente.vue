@@ -112,7 +112,7 @@
                                     <td>{{ index + 2 }}</td>
                                     <td>{{ derivation.attributes.createdAt }}</td>
                                     <td>
-                                        A: {{ derivation.attributes.employee_area }}
+                                         A: {{ derivation.attributes.employee_area }}
                                         <br>
                                         Por: {{ derivation.attributes.user_name }}
                                     </td>
