@@ -127,7 +127,7 @@ export default new Router({
         },
         {
           path: 'tramites-realizados',
-          name: 'tramites-realizados',
+          name: 'interno-tramites-realizados',
           component: () => import(/* webpackChunkName: "tramite-realizados" */ '@/views/Interno/components/TramitesRealizados.vue')
         },
         {
@@ -189,7 +189,7 @@ export default new Router({
         },
         {
           path: 'tramites-realizados',
-          name: 'tramites-realizados',
+          name: 'externo-tramites-realizados',
           component: () => import(/* webpackChunkName: "tramites-realizados" */ '@/views/Externo/components/TramitesRealizados.vue')
         },
         {

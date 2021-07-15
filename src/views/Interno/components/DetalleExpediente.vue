@@ -22,11 +22,11 @@
                             <tbody>
                                 <tr>
                                     <td>Usuario</td>
-                                    <td>{{ `${ this.expedientData.employee_name } ${ this.expedientData.employee_last_name }` }}</td>
+                                    <td>{{ `${expedientData.employee_name } ${ expedientData.employee_last_name }` }}</td>
                                 </tr>
                                 <tr>
                                     <td>Tipo</td>
-                                    <td>{{ this.expedientData.document_type }}</td>
+                                    <td>{{ this.expedientData.document_type }} </td>
                                 </tr>
                                 <tr>
                                     <td>Asunto</td>
