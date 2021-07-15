@@ -10,12 +10,6 @@
             </b-row>
 
             <b-row align-h="end">
-                <!-- <b-col cols="auto" class="mb-2">
-                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md">activos</b-button>
-                </b-col> -->
-                <!-- <b-col cols="auto" class="mb-2">
-                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md">desactivados</b-button>
-                </b-col> -->
                 <b-col cols="auto" class="mb-2">
                     <b-button :to="{name: 'externo-tramite'}" variant="info" size="md" >nuevo trámite</b-button>
                 </b-col>
