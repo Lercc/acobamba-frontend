@@ -44,8 +44,9 @@
                                 <tr>
                                 <th scope="col">Código</th>                             
                                 <th scope="col">Derivado por </th>
-                                 <th scope="col">Fecha de Derivación</th>
-                                    <th scope="col">Asunto</th>
+                                <th scope="col">Fecha de Derivación</th>
+                                <th scope="col">Asunto</th>
+                                <th scope="col"></th>
                                 <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -62,6 +63,11 @@
                                             :to="{name: 'interno-detalle-expediente', params: {id: derivation.attributes.id}}"
                                             variant="info"
                                             size="sm">ver detalles
+                                        </b-button>
+                                        <b-button 
+                                            @click="descargarArchivo(derivation.attributes.expedient_file)"
+                                            variant="info"
+                                            size="sm">{{ derivation.attributes.expedient_file }}
                                         </b-button>
                                     </td>
                                 </tr>
@@ -85,6 +91,7 @@
 </template>
 <script>
 import { getEmployeeDerivations } from '@/api/employee'
+import FileSaver from 'file-saver';
 
 export default {
     data () {
@@ -130,6 +137,10 @@ export default {
                     console.log('peticion de  expedientes terminada')
                     this.expedientsLoading = false
                 })
+        },
+
+        descargarArchivo(pulr) {
+            FileSaver.saveAs(`http://localhost:8000/storage/${pulr}`);
         }
     },
 
