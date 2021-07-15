@@ -59,7 +59,7 @@
                                         <td>{{ derivation.attributes.status }}</td>
                                         <td>
                                         <b-button 
-                                            :to="{name: 'interno-detalle-expediente', params: {id: derivation.attributes.id}}"
+                                            :to="{name: 'interno-detalle-expediente-derivar', params: {id: derivation.attributes.id}}"
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
