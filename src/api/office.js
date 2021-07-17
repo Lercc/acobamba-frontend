@@ -5,11 +5,11 @@ const API_URL = store.state.api.url;
 
 
 // CREATE
-// function storeExpedient(pFormData) {
-//     const REQUEST = 'api/expedients'
-//     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
-//     return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
-// }
+function storeOffice(pFormData) {
+    const REQUEST = 'api/offices'
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
+}
 
 // READ
 function getOffices(pPage = 1) {
@@ -30,7 +30,8 @@ function updateOffice (pIdOffice, pFormData) {
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
     return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
 }
-export { 
+export {
+    storeOffice,
     getOffices,
     getOffice,
     updateOffice

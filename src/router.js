@@ -98,8 +98,8 @@ export default new Router({
               component: () => import(/* webpackChunkName: "admin-offices-edit" */ '@/views/Admin/components/OfficeEdit.vue'),
             },
             {
-              path: 'office-created',
-              name: 'office-created',
+              path: 'office-create',
+              name: 'office-create',
               component: () => import(/* webpackChunkName: "admin-offices-created" */ '@/views/Admin/components/OfficeCreate.vue'),
             }
           ]
