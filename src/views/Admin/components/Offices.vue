@@ -5,7 +5,6 @@
         <b-row>
             <b-col>
                 <b-button :to="{ name: 'offices' }" >lista de oficinas</b-button>
-                <b-button :to="{ name: 'office-edit' }" >editar oficina</b-button>
                 <b-button :to="{ name: 'office-create' }" >crear oficina</b-button>
             </b-col>
         </b-row>
@@ -22,3 +21,9 @@
 
     </div>
 </template>
+
+<script>
+export default {
+    name: 'Office'
+}
+</script>

@@ -50,7 +50,6 @@
                 </base-pagination>
             </template>
         </b-card>
-
     </div>
 </template>
 
@@ -58,6 +57,8 @@
 import { getOffices } from '@/api/office'
 
 export default {
+    name: 'OfficesTable',
+
     data () {
         return {
             officesLoading: false,
@@ -95,6 +96,7 @@ export default {
 
 }
 </script>
+
 <style scoped>
 .loader-expedients {
     display: flex;
