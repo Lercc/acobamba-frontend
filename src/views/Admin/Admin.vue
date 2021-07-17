@@ -10,6 +10,8 @@
         <sidebar-item :link="{name: 'Suboficinas', icon: 'ni ni-single-02 text-orange', path: '/admin/suboffices'}" />
         <sidebar-item :link="{name: 'Roles', icon: 'ni ni-single-02 text-orange', path: '/admin/roles'}" />
         <sidebar-item :link="{name: 'Usuarios', icon: 'ni ni-single-02 text-orange', path: '/admin/users'}" />
+        <sidebar-item :link="{name: 'Usuarios Externos', icon: 'ni ni-single-02 text-orange', path: '/admin/users-externos'}" />
+        <sidebar-item :link="{name: 'Usuarios Internos', icon: 'ni ni-single-02 text-orange', path: '/admin/users-internos'}" />
       </template>
     </side-bar>
 

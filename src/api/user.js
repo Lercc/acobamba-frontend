@@ -22,4 +22,14 @@ function getUserArchivations(pUserId, pPage = 1) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
-export { getNotification ,getUserDerivations, getUserArchivations  }
+function getUsers(pPage = 1) {
+    const REQUEST = `api/users?page=${pPage}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
+
+
+
+
+export { getNotification ,getUserDerivations, getUserArchivations,getUsers }

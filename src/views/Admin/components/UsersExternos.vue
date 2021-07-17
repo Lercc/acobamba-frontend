@@ -4,8 +4,8 @@
         
         <b-row>
             <b-col>
-                <b-button :to="{ name: 'users' }" >LISTA DE USUARIOS</b-button>
-                <b-button :to="{ name: 'user-create' }" >CREAR USUARIO</b-button>
+                <b-button :to="{ name: 'users-externos' }" >LISTA DE USUARIOS EXTERNOS</b-button>
+                <b-button :to="{ name: 'user-externo-create' }" >CREAR USUARIO EXTERNO</b-button>
             </b-col>
         </b-row>
 

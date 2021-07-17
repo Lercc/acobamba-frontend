@@ -95,12 +95,12 @@ export default new Router({
             {
               path: 'office-edit/:id',
               name: 'office-edit',
-              component: () => import(/* webpackChunkName: "admin-offices" */ '@/views/Admin/components/OfficeEdit.vue'),
+              component: () => import(/* webpackChunkName: "admin-offices-edit" */ '@/views/Admin/components/OfficeEdit.vue'),
             },
             {
-              path: 'office-edit',
-              name: 'office-create',
-              component: () => import(/* webpackChunkName: "admin-offices" */ '@/views/Admin/components/OfficeCreate.vue'),
+              path: 'office-created',
+              name: 'office-created',
+              component: () => import(/* webpackChunkName: "admin-offices-created" */ '@/views/Admin/components/OfficeCreate.vue'),
             }
           ]
         },
@@ -117,7 +117,70 @@ export default new Router({
         {
           path: 'users',
           name: 'users',
-          component: () => import(/* webpackChunkName: "admin-users" */ '@/views/Admin/components/Users.vue')
+          component: () => import(/* webpackChunkName: "admin-users" */ '@/views/Admin/components/Users.vue'),
+          children: [
+            {
+              path: '',
+              name: 'users',
+              component: () => import(/* webpackChunkName: "admin-offices" */ '@/views/Admin/components//User-Action/UsersTable.vue'),
+            },
+            {
+              path: 'user-edit/:id',
+              name: 'user-edit',
+              component: () => import(/* webpackChunkName: "admin-users-edit" */ '@/views/Admin/components/User-Action/UserEdit.vue'),
+            },
+            {
+              path: 'user-create',
+              name: 'user-create',
+              component: () => import(/* webpackChunkName: "admin-users-created" */ '@/views/Admin/components//User-Action/UserCreate.vue'),
+            },
+
+          ]
+        },
+        
+        {
+          path: 'users-externos',
+          name: 'users-externos',
+          component: () => import(/* webpackChunkName: "admin-users-externos" */ '@/views/Admin/components/UsersExternos.vue'),
+          children : [
+            {
+              path: '',
+              name: 'users-externos',
+              component: () => import(/* webpackChunkName: "admin-users-externos" */ '@/views/Admin/components/User-Externo-Action/UserExternoTable.vue'),
+            },
+            {
+              path: 'user-externo-edit/:id',
+              name: 'user-externo-edit',
+              component: () => import(/* webpackChunkName: "admin-user-externo-edit" */ '@/views/Admin/components/User-Externo-Action/UserExternoEdit.vue'),
+            },
+            {
+              path: 'user-externo-create',
+              name: 'user-externo-create',
+              component: () => import(/* webpackChunkName: "admin-users-externo-created" */ '@/views/Admin/components/User-Externo-Action/UserExternoCreate.vue'),
+            },
+          ]
+        },
+        {
+          path: 'users-internos',
+          name: 'users-internos',
+          component: () => import(/* webpackChunkName: "admin-users-internos" */ '@/views/Admin/components/UsersInternos.vue'),
+          children: [
+            {
+              path: '',
+              name: 'users-internos',
+              component: () => import(/* webpackChunkName: "admin-users-internos" */ '@/views/Admin/components/User-Interno-Action/UserInternoTable.vue'),
+            },
+            {
+              path: 'user-interno-edit/:id',
+              name: 'user-interno-edit',
+              component: () => import(/* webpackChunkName: "admin-user-interno-edit" */ '@/views/Admin/components/User-Interno-Action/UserInternoEdit.vue'),
+            },
+            {
+              path: 'user-interno-create',
+              name: 'user-interno-create',
+              component: () => import(/* webpackChunkName: "admin-users-created" */ '@/views/Admin/components/User-Interno-Action/UserInternoCreate.vue'),
+            },
+          ]
         }
       ],
       beforeEnter: (to, from, next) => {
