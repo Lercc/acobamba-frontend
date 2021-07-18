@@ -28,8 +28,21 @@ function getUsers(pPage = 1) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+function getUser(pIdUser) {
+    const REQUEST = `api/users/${pIdUser}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
+// UPDATE
+function updateUser(pIdUser, pFormData) {
+    const REQUEST = `api/users/${pIdUser}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
+}
 
 
 
 
-export { getNotification ,getUserDerivations, getUserArchivations,getUsers }
+
+export { getNotification ,getUserDerivations, getUserArchivations,getUsers,getUser,updateUser }

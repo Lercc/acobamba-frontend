@@ -19,6 +19,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                    <th scope="col">Acciones</th>
                     <th scope="col">Id</th>
                     <th scope="col">Nombre</th>   
                     <th scope="col">Apellidos</th>
@@ -28,12 +29,19 @@
                     <th scope="col">Numero de documento</th>                    
                     <th scope="col">Email</th>
                     <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
+               
                     
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(user, index) in users" :key="`${index}-adm-user`">
+                         <td>
+                            <b-button 
+                                :to="{ name: 'user-edit', params: { id: user.attributes.id }}"
+                                variant="info"
+                                size="sm">editar
+                            </b-button>
+                        </td>
                         <th scope="row">{{ user.attributes.id }}</th>
                         <td>{{ user.attributes.name }}</td>
                         <td>{{ user.attributes.last_name }}</td>
@@ -43,13 +51,7 @@
                         <td>{{ user.attributes.doc_number }}</td>
                         <td>{{ user.attributes.email }}</td>
                         <td>{{ user.attributes.status }}</td>
-                        <td>
-                            <b-button 
-                                :to="{ name: 'user-edit', params: { id: user.attributes.id }}"
-                                variant="info"
-                                size="sm">editar
-                            </b-button>
-                        </td>
+                      
                     </tr>
                 </tbody>
             </table>

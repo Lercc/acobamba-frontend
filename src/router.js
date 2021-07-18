@@ -116,7 +116,6 @@ export default new Router({
         },
         {
           path: 'users',
-          name: 'users',
           component: () => import(/* webpackChunkName: "admin-users" */ '@/views/Admin/components/Users.vue'),
           children: [
             {
@@ -140,7 +139,6 @@ export default new Router({
         
         {
           path: 'users-externos',
-          name: 'users-externos',
           component: () => import(/* webpackChunkName: "admin-users-externos" */ '@/views/Admin/components/UsersExternos.vue'),
           children : [
             {
@@ -162,7 +160,6 @@ export default new Router({
         },
         {
           path: 'users-internos',
-          name: 'users-internos',
           component: () => import(/* webpackChunkName: "admin-users-internos" */ '@/views/Admin/components/UsersInternos.vue'),
           children: [
             {

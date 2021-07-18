@@ -141,8 +141,9 @@ export default {
             this.officeData = response.data.data
             swal('¡Actulización Correcta!','ok', 'success')
               .then (res => {
-                if (res == null || res == true || res == false) this.inputsIntialValues = true
-              })
+                if (res == null || res == true || res == false)
+                 this.$router.push({name:'offices'})
+             })
         })
         .catch (err => {
           if (err.response.status == 422) this.inputErrors = err.response.data.errors
