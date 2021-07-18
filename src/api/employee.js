@@ -16,7 +16,22 @@ function getEmployees(pPage = 1) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+function getEmployee(pIdEmployee) {
+    const REQUEST = `api/employees/${pIdEmployee}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
+// UPDATE
+function updateEmployee(pIdEmployee, pFormData) {
+    const REQUEST = `api/employees/${pIdEmployee}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
+}
+
+
+
 
 export {
-    getEmployeeDerivations, getEmployees
+    getEmployeeDerivations, getEmployees , getEmployee , updateEmployee
 }
