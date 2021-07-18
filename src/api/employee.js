@@ -10,6 +10,12 @@ function getEmployeeDerivations(pEmployeeId, pPage = 1) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+function getAllEmployees() {
+    const REQUEST = `api/employeesall`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
 function getEmployees(pPage = 1) {
     const REQUEST = `api/employees?page=${pPage}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
@@ -42,5 +48,10 @@ function updateEmployee(pIdEmployee, pFormData) {
 
 
 export {
-    getEmployeeDerivations, getEmployees , getEmployee ,storeEmployee , updateEmployee
+    getEmployeeDerivations,
+    getAllEmployees,
+    getEmployees,
+     getEmployee,
+     storeEmployee , 
+     updateEmployee
 }

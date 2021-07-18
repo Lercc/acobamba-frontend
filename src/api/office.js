@@ -12,6 +12,12 @@ function storeOffice(pFormData) {
 }
 
 // READ
+function getAllOffices() {
+    const REQUEST = `api/officesall`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
 function getOffices(pPage = 1) {
     const REQUEST = `api/offices?page=${pPage}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
@@ -32,6 +38,7 @@ function updateOffice (pIdOffice, pFormData) {
 }
 export {
     storeOffice,
+    getAllOffices,
     getOffices,
     getOffice,
     updateOffice

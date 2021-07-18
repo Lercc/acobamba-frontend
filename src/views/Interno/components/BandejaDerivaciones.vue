@@ -9,14 +9,6 @@
                 </b-col>
             </b-row>
 
-            <b-row align-h="end">
-                <!-- <b-col cols="auto" class="mb-2">
-                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md">activos</b-button>
-                </b-col> -->
-                <!-- <b-col cols="auto" class="mb-2">
-                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md">desactivados</b-button>
-                </b-col> -->
-            </b-row>
         </base-header>
         
         <b-container fluid class="mt--6">
@@ -52,22 +44,19 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(derivation, index) in derivations" :key="`${index}-ext-exp-ent`">
-                                    <th scope="row">{{ derivation.attributes.expedient_code }}</th>
-                                      
-                               <!--        {{ derivation.attributes.employee_name }} -->
-                                        <td>{{derivation.attributes.user_area}} <br>{{derivation.attributes.user_name}}  </td>
+                                        <th scope="row">{{ derivation.attributes.expedient_code }}</th>
+                                        <td>
+                                            {{derivation.attributes.user_area}}
+                                            <br>
+                                            {{derivation.attributes.user_name}}
+                                        </td>
                                         <td>{{ derivation.attributes.createdAt }}</td>
-                                        <td>{{ derivation.attributes.status }}</td>
+                                    <td>{{ derivation.attributes.status }}</td>
                                         <td>
                                         <b-button 
                                             :to="{name: 'interno-detalle-expediente-derivar', params: {id: derivation.attributes.id}}"
                                             variant="info"
                                             size="sm">ver detalles
-                                        </b-button>
-                                        <b-button 
-                                            @click="descargarArchivo(derivation.attributes.expedient_file)"
-                                            variant="info"
-                                            size="sm">{{ derivation.attributes.expedient_file }}
                                         </b-button>
                                     </td>
                                 </tr>
@@ -91,7 +80,6 @@
 </template>
 <script>
 import { getEmployeeDerivations } from '@/api/employee'
-import FileSaver from 'file-saver';
 
 export default {
     data () {
@@ -125,22 +113,14 @@ export default {
                     } else {
                         this.hasDerivations = false
                     }
-                    // console.log("hay registro")
-                    // console.log(response)
                 })
                 .catch ((err) => {
                     console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
-                     //   console.log(" no hay registros")
-                      //  console.log(err.name)
                 })
                 .finally ( () => {
                     console.log('peticion de  expedientes terminada')
                     this.expedientsLoading = false
                 })
-        },
-
-        descargarArchivo(pulr) {
-            FileSaver.saveAs(`http://localhost:8000/storage/${pulr}`);
         }
     },
 
