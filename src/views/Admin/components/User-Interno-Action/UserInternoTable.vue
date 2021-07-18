@@ -44,7 +44,7 @@
                         <td>{{ employee.attributes.user_name }}</td>
                         <td>{{ employee.attributes.user_last_name }}</td>
                         <td>{{ employee.attributes.user_email }}</td>         
-                        <td>{{ employee.attributes.office_name_suboffice}}</td>
+                        <td>{{ employee.attributes.office_name}}</td>
                         <td>{{ employee.attributes.suboffice_name }}</td>
                         <td>{{ employee.attributes.status }}</td>
                      

@@ -8,7 +8,7 @@
         <template #header>
             <b-row align-h="between">
                 <b-col cols="auto">
-                    OFICINAS
+                    cREAR OFICINA
                 </b-col>
             </b-row>
         </template>
