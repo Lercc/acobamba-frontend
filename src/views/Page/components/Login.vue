@@ -60,6 +60,12 @@
                                 <b-button class="col-12" variant="info" @click="login">Entrar</b-button>
                         </b-col>
                     </b-form-row>
+
+                     <b-form-row class="justify-content-center borde">
+                        <b-col cols="12" sm="12"  class="borde" >
+                              <h1>¿Aun no tienes una cuenta? <b-badge>Registrate AQUI</b-badge></h1>   
+                        </b-col>
+                    </b-form-row>
                 </b-card>
             </b-col>
 

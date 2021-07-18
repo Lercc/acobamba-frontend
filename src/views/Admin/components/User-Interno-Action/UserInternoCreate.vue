@@ -274,8 +274,8 @@
 
 <script>
 import {  storeEmployee } from '@/api/employee'
-import { getOffices } from '@/api/office'
-import { getSuboffices } from '@/api/suboffice'
+import { getAllOffices }  from '@/api/office'
+import { getAllSuboffices }  from '@/api/suboffice'
 import swal from 'sweetalert'
 
 export default {
@@ -388,9 +388,9 @@ export default {
             if (this.inputInitialValues) return null
             else if (Object.keys(this.inputErrors).includes(pInput)) return !true
             else return !false
-        },
+        }, 
           getOfficesOptions () {
-            getOffices()
+            getAllOffices()
                 .then( res => {
                      console.log(res);
                      if (res.data.data)
@@ -399,7 +399,7 @@ export default {
             },
 
           getSubOfficesOptions () {
-            getSuboffices()
+            getAllSuboffices()
                 .then( res => {
                      console.log(res);
                     if (res.data.data)

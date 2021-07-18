@@ -21,11 +21,10 @@
                     <tr>
                     <th scope="col">Acciones</th>
                     <th scope="col">Id</th>
-                    <th scope="col">Nombre</th>   
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Nombres y Apellidos</th>              
                     <th scope="col">Oficina</th>
-                    <th scope="col">Sub-Oficina</th>      
+                    <th scope="col">Sub-Oficina</th>
+                    <th scope="col">Email</th>      
                     <th scope="col">Estado</th>
                   
                     
@@ -41,11 +40,10 @@
                             </b-button>
                         </td>
                         <th scope="row">{{ employee.attributes.id }}</th>
-                        <td>{{ employee.attributes.user_name }}</td>
-                        <td>{{ employee.attributes.user_last_name }}</td>
-                        <td>{{ employee.attributes.user_email }}</td>         
+                        <td>{{ employee.attributes.user_name }} {{ employee.attributes.user_last_name }} </td>                            
                         <td>{{ employee.attributes.office_name}}</td>
                         <td> <strong> {{ employee.attributes.suboffice_name }} </strong>  <br>{{ employee.attributes.suboffice_office_name }}   </td>
+                        <td>{{ employee.attributes.user_email }}</td> 
                         <td>{{ employee.attributes.user_status }}</td>
                      
                     </tr>
