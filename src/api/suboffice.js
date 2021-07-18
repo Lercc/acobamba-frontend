@@ -5,34 +5,34 @@ const API_URL = store.state.api.url;
 
 
 // CREATE
-function storeOffice(pFormData) {
-    const REQUEST = 'api/offices'
+function storeSuboffice(pFormData) {
+    const REQUEST = 'api/suboffices'
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
     return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
 }
 
 // READ
-function getOffices(pPage = 1) {
-    const REQUEST = `api/offices?page=${pPage}`
+function getSuboffices(pPage = 1) {
+    const REQUEST = `api/suboffices?page=${pPage}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
-function getOffice(pIdOffice) {
-    const REQUEST = `api/offices/${pIdOffice}`
+function getSuboffice(pIdSuboffice) {
+    const REQUEST = `api/suboffices/${pIdSuboffice}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
 // UPDATE
-function updateOffice (pIdOffice, pFormData) {
-    const REQUEST = `api/offices/${pIdOffice}`
+function updateSuboffice (pIdSuboffice, pFormData) {
+    const REQUEST = `api/suboffices/${pIdSuboffice}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
     return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
 }
 export {
-    storeOffice,
-    getOffices,
-    getOffice,
-    updateOffice
+    storeSuboffice,
+    getSuboffices,
+    getSuboffice,
+    updateSuboffice
 }

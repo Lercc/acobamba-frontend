@@ -98,16 +98,32 @@ export default new Router({
               component: () => import(/* webpackChunkName: "admin-offices-edit" */ '@/views/Admin/components/OfficeEdit.vue'),
             },
             {
-              path: 'office-created',
-              name: 'office-created',
+              path: 'office-create',
+              name: 'office-create',
               component: () => import(/* webpackChunkName: "admin-offices-created" */ '@/views/Admin/components/OfficeCreate.vue'),
             }
           ]
         },
         {
           path: 'suboffices',
-          name: 'suboffices',
-          component: () => import(/* webpackChunkName: "admin-suboffices" */ '@/views/Admin/components/Suboffices.vue')
+          component: () => import(/* webpackChunkName: "admin-suboffices" */ '@/views/Admin/components/Suboffices.vue'),
+          children: [
+            {
+              path: '',
+              name: 'suboffices',
+              component: () => import(/* webpackChunkName: "admin-offices" */ '@/views/Admin/components/Suboffices/SubofficesTable.vue'),
+            },
+            {
+              path: 'suboffice-edit/:id',
+              name: 'suboffice-edit',
+              component: () => import(/* webpackChunkName: "admin-offices-edit" */ '@/views/Admin/components/Suboffices/SubofficeEdit.vue'),
+            },
+            {
+              path: 'suboffice-create',
+              name: 'suboffice-create',
+              component: () => import(/* webpackChunkName: "admin-offices-created" */ '@/views/Admin/components/Suboffices/SubofficeCreate.vue'),
+            }
+          ]
         },
         {
           path: 'roles',
