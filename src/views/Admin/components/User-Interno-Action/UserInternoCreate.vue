@@ -162,6 +162,7 @@
                                         class="d-flex justify-content-around"
                                         buttons
                                         button-variant="outline-info"
+                                          @change="inputRadioOfficeSubofficeChanged"
                                     >
                                         <b-form-radio value="office">Selecciona una oficina</b-form-radio>
                                         <b-form-radio value="suboffice">Selecciona una sub-oficina</b-form-radio>
@@ -180,8 +181,10 @@
                                         placeholder="Selecione office"
                                         v-model="userInternoData.attributes.office_id"
                                         :options="officeOptions"
-                                     
                                     >
+                                      <template #first>
+                                            <b-form-select-option value='' disabled>-- Selecciona un oficina --</b-form-select-option>
+                                        </template>
                                     </b-form-select>
                                 </b-form-group>
                             </b-col>
@@ -197,6 +200,9 @@
                                         v-model="userInternoData.attributes.suboffice_id"
                                         :options="subofficeOptions"
                                     >
+                                      <template #first>
+                                            <b-form-select-option value='' disabled>-- Selecciona una suboficina --</b-form-select-option>
+                                        </template>
                                     </b-form-select>
                                 </b-form-group>
                             </b-col>
@@ -357,7 +363,7 @@ export default {
                     userInternoFormData.append('password',this.userInternoData.attributes.password)
                     userInternoFormData.append('password_confirmation',this.userInternoData.attributes.password_confirmation)
                     userInternoFormData.append('status',this.userInternoData.attributes.status)
-     
+       
      
                 storeEmployee(userInternoFormData)
                     .then(response => {
@@ -406,6 +412,11 @@ export default {
                         this.subofficeOptions = res.data.data.map( e => ({ 'value': e.attributes.id, 'text': e.attributes.name}))
                 })
             },
+       
+       inputRadioOfficeSubofficeChanged () {
+               this.userInternoData.attributes.office_id = ''
+               this.userInternoData.attributes.suboffice_id = ''
+              }
     }
 
 }
