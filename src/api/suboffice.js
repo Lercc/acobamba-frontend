@@ -12,6 +12,12 @@ function storeSuboffice(pFormData) {
 }
 
 // READ
+function getAllSuboffices() {
+    const REQUEST = `api/subofficesall`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
 function getSuboffices(pPage = 1) {
     const REQUEST = `api/suboffices?page=${pPage}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
@@ -32,6 +38,7 @@ function updateSuboffice (pIdSuboffice, pFormData) {
 }
 export {
     storeSuboffice,
+    getAllSuboffices,
     getSuboffices,
     getSuboffice,
     updateSuboffice
