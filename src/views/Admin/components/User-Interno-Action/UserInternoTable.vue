@@ -41,7 +41,7 @@
                         <td>{{ employee.attributes.status }}</td>
                         <td>
                             <b-button 
-                                :to="{ name: 'employee-edit', params: { id: employee.attributes.id }}"
+                                :to="{ name: 'user-interno-edit', params: { id: employee.attributes.id }}"
                                 variant="info"
                                 size="sm">editar
                             </b-button>

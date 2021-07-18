@@ -264,8 +264,7 @@ export default {
              rolesOptions: [
                    { value: 'Interno', text: 'Interno'},
                    { value: 'Externo', text: 'Externo'} ,  
-                   { value: 'Admin', text: 'Admin'}    
-            ],
+                           ],
             inputErrors: {},
             //
             inputInitialValues: true,
@@ -320,22 +319,26 @@ export default {
      
                 updateUser(this.$route.params.id,userFormData)
                     .then(response => {
-                        if(response.data.data)
-                        this.userData  =  response.data.data
-                        swal('¡Actualización correcta!', 'Ok', 'success')
-                            .then( res =>{
-                                if(res == null || res == true || res == false)
-                                this.router.push({name:'users'})
-                            })
-                            .catch(err => {
-                                if(err.response.status == 422) this.inputErrors = err.response.data.errors
-                            })
+                        if(response.data.data){
+                            this.userData  =  response.data.data
+                            swal('¡Actualización correcta!', 'Ok', 'success')
+                                    .then( res =>{
+                                        if(res == null || res == true || res == false)
+                                        this.router.push({name:'users'})
+                                       })
+                                    } 
+                                }) 
+                             
+                    .catch(err => {
+                            console.log(err.response.data.errors);
+                            if(err.response.status == 422) this.inputErrors = err.response.data.errors
+                        })
 
-                            .finally( () => {
-                                this.inputsInitialValues =false
-                               console.log('peticion update office terminada!');
-                      })
+                    .finally( () => {
+                        this.inputsInitialValues =false
+                        console.log('peticion update office terminada!');
                     })
+            
      
             }, 
 
