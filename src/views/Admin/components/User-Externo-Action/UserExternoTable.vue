@@ -34,7 +34,7 @@
                         <td>{{ processor.attributes.user_name }}</td>
                         <td>{{ processor.attributes.user_last_name }}</td>
                         <td>{{ processor.attributes.user_email }}</td>         
-                        <td>{{ processor.attributes.status }}</td>
+                        <td>{{ processor.attributes.user_status }}</td>
                         <td>
                             <b-button 
                                 :to="{ name: 'processor-edit', params: { id: processor.attributes.id }}"

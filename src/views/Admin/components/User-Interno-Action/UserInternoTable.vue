@@ -45,8 +45,8 @@
                         <td>{{ employee.attributes.user_last_name }}</td>
                         <td>{{ employee.attributes.user_email }}</td>         
                         <td>{{ employee.attributes.office_name}}</td>
-                        <td>{{ employee.attributes.suboffice_name }}</td>
-                        <td>{{ employee.attributes.status }}</td>
+                        <td> <strong> {{ employee.attributes.suboffice_name }} </strong>  <br>{{ employee.attributes.suboffice_office_name }}   </td>
+                        <td>{{ employee.attributes.user_status }}</td>
                      
                     </tr>
                 </tbody>

@@ -154,46 +154,54 @@
                         </b-col>
                     </b-form-row>
 
+                  <b-form-row>
+                            <b-col>
+                                <b-form-group>
+                                    <b-form-radio-group
+                                        v-model="typeOfficeRadioSelect"
+                                        class="d-flex justify-content-around"
+                                        buttons
+                                        button-variant="outline-info"
+                                    >
+                                        <b-form-radio value="office">Selecciona una oficina</b-form-radio>
+                                        <b-form-radio value="suboffice">Selecciona una sub-oficina</b-form-radio>
+                                    </b-form-radio-group>
+                                </b-form-group>
+                            </b-col>
+                        </b-form-row>
 
-                  <!-- OFICINAS  -->
-                <b-form-row>
-                <b-col>
-                    <b-form-group
-                    label="OFICINA"
-                    >
-                    <b-form-select
-                        v-model="userInternoData.attributes.office_id"
-                        :options="officeOptions"
-                        :state="showInputStatus('office_id')"
-                    >
-                    </b-form-select>
+                        <b-form-row v-if="typeOfficeRadioSelect == 'office'">
+                            <b-col>
+                                <b-form-group
+                                    label="Selecciona la Oficina: "
+                                >                               
 
-                    <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('office_id')" :key="`${index}-input-status`" class="text-danger">
-                        {{ inputError }}
-                    </b-form-invalid-feedback>
-                    </b-form-group>
-                </b-col>
-                </b-form-row>
+                                    <b-form-select
+                                        placeholder="Selecione office"
+                                        v-model="userInternoData.attributes.office_id"
+                                        :options="officeOptions"
+                                     
+                                    >
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                        </b-form-row>
 
-       <!-- sUB-OFICINAS  -->
-                <b-form-row>
-                <b-col>
-                    <b-form-group
-                    label="SUB_OFICINA"
-                    >
-                    <b-form-select
-                        v-model="userInternoData.attributes.suboffice_id"
-                        :options="subofficeOptions"
-                        :state="showInputStatus('suboffice_id')"
-                    >
-                    </b-form-select>
-
-                    <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('office_id')" :key="`${index}-input-status`" class="text-danger">
-                        {{ inputError }}
-                    </b-form-invalid-feedback>
-                    </b-form-group>
-                </b-col>
-                </b-form-row>     
+                        <b-form-row v-else>
+                            <b-col>
+                                <b-form-group
+                                    label="Selecciona la Suboficina: "
+                                >
+                                    <b-form-select
+                                        placeholder="Selecione suboffice"
+                                        v-model="userInternoData.attributes.suboffice_id"
+                                        :options="subofficeOptions"
+                                    >
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                        </b-form-row>
+   
 
                  <!-- PASSWORD   -->
                         <b-form-row>
@@ -274,7 +282,7 @@ export default {
     data () {
         return {
             userInternoLoading : false , 
-            officeRadioSelect : true, 
+            typeOfficeRadioSelect: 'office', 
             subofficeRadioSelect : true , 
             errStatus: '',
             errStatusText: '',
