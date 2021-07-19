@@ -57,13 +57,13 @@
                         
                     <b-form-row class="justify-content-center borde">
                         <b-col cols="12" sm="12"  class="borde" >
-                                <b-button class="col-12" variant="info" @click="login">Entrar</b-button>
+                                <b-button class="col-12" variant="primary" @click="login">Entrar</b-button>
                         </b-col>
                     </b-form-row>
 
-                     <b-form-row class="justify-content-center borde">
+                     <b-form-row class="justify-content-center borde mt-5">
                         <b-col cols="12" sm="12"  class="borde" >
-                              <h1>¿Aun no tienes una cuenta? <b-badge>Registrate AQUI</b-badge></h1>   
+                              <h2 class="text-center" >¿Aún no tienes una cuenta? <b-button class="ml-3" variant="warning">Registrate AQUÍ</b-button></h2>   
                         </b-col>
                     </b-form-row>
                 </b-card>
