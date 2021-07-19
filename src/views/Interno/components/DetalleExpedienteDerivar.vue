@@ -13,6 +13,9 @@
                 <b-col>
                     <b-button v-show="currentDerivationData.attributes.status == 'nuevo'" v-b-modal.modal-1>DERIVAR</b-button>
                 </b-col>
+                <b-col>
+                    <b-button v-show="currentDerivationData.attributes.status == 'nuevo'" v-b-modal.modal-2>ARCHIVAR</b-button>
+                </b-col>
             </b-row>
         </base-header>
         
@@ -255,7 +258,33 @@
                      </b-col>
                 </b-modal>
 
-                
+                <b-modal id="modal-2" title="CREAR ARCHIVACIÓN"  button-size="sm" hide-footer size="lg">
+                    <b-col cols="12">
+                        <b-form-row>
+                            <b-col>
+                                <b-form-group
+                                    label="Observaciones"
+                                >
+                                   <b-form-textarea
+                                        v-model="archivationObservations"
+                                        :state="inputStatus('observations')"
+                                   >
+                                   </b-form-textarea>
+
+                                   <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('observations')" :key="`${index}-observations`">
+                                       {{ inputError }}
+                                   </b-form-invalid-feedback>
+                                </b-form-group>
+                            </b-col>
+                        </b-form-row>
+
+                        <b-form-row>
+                            <b-col class="d-flex justify-content-center">
+                                <b-button @click="makeArchivation"  variant="success">Realizar Derivacion</b-button>
+                            </b-col>
+                        </b-form-row>
+                     </b-col>
+                </b-modal>
             </b-row>
         </b-container>
 
@@ -268,14 +297,14 @@ import { getAllOffices } from '@/api/office';
 import { getAllSuboffices } from '@/api/suboffice';
 import { getAllEmployees } from '@/api/employee';
 import { storeDerivation, getDerivation, updateDerivation } from '@/api/derivation';
+import { storeArchivation } from '@/api/archivation';
 
 import FileSaver from 'file-saver';
+import swal from 'sweetalert';
 
 export default {
     data() {
         return {
-            showPopUpDerivation: false,
-            //
             expedientData: {},
             currentDerivationData: {
                 attributes: {
@@ -284,19 +313,26 @@ export default {
             },
             derivationsData: {},
             archivationData: {},
-            //
+
+            // derivation
             areaDerivationRadio: 'office',
-            //
+
             officeOptions: [],
             officeOptionsLoading: false,
             subofficeOptions: [],
-            //
+
             officeId: 1,
             subofficeId: 1,
-            //
+
             employeeId: '',
-            //
-            allEmployeesData: []
+            allEmployeesData: [],
+
+            // archivation
+            archivationObservations: '',
+            inputErrors: {},
+            observationInitialValue: true
+
+
         }
     },
 
@@ -394,7 +430,6 @@ export default {
             DerivationFormData.append('status', 'nuevo')
             storeDerivation(DerivationFormData)
                 .then(res =>{
-                    console.log('derivation :', res);
                     if (res.data.data) {
                         const UpdateCurrentDerivationFormData = new FormData()
                         UpdateCurrentDerivationFormData.append('.method', 'put')
@@ -402,11 +437,21 @@ export default {
                         UpdateCurrentDerivationFormData.append('status', 'derivado')
 
                         updateDerivation(this.currentDerivationData.attributes.id, UpdateCurrentDerivationFormData)
-                            .then(res => {
-                                    console.log('updateCurrentDerivation:', res);
+                            .then(() => {
+                                    swal('Derivación exitosa!', `Fecha de derivación ${res.data.data.attributes.createdAt}`, 'success')
+                                    .then(res => {
+                                        switch (res) {
+                                            case true:
+                                            case null:
+                                            case false :
+                                                this.$router.push({ name: 'interno-lista-derivaciones' })
+                                                break
+                                            default :
+                                                console.log('swal break derivation')
+                                        }
+                                     })
                                 })
                             .catch(err =>{
-                                console.log('updateCurrentDerivation error:', err);
                                 console.log('updateCurrentDerivation error:', err.response);
                             })
                             .finally( () =>{
@@ -430,8 +475,71 @@ export default {
             this.employeeId = ''
         },
 
-        downloadFile() {
+        downloadFile () {
             FileSaver.saveAs(`http://localhost:8000/storage/${this.expedientData.file}`);
+        },
+
+        // ARCHIVATIONS
+        makeArchivation () {
+            const archivationFormData = new FormData()
+            archivationFormData.append('expedient_id', this.$route.params.expedient_id)
+            archivationFormData.append('user_id', this.$store.state.user.data.id)
+            archivationFormData.append('observations', this.archivationObservations)
+            archivationFormData.append('status', 'archivado')
+
+            storeArchivation (archivationFormData)
+                .then(res => {
+                    if (res.data.data) {
+                        const UpdateCurrentDerivationFormData = new FormData()
+                        UpdateCurrentDerivationFormData.append('.method', 'put')
+                        UpdateCurrentDerivationFormData.append('employee_id', this.currentDerivationData.attributes.employee_id)
+                        UpdateCurrentDerivationFormData.append('status', 'derivado')
+
+                        updateDerivation(this.currentDerivationData.attributes.id, UpdateCurrentDerivationFormData)
+                            .then(() => {
+                                swal('Archivación exitosa!', `Fecha de archivación ${res.data.data.attributes.createdAt}`, 'success')
+                                    .then( res => {
+                                        switch (res) {
+                                            case true:
+                                            case null:
+                                            case false :
+                                                this.$router.push({name: 'interno-lista-archivaciones'})
+                                                break
+                                            default :
+                                                console.log('swal break archivation')
+                                        }
+                                     })
+                            })
+                            .catch(err =>{
+                                console.log('updateCurrentDerivation error:', err.response);
+                            })
+                            .finally( () =>{
+                                console.log('updateCurrentDerivation terminada');
+                            })
+                    }
+                })
+                .catch(err => {
+                    console.log('store archivation error response: ', err.response);
+                    if (err.response.status == 422) {
+                        this.inputErrors = err.response.data.errors
+                    }
+                })
+                .finally(() => {
+                    this.observationInitialValue = false
+                    console.log('peticion store archivation terminada');
+                })
+
+        },
+
+        showInputErrors (pInput) {
+            if (Object.keys(this.inputErrors).includes(pInput)) return this.inputErrors[pInput]
+            else return []
+        },
+
+        inputStatus (pInput) {
+            if (this.observationInitialValue) return null
+            else if (Object.keys(this.inputErrors).includes(pInput)) return false
+            else return true
         }
     },
 

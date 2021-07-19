@@ -10,12 +10,6 @@
             </b-row>
 
             <b-row align-h="end">
-                <!-- <b-col cols="auto" class="mb-2">
-                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md">activos</b-button>
-                </b-col> -->
-                <!-- <b-col cols="auto" class="mb-2">
-                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md">desactivados</b-button>
-                </b-col> -->
                 <b-col cols="auto" class="mb-2">
                     <b-button :to="{name: 'externo-tramite'}" variant="info" size="md" >nuevo trámite</b-button>
                 </b-col>
@@ -60,7 +54,7 @@
                                     <td>{{ expedient.attributes.subject }}</td>
                                     <td>
                                         <b-button 
-                                            :to="{name: 'interno-detalle-expediente', params: {id: expedient.attributes.id}}"
+                                            :to="{name: 'interno-detalle-tramite', params: {expedient_id: expedient.attributes.id}}"
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
@@ -109,9 +103,7 @@ export default {
             this.hasExpedients = false
 
             getEmployeeExpedients(this.$store.state.user.data.employee_id, pPage)
-         
-                .then (response => {
-                     console.log('GET=EXP : ' ,response);
+                    .then (response => {
                     if (response.data.data) {
                         this.hasExpedients = true
                         this.expedients = response.data.data;

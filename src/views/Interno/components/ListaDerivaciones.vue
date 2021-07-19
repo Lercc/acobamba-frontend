@@ -57,7 +57,7 @@
                                         <td>{{ derivation.attributes.createdAt }}</td>
                                         <td>
                                         <b-button 
-                                            :to="{name: 'interno-detalle-expediente', params: {id: derivation.attributes.id}}"
+                                            :to="{name: 'interno-detalle-expediente', params: {derivation_id: derivation.attributes.id, expedient_id: derivation.attributes.expedient_id }}"
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
@@ -106,9 +106,8 @@ export default {
             this.hasDerivations = false
 
             getUserDerivations(this.$store.state.user.data.id, pPage)
-         
                 .then ((response) => {
-                      console.log('GET=EXP : ' ,response);
+                    console.log('GET=EXP : ' ,response);
                     if (response.data.data) {
                         this.hasDerivations = true
                         this.derivations = response.data.data;

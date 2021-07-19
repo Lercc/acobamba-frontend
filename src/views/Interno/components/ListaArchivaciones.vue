@@ -44,7 +44,6 @@
                                 <tr>
                                 <th scope="col">Código</th>              
                                  <th scope="col">Fecha de Archivado</th>
-                                  <th scope="col">Asunto</th>
                                 <th scope="col">Observaciones</th>
                                  <th scope="col">Status</th>
                                 <th scope="col"></th>
@@ -56,14 +55,13 @@
                                       
                                <!--        {{ archivation.attributes.employee_name }} -->
                                         <td>{{ archivation.attributes.createdAt }}</td>
-                                        <td>{{ archivation.attributes.subject }}</td>    
-                                        <td>{{ archivation.attributes.observations }}</td>                         
+                                        <td>{{ archivation.attributes.observations.substring(0, 30) }}...</td>                         
                                         <td>{{ archivation.attributes.status }}</td>
                                                        
                              
                                         <td>
                                         <b-button 
-                                            :to="{name: 'interno-detalle-expediente', params: {id: archivation.attributes.id}}"
+                                            :to="{name: 'interno-detalle-archivacion', params: { archivation_id: archivation.attributes.id, expedient_id: archivation.attributes.expedient_id }}"
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
@@ -112,20 +110,14 @@ export default {
             this.hasArchivations = false
 
             getUserArchivations(this.$store.state.user.data.id, pPage)
-         
                 .then ((response) => {
-             
                     if (response.data.data) {
-        
                         this.hasArchivations = true
                         this.archivations = response.data.data;
                         [this.meta]=[response.data.meta];
                     } else {
                         this.hasArchivations = false
-                     
                     }
-                    // console.log("hay registro")
-                    // console.log(response)
                 })
                 .catch ((err) => {
                     console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
