@@ -63,7 +63,7 @@
 
                      <b-form-row class="justify-content-center borde mt-5">
                         <b-col cols="12" sm="12"  class="borde" >
-                              <h2 class="text-center" >¿Aún no tienes una cuenta? <b-button class="ml-3" variant="warning">Registrate AQUÍ</b-button></h2>   
+                              <h2 class="text-center" >¿Aún no tienes una cuenta? <b-button class="ml-3" variant="warning" >Registrate AQUÍ</b-button></h2>   
                         </b-col>
                     </b-form-row>
                 </b-card>

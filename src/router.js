@@ -48,6 +48,11 @@ export default new Router({
           name: 'login',
           component: () => import(/* webpackChunkName: "login" */ '@/views/Page/components/Login.vue')
         },
+        {
+          path: 'register',
+          name: 'register',
+          component: () => import(/* webpackChunkName: "register" */ '@/views/Page/components/Register.vue')
+        },
       ],
       beforeEnter: (to, from, next) => {
         if (Object.keys(store.state.user.data).length !== 0) {

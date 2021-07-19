@@ -8,7 +8,7 @@
             <template #header>
                 <b-row align-h="between">
                     <b-col class="text-center" cols="auto">
-                     USUARIOS DEL SISTEMA
+                     ADMINISTRADORES DEL SISTEMA
                     </b-col>
                     <b-col cols="auto">
                         <b-button @click="cargarDatos" variant="danger" size="sm">recargar</b-button>
