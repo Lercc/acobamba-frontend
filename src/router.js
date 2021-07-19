@@ -260,7 +260,7 @@ export default new Router({
           component: () => import(/* webpackChunkName: "interno-detalle-expediente" */ '@/views/Interno/components/DetalleExpediente.vue')
         },
         {
-          path: 'detalle-expediente-derivar/:id',
+          path: 'detalle-expediente-derivar/:derivation_id/:expedient_id',
           name: 'interno-detalle-expediente-derivar',
           component: () => import(/* webpackChunkName: "interno-detalle-expediente-derivar" */ '@/views/Interno/components/DetalleExpedienteDerivar.vue')
         }

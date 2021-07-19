@@ -25,6 +25,10 @@
                                     <td>{{ `${expedientData.employee_name } ${ expedientData.employee_last_name }` }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Correo</td>
+                                    <td>{{ this.expedientData.employee_email }}</td>
+                                </tr>
+                                <tr>
                                     <td>Tipo</td>
                                     <td>{{ this.expedientData.document_type }} </td>
                                 </tr>
@@ -96,20 +100,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>{{ this.expedientData.createdAt }}</td>
-                                    <td>
-                                        A: Central | Unidad de Administración Documentaria
-                                        <br>
-                                        Por: Externo, Usuario
-                                    </td>
-                                    <td>{{ this.expedientData.employee_email }}</td>
-                                    <td>Original</td>
-                                    <td></td>
-                                </tr>
                                 <tr v-for="(derivation, index) in derivationsData" :key="`${index}-derivation`">
-                                    <td>{{ index + 2 }}</td>
+                                    <td>{{ index + 1 }}</td>
                                     <td>{{ derivation.attributes.createdAt }}</td>
                                     <td>
                                          A: {{ derivation.attributes.employee_area }}

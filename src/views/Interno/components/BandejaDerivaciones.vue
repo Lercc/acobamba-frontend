@@ -15,7 +15,7 @@
             <b-row>
                 <b-col cols="12">
                     <b-card v-show="!hasDerivations" class="loader-expedients" no-body>
-                        <p v-show="!expedientsLoading" class="text-center">No tiene tramites realizados</p>
+                        <p v-show="!expedientsLoading" class="text-center">No le han realizado derivaciones</p>
                         <moon-loader v-show="expedientsLoading" :size="100" :color="'#225ba5'" />
                     </b-card>
 
@@ -54,7 +54,7 @@
                                     <td>{{ derivation.attributes.status }}</td>
                                         <td>
                                         <b-button 
-                                            :to="{name: 'interno-detalle-expediente-derivar', params: {id: derivation.attributes.id}}"
+                                            :to="{name: 'interno-detalle-expediente-derivar', params: {derivation_id: derivation.attributes.id, expedient_id: derivation.attributes.expedient_id }}"
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
@@ -102,14 +102,14 @@ export default {
             this.expedientsLoading = true
             this.hasDerivations = false
 
-            getEmployeeDerivations(this.$store.state.user.data.employee_id, pPage)
-         
-                .then ((response) => {
-                      console.log('GET=EXP : ' ,response);
+            getEmployeeDerivations(this.$store.state.user.data.employee_id, pPage) 
+                .then (response => {
+                    console.log(response);
                     if (response.data.data) {
                         this.hasDerivations = true
-                        this.derivations = response.data.data;
+                        this.derivations = response.data.data.filter(el => (el.attributes.status == 'en-proceso' || el.attributes.status == 'nuevo'));
                         [this.meta]=[response.data.meta];
+                        if (this.derivations.length == 0 ) this.hasDerivations = false
                     } else {
                         this.hasDerivations = false
                     }

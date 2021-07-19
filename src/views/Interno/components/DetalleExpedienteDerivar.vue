@@ -8,6 +8,12 @@
                     <p class="welcome">DETALLES DEL TRÁMITE</p>
                 </b-col>
             </b-row>
+
+            <b-row>
+                <b-col>
+                    <b-button v-show="currentDerivationData.attributes.status == 'nuevo'" v-b-modal.modal-1>DERIVAR</b-button>
+                </b-col>
+            </b-row>
         </base-header>
         
         <b-container fluid class="mt--6">
@@ -22,27 +28,41 @@
                             <tbody>
                                 <tr>
                                     <td>Usuario</td>
-                                    <td>{{ `${expedientData.employee_name } ${ expedientData.employee_last_name }` }}</td>
+                                    <td v-show="expedientData.employee_id">
+                                        {{ `${expedientData.employee_name  } ${ expedientData.employee_last_name }` }}
+                                    </td>
+                                    <td v-show="expedientData.processor_id">
+                                        {{ `${expedientData.processor_name  } ${ expedientData.processor_last_name }` }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Tipo</td>
-                                    <td>{{ this.expedientData.document_type }} </td>
+                                    <td>{{ expedientData.document_type }} </td>
                                 </tr>
                                 <tr>
                                     <td>Asunto</td>
-                                    <td>{{ this.expedientData.subject }}</td>
+                                    <td>{{ expedientData.subject }}</td>
                                 </tr>
                                 <tr>
                                     <td>Cabecera</td>
-                                    <td>{{ this.expedientData.header }}</td>
+                                    <td>{{ expedientData.header }}</td>
                                 </tr>
                                 <tr>
                                     <td>N° Folios</td>
-                                    <td>{{ this.expedientData.folios }}</td>
+                                    <td>{{ expedientData.folios }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Documento(s)</td>
+                                    <td>
+                                        <b-button @click="downloadFile" size="sm">
+                                            DESCARGAR ARCHIVO
+                                        </b-button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Correo</td>
-                                    <td>{{ this.expedientData.employee_email }}</td>
+                                    <td v-show="expedientData.employee_id">{{ this.expedientData.employee_email }}</td>
+                                    <td v-show="expedientData.processor_id">{{ this.expedientData.processor_email }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -66,12 +86,40 @@
                                     <td>{{ this.expedientData.code }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Oficina</td>
-                                    <td>Trámite externo</td>
+                                    <td>Responsable</td>
+                                    <td v-show="expedientData.employee_id">Usuario | Interno</td>
+                                    <td v-show="expedientData.processor_id">Usuario | Externo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </b-card>
+
+                     <b-card no-body class="table-responsive">
+                        <template #header>
+                            DATOS DE LA DERIVACIÓN
+                        </template>
+                        
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>De:</td>
+                                    <td>
+                                        {{ this.currentDerivationData.attributes.user_area }}
+                                        <br>
+                                        {{ this.currentDerivationData.attributes.user_name }}
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Responsable</td>
-                                    <td>Usuario | Externo</td>
+                                    <td>A:</td>
+                                    <td>
+                                        {{ this.currentDerivationData.attributes.employee_area }}
+                                        <br>
+                                        {{ this.currentDerivationData.attributes.employee_name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fecha</td>
+                                    <td>{{ this.currentDerivationData.attributes.createdAt }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -96,20 +144,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>{{ this.expedientData.createdAt }}</td>
-                                    <td>
-                                        A: Central | Unidad de Administración Documentaria
-                                        <br>
-                                        Por: Externo, Usuario
-                                    </td>
-                                    <td>{{ this.expedientData.employee_email }}</td>
-                                    <td>Original</td>
-                                    <td></td>
-                                </tr>
                                 <tr v-for="(derivation, index) in derivationsData" :key="`${index}-derivation`">
-                                    <td>{{ index + 2 }}</td>
+                                    <td>{{ index + 1 }}</td>
                                     <td>{{ derivation.attributes.createdAt }}</td>
                                     <td>
                                          A: {{ derivation.attributes.employee_area }}
@@ -125,8 +161,8 @@
                     </b-card>
                 </b-col>
 
-                 <b-col cols="12">
-                    <b-card  header="CREAR DERIVACIÓN">
+                <b-modal id="modal-1" title="CREAR DERIVACIÓN"  button-size="sm" hide-footer size="lg">
+                    <b-col cols="12">
                         <b-form-row>
                             <b-col>
                                 <b-form-group>
@@ -168,12 +204,12 @@
                                 <b-form-group
                                     label="Selecciona el Empleado: "
                                 >
-                                     <b-form-select
+                                    <b-form-select
                                         v-model="employeeId"
                                         :options="employeeOfficeOptions"
                                     >
                                         <template #first>
-                                            <b-form-select-option value="null" disabled>-- Selecciona un empleado --</b-form-select-option>
+                                            <b-form-select-option value="" disabled>-- Selecciona un empleado --</b-form-select-option>
                                         </template>
                                     </b-form-select>
                                 </b-form-group>
@@ -204,7 +240,7 @@
                                         :options="employeeSubofficeOptions"
                                     >
                                         <template #first>
-                                            <b-form-select-option value="null" disabled>-- Selecciona un empleado --</b-form-select-option>
+                                            <b-form-select-option value="" disabled>-- Selecciona un empleado --</b-form-select-option>
                                         </template>
                                     </b-form-select>
                                 </b-form-group>
@@ -213,12 +249,13 @@
 
                         <b-form-row>
                             <b-col class="d-flex justify-content-center">
-                                <b-button @click="makeDerivation" variant="success">Realizar Derivacion</b-button>
+                                <b-button @click="makeDerivation" :disabled="!employeeId" variant="success">Realizar Derivacion</b-button>
                             </b-col>
                         </b-form-row>
+                     </b-col>
+                </b-modal>
 
-                    </b-card>
-                </b-col>
+                
             </b-row>
         </b-container>
 
@@ -230,11 +267,21 @@ import { getExpedient, getExpedientsDerivations} from '@/api/expedient';
 import { getAllOffices } from '@/api/office';
 import { getAllSuboffices } from '@/api/suboffice';
 import { getAllEmployees } from '@/api/employee';
+import { storeDerivation, getDerivation, updateDerivation } from '@/api/derivation';
+
+import FileSaver from 'file-saver';
 
 export default {
     data() {
         return {
+            showPopUpDerivation: false,
+            //
             expedientData: {},
+            currentDerivationData: {
+                attributes: {
+                    user_are: ''
+                }
+            },
             derivationsData: {},
             archivationData: {},
             //
@@ -247,7 +294,7 @@ export default {
             officeId: 1,
             subofficeId: 1,
             //
-            employeeId:  null,
+            employeeId: '',
             //
             allEmployeesData: []
         }
@@ -256,6 +303,7 @@ export default {
     beforeMount() {
         this.getExpedientData();
         this.getDerivationsData();
+        this.getCurrentDerivationData();
         this.getOfficesData();
         this.getSubofficesData();
         this.getEmployesData();
@@ -263,19 +311,35 @@ export default {
 
     methods: {
         getExpedientData () {
-            getExpedient(this.$route.params.id)
+            getExpedient(this.$route.params.expedient_id)
                 .then(response => {
                     this.expedientData = response.data.data.attributes
                 })
                 .catch(err => {
                     console.log(err.response)
+                    // error nul en peticoin de current derivation !
                 })
                 .finally(() => {
                     console.log('peticion de expediente terminada')
                 })
         },
+
+        getCurrentDerivationData () {
+            //peticion
+            getDerivation(this.$route.params.derivation_id)
+                .then (res => {
+                    this.currentDerivationData = res.data.data
+                })
+                .catch (err => {
+                    console.log(err.response);
+                })
+                .finally( () => {
+                    console.log('peticion current derivation terminada');
+                })
+        },
+
         getDerivationsData () {
-            getExpedientsDerivations(this.$route.params.id)
+            getExpedientsDerivations(this.$route.params.expedient_id)
                 .then(response => {
                     if (response.data.data === undefined) {
                         this.derivationsData = {}
@@ -290,6 +354,7 @@ export default {
                     console.log('peticion de derivaciones terminada')
                 })
         },
+
         getOfficesData() {
             this.officeOptionsLoading = true
             getAllOffices()
@@ -317,25 +382,58 @@ export default {
         getEmployesData () {
             getAllEmployees()
                 .then( res => {
-                    console.log(res);
                     this.allEmployeesData = res.data.data
                 })
         },
 
         makeDerivation() {
-            window.alert('derivacion realizada')
+            const DerivationFormData = new FormData()
+            DerivationFormData.append('expedient_id', this.$route.params.expedient_id)
+            DerivationFormData.append('user_id', this.$store.state.user.data.id)
+            DerivationFormData.append('employee_id', this.employeeId)
+            DerivationFormData.append('status', 'nuevo')
+            storeDerivation(DerivationFormData)
+                .then(res =>{
+                    console.log('derivation :', res);
+                    if (res.data.data) {
+                        const UpdateCurrentDerivationFormData = new FormData()
+                        UpdateCurrentDerivationFormData.append('.method', 'put')
+                        UpdateCurrentDerivationFormData.append('employee_id', this.currentDerivationData.attributes.employee_id)
+                        UpdateCurrentDerivationFormData.append('status', 'derivado')
+
+                        updateDerivation(this.currentDerivationData.attributes.id, UpdateCurrentDerivationFormData)
+                            .then(res => {
+                                    console.log('updateCurrentDerivation:', res);
+                                })
+                            .catch(err =>{
+                                console.log('updateCurrentDerivation error:', err);
+                                console.log('updateCurrentDerivation error:', err.response);
+                            })
+                            .finally( () =>{
+                                console.log('updateCurrentDerivation terminada');
+                            })
+                    }
+                })
+                .catch(err =>{
+                    console.log('derivation error:', err.response);
+                })
+                .finally( () =>{
+                    console.log('derivation terminada');
+                })
         },
 
         inputOfficeSubofficeChanged () {
-            this.employeeId = null
+            this.employeeId = ''
         },
        
        inputRadioOfficeSubofficeChanged () {
-            this.employeeId = null
+            this.employeeId = ''
+        },
+
+        downloadFile() {
+            FileSaver.saveAs(`http://localhost:8000/storage/${this.expedientData.file}`);
         }
     },
-
-
 
     computed: {
         employeeOfficeOptions () {

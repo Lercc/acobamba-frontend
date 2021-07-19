@@ -42,10 +42,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                <th scope="col">Código</th>                             
+                                <th scope="col">Código</th>
                                 <th scope="col">Derivado a  </th>
-                                 <th scope="col">Fecha de Derivado</th>
-                                    <th scope="col">Estado</th>
+                                <th scope="col">Fecha de Derivado</th>
                                 <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -56,7 +55,6 @@
                                <!--        {{ derivation.attributes.employee_name }} -->
                                         <td>{{derivation.attributes.employee_area}} <br>{{derivation.attributes.employee_name}} </td>
                                         <td>{{ derivation.attributes.createdAt }}</td>
-                                        <td>{{ derivation.attributes.status }}</td>
                                         <td>
                                         <b-button 
                                             :to="{name: 'interno-detalle-expediente', params: {id: derivation.attributes.id}}"
