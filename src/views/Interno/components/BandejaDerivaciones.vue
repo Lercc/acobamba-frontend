@@ -37,7 +37,7 @@
                                 <th scope="col">Código</th>                             
                                 <th scope="col">Derivado por </th>
                                 <th scope="col">Fecha de Derivación</th>
-                                <th scope="col">Asunto</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                                 </tr>
