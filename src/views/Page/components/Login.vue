@@ -66,6 +66,11 @@
                               <h2 class="text-center" >¿Aún no tienes una cuenta? <b-button class="ml-3" variant="warning" >Registrate AQUÍ</b-button></h2>   
                         </b-col>
                     </b-form-row>
+
+                      <b-form-row class="justify-content-center borde mt-5">
+                        <a href="#">¿Olvidates tu contraseña?</a>
+                    </b-form-row>
+
                 </b-card>
             </b-col>
 

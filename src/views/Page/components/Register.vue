@@ -242,7 +242,7 @@ export default {
                             //         if(res == null || res == true || res == false)
                             //             this.$router.push({name:'users-externos'})
                             // })   
-                            this.$router.push({name:'users-externos'})
+                            this.$router.push({name:'login'})
                             console.log(response)   
                         }       
                              
