@@ -28,6 +28,12 @@ function getEmployee(pIdEmployee) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+function getSecretariaTramDoc() {
+    const REQUEST = `api/secreTramDocData`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
 
 // POST
 function storeEmployee(pFormData) {
@@ -52,6 +58,7 @@ export {
     getAllEmployees,
     getEmployees,
      getEmployee,
-     storeEmployee , 
+     storeEmployee,
+     getSecretariaTramDoc,
      updateEmployee
 }

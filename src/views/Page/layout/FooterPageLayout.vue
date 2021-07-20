@@ -3,7 +3,7 @@
 <!-- Footer -->
 <footer class="page-footer font-small unique-color-dark">
 
-  <div style="background-color: yellow;">
+  <div style="">
     <div class="container">
 
       <!-- Grid row-->

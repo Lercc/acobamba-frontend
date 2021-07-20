@@ -245,29 +245,81 @@ export default new Router({
           component: () => import(/* webpackChunkName: "tramite-realizados" */ '@/views/Interno/components/TramitesRealizados.vue')
         },
         {
+          path: 'detalle-tramite/:expedient_id',
+          name: 'interno-detalle-tramite',
+          component: () => import(/* webpackChunkName: "interno-detalle-tramite" */ '@/views/Interno/components/DetalleTramite.vue')
+        },
+        {
           path: 'lista-derivaciones',
           name: 'interno-lista-derivaciones',
-          component: () => import(/* webpackChunkName: "lista-derivaciones" */ '@/views/Interno/components/ListaDerivaciones.vue')
+          component: () => import(/* webpackChunkName: "lista-derivaciones" */ '@/views/Interno/components/ListaDerivaciones.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
         },
         {
           path: 'bandeja-derivaciones',
           name: 'interno-bandeja-derivaciones',
-          component: () => import(/* webpackChunkName: "bandeja-derivaciones" */ '@/views/Interno/components/BandejaDerivaciones.vue')
+          component: () => import(/* webpackChunkName: "bandeja-derivaciones" */ '@/views/Interno/components/BandejaDerivaciones.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
         },
         {
           path: 'lista-archivaciones',
           name: 'interno-lista-archivaciones',
-          component: () => import(/* webpackChunkName: "lista-archivaciones" */ '@/views/Interno/components/ListaArchivaciones.vue')
+          component: () => import(/* webpackChunkName: "lista-archivaciones" */ '@/views/Interno/components/ListaArchivaciones.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
         },
         {
-          path: 'detalle-expediente/:id',
+          path: 'detalle-archivacion/:archivation_id/:expedient_id',
+          name: 'interno-detalle-archivacion',
+          component: () => import(/* webpackChunkName: "interno-detalle-archivacion" */ '@/views/Interno/components/DetalleArchivacion.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
+        },
+        {
+          path: 'detalle-expediente/:derivation_id/:expedient_id',
           name: 'interno-detalle-expediente',
-          component: () => import(/* webpackChunkName: "interno-detalle-expediente" */ '@/views/Interno/components/DetalleExpediente.vue')
+          component: () => import(/* webpackChunkName: "interno-detalle-expediente" */ '@/views/Interno/components/DetalleExpediente.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
         },
         {
-          path: 'detalle-expediente-derivar/:id',
+          path: 'detalle-expediente-derivar/:derivation_id/:expedient_id',
           name: 'interno-detalle-expediente-derivar',
-          component: () => import(/* webpackChunkName: "interno-detalle-expediente-derivar" */ '@/views/Interno/components/DetalleExpedienteDerivar.vue')
+          component: () => import(/* webpackChunkName: "interno-detalle-expediente-derivar" */ '@/views/Interno/components/DetalleExpedienteDerivar.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
         }
       ],
       beforeEnter: (to, from, next) => {

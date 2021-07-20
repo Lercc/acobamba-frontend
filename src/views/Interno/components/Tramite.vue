@@ -1,6 +1,6 @@
 <template>
     <div>
-        <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
+        <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
         </base-header>
         
         <b-container fluid class="mt--6">
@@ -118,6 +118,8 @@
 
 <script>
 import { storeExpedient } from '@/api/expedient'
+import { storeDerivation } from '@/api/derivation'
+import { getSecretariaTramDoc } from '@/api/employee'
 import swal from 'sweetalert'
 
 export default {
@@ -149,6 +151,10 @@ export default {
         }
     },
 
+    beforeMount() {
+        this.getEmployeeTramDocOffice()
+    },
+
     computed: {
         setHeader () {
             const time = new Date()
@@ -173,10 +179,23 @@ export default {
             storeExpedient(expedientFormData)
                 .then(response => {
                     if (response.status == 201) {
+                        if (response.data.data) {
+                            const FirstDerivationFormData = new FormData()
+                            FirstDerivationFormData.append('expedient_id', response.data.data.attributes.id)
+                            FirstDerivationFormData.append('user_id', this.$store.state.user.data.id)
+                            FirstDerivationFormData.append('employee_id', this.secretariaTramDocId)
+                            FirstDerivationFormData.append('status', 'nuevo')
+                            storeDerivation(FirstDerivationFormData)
+                                .then(res =>{
+                                    console.log('first derivation :', res);
+                                })
+                                .catch(err =>{
+                                    console.log('first derivation error:', err.response);
+                                })
+                        }
+
                         swal('Registro exitoso!', `codigo de expediente: ${response.data.data.attributes.code}`, 'success')
                             .then( res => {
-                                    console.log(res);
-
                                 switch (res) {
                                     case true:
                                     case null:
@@ -214,6 +233,13 @@ export default {
             else if (Object.keys(this.inputErrors).includes(pInput)) return false
             else return true
         },
+
+        getEmployeeTramDocOffice() {
+            getSecretariaTramDoc()
+                .then(res => {
+                    this.secretariaTramDocId = res.data
+                })
+        }
     }
 
 }
