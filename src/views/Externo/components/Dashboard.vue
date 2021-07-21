@@ -13,36 +13,22 @@
                 <b-col lg="6" xl="4" v-for="(notification, index) in notifications" :key="`${index}-dash-notif`">
                     <b-card class="mb-4 mb-xl-0" >
                         <b-card-text class="text-justify">
-                            Tu expediente de codigo <span class="text-blue">{{notification.attributes.expedient_code}}</span> ha sido <span class="text-blue">{{notification.attributes.exp_status}}</span> por el area <span class="text-blue">{{notification.attributes.area}}</span>.
+                            Tu expediente de codigo <span class="text-blue">{{notification.attributes.expedient_code}}</span> ha sido <span class="text-blue">{{notification.attributes.exp_status}}</span> <span v-show="notification.attributes.exp_status === 'archivado' ? false : true" >  a el area: <span class="text-blue">{{notification.attributes.area}}</span></span>.
                             <b-badge variant="info">{{ notification.attributes.status === 'visto' ? 'visto' : 'nuevo'}}</b-badge>
                         </b-card-text>
                         <template #footer>
                             <div class="d-flex justify-content-around align-items-center">
                                 <small class="text-muted ">{{notification.attributes.created_at}}</small> 
-                                <b-button :to="{name: 'externo-tramite'}" variant="info" size="sm">ver trámite</b-button>
+                                <b-button :to="{name: 'externo-detalle-expediente', params: { id: notification.attributes.expedient_id}}" variant="info" size="sm">ver trámite</b-button>
                             </div>
                         </template>
                     </b-card>
                 </b-col>
 
-                <b-col cols="12" class="py-4">
+                <!-- <b-col cols="12" class="py-4">
                     <p class="text-center m-0">
                         <a href="" class="text-white text-underline opacity-7">+ VER TODO</a>
                     </p>
-                </b-col>
-              
-                <!-- <b-col lg="6" xl="3" >
-                    <b-card
-                        title="Total traffic"
-                        type="gradient-red"
-                        sub-title="350,897"
-                        icon="ni ni-active-40"
-                        class="mb-4 mb-xl-0">
-                        <template slot="footer">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                            <span class="text-nowrap">Since last month</span>
-                        </template>
-                    </b-card>
                 </b-col> -->
             </b-row>
         </base-header>
@@ -58,7 +44,7 @@
     </div>
 </template>
 <script>
-import { getNotification } from '@/api/user'
+import { getProcessorNotifications } from '@/api/notification'
 
 export default {
     data () {
@@ -68,20 +54,21 @@ export default {
     },
 
     beforeMount() {
-        this.getUserNotification()
+        this.getNotifications()
     },
 
     methods: {
-        getUserNotification() {
-            getNotification()
+        getNotifications() {
+            getProcessorNotifications (this.$store.state.user.data.processor_id)
                 .then (response => {
+                    console.log(response);
                     this.notifications = response.data.data.filter((el, index) => index < 3)
                 })
                 .catch (err => {
                     console.log(err.response)
                 })
                 .finally ( () => {
-                    console.log('peticion de notificaciones terminada')
+                    console.log('peticion de  notificaciones processor  terminada')
                 })
         }
     },

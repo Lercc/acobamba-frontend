@@ -3,18 +3,11 @@ import store from '@/store'
 
 const API_URL = store.state.api.url;
 
-function getNotification() {
-    const REQUEST = `api/notifications`
-    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
-    return axios.get(`${API_URL}/${REQUEST}`, { headers})
-}
-
 function getUserDerivations(pUserId, pPage = 1) {
     const REQUEST = `api/users/${pUserId}/derivations?page=${pPage}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
-
 
 function getUserArchivations(pUserId, pPage = 1) {
     const REQUEST = `api/users/${pUserId}/archivations?page=${pPage}`
@@ -45,4 +38,4 @@ function updateUser(pIdUser, pFormData) {
 
 
 
-export { getNotification ,getUserDerivations, getUserArchivations,getUsers,getUser,updateUser }
+export { getUserDerivations, getUserArchivations,getUsers,getUser,updateUser }
