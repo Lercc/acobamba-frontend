@@ -48,6 +48,11 @@ export default new Router({
           name: 'login',
           component: () => import(/* webpackChunkName: "login" */ '@/views/Page/components/Login.vue')
         },
+        {
+          path: 'register',
+          name: 'register',
+          component: () => import(/* webpackChunkName: "register" */ '@/views/Page/components/Register.vue')
+        },
       ],
       beforeEnter: (to, from, next) => {
         if (Object.keys(store.state.user.data).length !== 0) {
@@ -98,16 +103,32 @@ export default new Router({
               component: () => import(/* webpackChunkName: "admin-offices-edit" */ '@/views/Admin/components/OfficeEdit.vue'),
             },
             {
-              path: 'office-created',
-              name: 'office-created',
+              path: 'office-create',
+              name: 'office-create',
               component: () => import(/* webpackChunkName: "admin-offices-created" */ '@/views/Admin/components/OfficeCreate.vue'),
             }
           ]
         },
         {
           path: 'suboffices',
-          name: 'suboffices',
-          component: () => import(/* webpackChunkName: "admin-suboffices" */ '@/views/Admin/components/Suboffices.vue')
+          component: () => import(/* webpackChunkName: "admin-suboffices" */ '@/views/Admin/components/Suboffices.vue'),
+          children: [
+            {
+              path: '',
+              name: 'suboffices',
+              component: () => import(/* webpackChunkName: "admin-offices" */ '@/views/Admin/components/Suboffices/SubofficesTable.vue'),
+            },
+            {
+              path: 'suboffice-edit/:id',
+              name: 'suboffice-edit',
+              component: () => import(/* webpackChunkName: "admin-offices-edit" */ '@/views/Admin/components/Suboffices/SubofficeEdit.vue'),
+            },
+            {
+              path: 'suboffice-create',
+              name: 'suboffice-create',
+              component: () => import(/* webpackChunkName: "admin-offices-created" */ '@/views/Admin/components/Suboffices/SubofficeCreate.vue'),
+            }
+          ]
         },
         {
           path: 'roles',
@@ -224,29 +245,81 @@ export default new Router({
           component: () => import(/* webpackChunkName: "tramite-realizados" */ '@/views/Interno/components/TramitesRealizados.vue')
         },
         {
+          path: 'detalle-tramite/:expedient_id',
+          name: 'interno-detalle-tramite',
+          component: () => import(/* webpackChunkName: "interno-detalle-tramite" */ '@/views/Interno/components/DetalleTramite.vue')
+        },
+        {
           path: 'lista-derivaciones',
           name: 'interno-lista-derivaciones',
-          component: () => import(/* webpackChunkName: "lista-derivaciones" */ '@/views/Interno/components/ListaDerivaciones.vue')
+          component: () => import(/* webpackChunkName: "lista-derivaciones" */ '@/views/Interno/components/ListaDerivaciones.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
         },
         {
           path: 'bandeja-derivaciones',
           name: 'interno-bandeja-derivaciones',
-          component: () => import(/* webpackChunkName: "bandeja-derivaciones" */ '@/views/Interno/components/BandejaDerivaciones.vue')
+          component: () => import(/* webpackChunkName: "bandeja-derivaciones" */ '@/views/Interno/components/BandejaDerivaciones.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
         },
         {
           path: 'lista-archivaciones',
           name: 'interno-lista-archivaciones',
-          component: () => import(/* webpackChunkName: "lista-archivaciones" */ '@/views/Interno/components/ListaArchivaciones.vue')
+          component: () => import(/* webpackChunkName: "lista-archivaciones" */ '@/views/Interno/components/ListaArchivaciones.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
         },
         {
-          path: 'detalle-expediente/:id',
+          path: 'detalle-archivacion/:archivation_id/:expedient_id',
+          name: 'interno-detalle-archivacion',
+          component: () => import(/* webpackChunkName: "interno-detalle-archivacion" */ '@/views/Interno/components/DetalleArchivacion.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
+        },
+        {
+          path: 'detalle-expediente/:derivation_id/:expedient_id',
           name: 'interno-detalle-expediente',
-          component: () => import(/* webpackChunkName: "interno-detalle-expediente" */ '@/views/Interno/components/DetalleExpediente.vue')
+          component: () => import(/* webpackChunkName: "interno-detalle-expediente" */ '@/views/Interno/components/DetalleExpediente.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
         },
         {
-          path: 'detalle-expediente-derivar/:id',
+          path: 'detalle-expediente-derivar/:derivation_id/:expedient_id',
           name: 'interno-detalle-expediente-derivar',
-          component: () => import(/* webpackChunkName: "interno-detalle-expediente-derivar" */ '@/views/Interno/components/DetalleExpedienteDerivar.vue')
+          component: () => import(/* webpackChunkName: "interno-detalle-expediente-derivar" */ '@/views/Interno/components/DetalleExpedienteDerivar.vue'),
+          beforeEnter: (to, from, next) => {
+            if (store.state.user.data.employee_type === 'trabajador') {
+              next({ name: 'interno' })
+            } else {
+              next()
+            }
+          }
         }
       ],
       beforeEnter: (to, from, next) => {
@@ -296,6 +369,11 @@ export default new Router({
           path: 'detalle-expediente/:id',
           name: 'externo-detalle-expediente',
           component: () => import(/* webpackChunkName: "externo-bandeja" */ '@/views/Externo/components/DetalleExpediente.vue')
+        },
+        {
+          path: 'perfil-user/:id',
+          name: 'perfil-user',
+          component: () => import(/* webpackChunkName: "perfil-user" */ '@/views/Externo/components/PerfilUser.vue')
         }
       ],
       beforeEnter: (to, from, next) => {

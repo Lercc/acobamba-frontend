@@ -60,7 +60,7 @@
             name: 'LinkedIn',
             visitors: '5,480',
             progress: 70,
-            progressType: 'gradient-success',
+            progressType: 'gradient-info',
           },
           {
             name: 'Google',

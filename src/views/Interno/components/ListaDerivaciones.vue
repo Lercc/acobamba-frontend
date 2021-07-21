@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
+        <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
             <b-row >
                 <b-col class="justify-content-center pb-5">
@@ -42,10 +42,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                <th scope="col">Código</th>                             
+                                <th scope="col">Código</th>
                                 <th scope="col">Derivado a  </th>
-                                 <th scope="col">Fecha de Derivado</th>
-                                    <th scope="col">Estado</th>
+                                <th scope="col">Fecha de Derivado</th>
                                 <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -56,10 +55,9 @@
                                <!--        {{ derivation.attributes.employee_name }} -->
                                         <td>{{derivation.attributes.employee_area}} <br>{{derivation.attributes.employee_name}} </td>
                                         <td>{{ derivation.attributes.createdAt }}</td>
-                                        <td>{{ derivation.attributes.status }}</td>
                                         <td>
                                         <b-button 
-                                            :to="{name: 'interno-detalle-expediente', params: {id: derivation.attributes.id}}"
+                                            :to="{name: 'interno-detalle-expediente', params: {derivation_id: derivation.attributes.id, expedient_id: derivation.attributes.expedient_id }}"
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
@@ -108,9 +106,8 @@ export default {
             this.hasDerivations = false
 
             getUserDerivations(this.$store.state.user.data.id, pPage)
-         
                 .then ((response) => {
-                      console.log('GET=EXP : ' ,response);
+                    console.log('GET=EXP : ' ,response);
                     if (response.data.data) {
                         this.hasDerivations = true
                         this.derivations = response.data.data;

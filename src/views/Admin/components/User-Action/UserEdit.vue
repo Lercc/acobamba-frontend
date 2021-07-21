@@ -231,9 +231,8 @@ import swal from 'sweetalert'
 export default {
     data () {
         return {
-     
             userLoading : false , 
-           errStatus: '',
+            errStatus: '',
             errStatusText: '',
             isNotFound: false,
             userData : {
@@ -286,17 +285,17 @@ export default {
 
             getUser (this.$route.params.id)
                 .then(response => {
-                if (response.data.data) this.userData = response.data.data
+                    if (response.data.data) this.userData = response.data.data
                 })
                 .catch(err => {
-                if (err.response.status == 404)
-                    this.isNotFound = true
-                    this.errStatus = err.response.status
-                    this.errStatusText = err.response.statusText
+                    if (err.response.status == 404)
+                        this.isNotFound = true
+                        this.errStatus = err.response.status
+                        this.errStatusText = err.response.statusText
                 })
                 .finally(() => {
-                this.userLoading = false
-                console.log('peticion office terminada!');
+                    this.userLoading = false
+                    console.log('peticion office terminada!');
                 })
             },
 
@@ -319,37 +318,32 @@ export default {
      
                 updateUser(this.$route.params.id,userFormData)
                     .then(response => {
-                        if(response.data.data){
+                        if(response.data.data)
                             this.userData  =  response.data.data
                             swal('¡Actualización correcta!', 'Ok', 'success')
-                                    .then( res =>{
-                                        if(res == null || res == true || res == false)
-                                        this.router.push({name:'users'})
-                                       })
-                                    } 
-                                }) 
-                             
+                                .then( res =>{
+                                     if(res == null || res == true || res == false)
+                                        this.$router.push({name:'users'})
+                                })
+                    })
                     .catch(err => {
-                            console.log(err.response.data.errors);
-                            if(err.response.status == 422) this.inputErrors = err.response.data.errors
-                        })
-
+                        console.log(err.response);
+                        if(err.response.status == 422) this.inputErrors = err.response.data.errors
+                    })
                     .finally( () => {
-                        this.inputsInitialValues =false
+                        this.inputInitialValues = false
                         console.log('peticion update office terminada!');
                     })
-            
-     
             }, 
 
         showInputErrors(pInput) {
-         if(Object.keys(this.inputErrors).includes(pInput)) return this.inputErrors[pInput]
-         else return []
+            if(Object.keys(this.inputErrors).includes(pInput)) return this.inputErrors[pInput]
+            else return []
         },
 
         showInputStatus(pInput) {
-            if (this.inputInitialValues == true ) return null
-            else if (Object.keys(this.inputErrors).includes(pInput)) return false
+            if (this.inputInitialValues) return null
+            else if (Object.keys(this.inputErrors).includes(pInput)) return !true
             else return !false
         },
     }

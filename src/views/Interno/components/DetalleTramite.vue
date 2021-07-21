@@ -5,7 +5,7 @@
             <!-- Card stats -->
             <b-row >
                 <b-col class="justify-content-center pb-5">
-                    <p class="welcome">DETALLES DEL TRÁMITE</p>
+                    <p class="welcome">DETALLES DEL TRAMITE REALIZADO</p>
                 </b-col>
             </b-row>
         </base-header>
@@ -22,32 +22,41 @@
                             <tbody>
                                 <tr>
                                     <td>Usuario</td>
-                                    <td>{{ `${this.expedientData.processor_name} ${this.expedientData.processor_last_name}` }}</td>
-                                   
-                                </tr>
-                                <tr>
-                                    <td>Correo</td>
-                                    <td>{{ this.expedientData.processor_email }}</td>
+                                    <td v-show="expedientData.employee_id">
+                                        {{ `${expedientData.employee_name  } ${ expedientData.employee_last_name }` }}
+                                    </td>
+                                    <td v-show="expedientData.processor_id">
+                                        {{ `${expedientData.processor_name  } ${ expedientData.processor_last_name }` }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Tipo</td>
-                                    <td>{{ this.expedientData.document_type }}</td>
+                                    <td>{{ expedientData.document_type }} </td>
                                 </tr>
                                 <tr>
                                     <td>Asunto</td>
-                                    <td>{{ this.expedientData.subject }}</td>
+                                    <td>{{ expedientData.subject }}</td>
                                 </tr>
                                 <tr>
                                     <td>Cabecera</td>
-                                    <td>{{ this.expedientData.header }}</td>
+                                    <td>{{ expedientData.header }}</td>
                                 </tr>
                                 <tr>
                                     <td>N° Folios</td>
-                                    <td>{{ this.expedientData.folios }}</td>
+                                    <td>{{ expedientData.folios }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Documento(s)</td>
+                                    <td>
+                                        <b-button @click="downloadFile" size="sm">
+                                            DESCARGAR ARCHIVO
+                                        </b-button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Correo</td>
-                                    <td>{{ this.expedientData.processor_email }}</td>
+                                    <td v-show="expedientData.employee_id">{{ this.expedientData.employee_email }}</td>
+                                    <td v-show="expedientData.processor_id">{{ this.expedientData.processor_email }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -71,12 +80,9 @@
                                     <td>{{ this.expedientData.code }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Oficina</td>
-                                    <td>Trámite externo</td>
-                                </tr>
-                                <tr>
                                     <td>Responsable</td>
-                                    <td>Usuario | Externo</td>
+                                    <td v-show="expedientData.employee_id">Usuario | Interno</td>
+                                    <td v-show="expedientData.processor_id">Usuario | Externo</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -105,7 +111,7 @@
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ derivation.attributes.createdAt }}</td>
                                     <td>
-                                        A: {{ derivation.attributes.employee_area }}
+                                         A: {{ derivation.attributes.employee_area }}
                                         <br>
                                         Por: {{ derivation.attributes.user_name }}
                                     </td>
@@ -161,12 +167,29 @@
 <script>
 import { getExpedient, getExpedientsDerivations, getExpedientsArchivations} from '@/api/expedient';
 
+import FileSaver from 'file-saver';
+
 export default {
     data() {
         return {
+            showPopUpDerivation: false,
+            //
             expedientData: {},
             derivationsData: {},
             archivationData: {},
+            //
+            areaDerivationRadio: 'office',
+            //
+            officeOptions: [],
+            officeOptionsLoading: false,
+            subofficeOptions: [],
+            //
+            officeId: 1,
+            subofficeId: 1,
+            //
+            employeeId: '',
+            //
+            allEmployeesData: []
         }
     },
 
@@ -178,19 +201,21 @@ export default {
 
     methods: {
         getExpedientData () {
-            getExpedient(this.$route.params.id)
+            getExpedient(this.$route.params.expedient_id)
                 .then(response => {
                     this.expedientData = response.data.data.attributes
                 })
                 .catch(err => {
                     console.log(err.response)
+                    // error nul en peticoin de current derivation !
                 })
                 .finally(() => {
                     console.log('peticion de expediente terminada')
                 })
         },
+
         getDerivationsData () {
-            getExpedientsDerivations(this.$route.params.id)
+            getExpedientsDerivations(this.$route.params.expedient_id)
                 .then(response => {
                     if (response.data.data === undefined) {
                         this.derivationsData = {}
@@ -205,8 +230,9 @@ export default {
                     console.log('peticion de derivaciones terminada')
                 })
         },
+
         getArchivationData () {
-            getExpedientsArchivations(this.$route.params.id)
+            getExpedientsArchivations(this.$route.params.expedient_id)
                 .then(response => {
                     if (response.data.data === undefined) {
                         this.archivationData = {}
@@ -221,8 +247,11 @@ export default {
                     console.log('peticion de archivaciones terminada')
                 })
         },
-    }
 
+        downloadFile() {
+            FileSaver.saveAs(`http://localhost:8000/storage/${this.expedientData.file}`);
+        }
+    },
 }
 </script>
 
@@ -235,5 +264,12 @@ export default {
     font-size: 2.5rem;
     text-align: center;
 }
+.officeOptions-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    border: 1px solid #cad1d7;
+    border-radius: 0.375rem;
+}
 </style>
-

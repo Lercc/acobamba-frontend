@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
+        <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
             <b-row >
                 <b-col class="justify-content-center pb-5">
@@ -9,21 +9,13 @@
                 </b-col>
             </b-row>
 
-            <b-row align-h="end">
-                <!-- <b-col cols="auto" class="mb-2">
-                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md">activos</b-button>
-                </b-col> -->
-                <!-- <b-col cols="auto" class="mb-2">
-                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md">desactivados</b-button>
-                </b-col> -->
-            </b-row>
         </base-header>
         
         <b-container fluid class="mt--6">
             <b-row>
                 <b-col cols="12">
                     <b-card v-show="!hasDerivations" class="loader-expedients" no-body>
-                        <p v-show="!expedientsLoading" class="text-center">No tiene tramites realizados</p>
+                        <p v-show="!expedientsLoading" class="text-center">No le han realizado derivaciones</p>
                         <moon-loader v-show="expedientsLoading" :size="100" :color="'#225ba5'" />
                     </b-card>
 
@@ -45,29 +37,26 @@
                                 <th scope="col">Código</th>                             
                                 <th scope="col">Derivado por </th>
                                 <th scope="col">Fecha de Derivación</th>
-                                <th scope="col">Asunto</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(derivation, index) in derivations" :key="`${index}-ext-exp-ent`">
-                                    <th scope="row">{{ derivation.attributes.expedient_code }}</th>
-                                      
-                               <!--        {{ derivation.attributes.employee_name }} -->
-                                        <td>{{derivation.attributes.user_area}} <br>{{derivation.attributes.user_name}}  </td>
+                                        <th scope="row">{{ derivation.attributes.expedient_code }}</th>
+                                        <td>
+                                            {{derivation.attributes.user_area}}
+                                            <br>
+                                            {{derivation.attributes.user_name}}
+                                        </td>
                                         <td>{{ derivation.attributes.createdAt }}</td>
-                                        <td>{{ derivation.attributes.status }}</td>
+                                    <td>{{ derivation.attributes.status }}</td>
                                         <td>
                                         <b-button 
-                                            :to="{name: 'interno-detalle-expediente-derivar', params: {id: derivation.attributes.id}}"
+                                            :to="{name: 'interno-detalle-expediente-derivar', params: {derivation_id: derivation.attributes.id, expedient_id: derivation.attributes.expedient_id }}"
                                             variant="info"
                                             size="sm">ver detalles
-                                        </b-button>
-                                        <b-button 
-                                            @click="descargarArchivo(derivation.attributes.expedient_file)"
-                                            variant="info"
-                                            size="sm">{{ derivation.attributes.expedient_file }}
                                         </b-button>
                                     </td>
                                 </tr>
@@ -91,7 +80,6 @@
 </template>
 <script>
 import { getEmployeeDerivations } from '@/api/employee'
-import FileSaver from 'file-saver';
 
 export default {
     data () {
@@ -114,33 +102,25 @@ export default {
             this.expedientsLoading = true
             this.hasDerivations = false
 
-            getEmployeeDerivations(this.$store.state.user.data.employee_id, pPage)
-         
-                .then ((response) => {
-                      console.log('GET=EXP : ' ,response);
+            getEmployeeDerivations(this.$store.state.user.data.employee_id, pPage) 
+                .then (response => {
+                    console.log(response);
                     if (response.data.data) {
                         this.hasDerivations = true
-                        this.derivations = response.data.data;
+                        this.derivations = response.data.data.filter(el => (el.attributes.status == 'en-proceso' || el.attributes.status == 'nuevo'));
                         [this.meta]=[response.data.meta];
+                        if (this.derivations.length == 0 ) this.hasDerivations = false
                     } else {
                         this.hasDerivations = false
                     }
-                    // console.log("hay registro")
-                    // console.log(response)
                 })
                 .catch ((err) => {
                     console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
-                     //   console.log(" no hay registros")
-                      //  console.log(err.name)
                 })
                 .finally ( () => {
                     console.log('peticion de  expedientes terminada')
                     this.expedientsLoading = false
                 })
-        },
-
-        descargarArchivo(pulr) {
-            FileSaver.saveAs(`http://localhost:8000/storage/${pulr}`);
         }
     },
 

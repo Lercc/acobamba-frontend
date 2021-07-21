@@ -3,13 +3,21 @@
 
             <b-card v-show="userLoading" class="loader-users" no-body>
                 <moon-loader loading :size="60" :color="'#225ba5'" /> 
-            </b-card>  
+            </b-card>   
+      
+            <b-card v-show="isNotFound" class="loader-users" no-body>
+                {{errStatus}}
+                {{errStatusText}}
+            </b-card> 
 
-            <b-card v-show="!userLoading">
+            <b-card v-show="!userLoading  && !isNotFound">
                 <template #header>
                         <b-row align-h="between">
                                 <b-col cols="auto">
-                                    CREAR ADMINISTRADOR
+                                    EDITAR PERFIL 
+                                </b-col>
+                                <b-col cols="auto">
+                                    <b-button @click="cargarDatos" variant="success" size="sm">recargar</b-button>
                                 </b-col>
                             </b-row>
                 </template>
@@ -50,6 +58,26 @@
                     </b-form-group>
                 </b-col>
             </b-form-row>
+
+                  <!-- ROLE_NAME   -->
+            <b-form-row>
+                <b-col>
+                    <b-form-group
+                        label="TIPO DE ROL"
+                    >
+                        <b-form-select
+                            v-model="userData.attributes.role_name"
+                            :options="rolesOptions"
+                            :state="showInputStatus('role_name')"
+                        >
+                        </b-form-select>
+                            <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('role_name')" :key="`${index}-input-role_name`" class="text-danger">
+                            {{ inputError }}
+                           </b-form-invalid-feedback>
+                    </b-form-group>
+                </b-col>
+            </b-form-row>
+
             
         <!-- PHONE   -->
             <b-form-row>
@@ -187,7 +215,7 @@
 
       <b-form-row >
           <b-col class="d-flex justify-content-center">
-            <b-button variant="info" @click="createUser">CREAR</b-button>
+            <b-button variant="info" @click="updateDateUser">ACTUALIZAR</b-button>
           </b-col>
         </b-form-row>
 
@@ -197,7 +225,7 @@
 </template>
 
 <script>
-import {  storeUser } from '@/api/user'
+import { getUser, updateUser } from '@/api/user'
 import swal from 'sweetalert'
 
 export default {
@@ -215,7 +243,7 @@ export default {
                     phone: '',
                     doc_type: 'DNI',
                     doc_number: '',
-                    role_id:1,
+                    role_name:'',
                     email: '',
                     password: '',
                     password_confirmation: '',
@@ -232,6 +260,11 @@ export default {
                    { value: 'dni', text: 'dni'},
                    { value: 'extranjeria', text: 'extranjeria'}    
             ],
+             rolesOptions: [
+                   { value: 'Interno', text: 'Interno'},
+                   { value: 'Externo', text: 'Externo'} ,  
+                   { value: 'Admin', text: 'Admin'}    
+            ],
             inputErrors: {},
             //
             inputInitialValues: true,
@@ -240,18 +273,43 @@ export default {
         }
     },
 
-    methods: {
+      beforeMount () {
+        this.cargarDatos()
+    },
 
-            createUser(){
+
+    methods: {
+         cargarDatos () {
+            this.userLoading = true
+            this.inputsInitialValues = true
+            this.inputErrors = {}
+
+            getUser (this.$route.params.id)
+                .then(response => {
+                    if (response.data.data) this.userData = response.data.data
+                })
+                .catch(err => {
+                    if (err.response.status == 404)
+                        this.isNotFound = true
+                        this.errStatus = err.response.status
+                        this.errStatusText = err.response.statusText
+                })
+                .finally(() => {
+                    this.userLoading = false
+                    console.log('peticion office terminada!');
+                })
+            },
+
+            updateDateUser(){
                 this.inputErrors = {}
 
                 const userFormData =  new FormData()
-                    userFormData.append('.method','post')  
+                    userFormData.append('.method','put')  
                     userFormData.append('name', this.userData.attributes.name) 
                     userFormData.append('last_name' , this.userData.attributes.last_name ) 
-                    userFormData.append('role_id',1) 
-                    userFormData.append('phone',this.userData.attributes.phone )
-                    userFormData.append('doc_type',this.userData.attributes.doc_type)
+                    userFormData.append('role_name',this.userData.role_name) 
+                    userFormData.append('phone',this.userData.phone )
+                    userFormData.append('doc_type',this.userData.doc_type)
                     userFormData.append('doc_number',this.userData.attributes.doc_number)
                     userFormData.append('email',this.userData.attributes.email)
                     userFormData.append('password',this.userData.attributes.password)
@@ -259,14 +317,14 @@ export default {
                     userFormData.append('status',this.userData.attributes.status)
      
      
-                storeUser(userFormData)
+                updateUser(this.$route.params.id,userFormData)
                     .then(response => {
                         if(response.data.data)
-                            this.userFormData  =  response.data.data
-                            swal('¡Registro correcto!', 'Ok', 'success')
+                            this.userData  =  response.data.data
+                            swal('¡Actualización correcta!', 'Ok', 'success')
                                 .then( res =>{
                                      if(res == null || res == true || res == false)
-                                        this.$router.push({name:'users'})
+                                        this.router.push({name:'users'})
                                 })
                     })
                     .catch(err => {
@@ -290,6 +348,7 @@ export default {
             else return !false
         },
     }
+
 }
 </script>
 <style scoped>

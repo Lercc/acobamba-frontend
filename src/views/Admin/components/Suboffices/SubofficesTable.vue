@@ -1,14 +1,14 @@
 <template>
     <div>
-        <b-card v-show="usersLoading" class="loader-expedients" no-body>
+        <b-card v-show="subofficesLoading" class="loader-expedients" no-body>
             <moon-loader loading :size="100" :color="'#225ba5'" />
         </b-card>
 
-        <b-card v-show="!usersLoading" class="table-responsive">
+        <b-card v-show="!subofficesLoading" class="table-responsive">
             <template #header>
                 <b-row align-h="between">
-                    <b-col class="text-center" cols="auto">
-                     ADMINISTRADORES DEL SISTEMA
+                    <b-col cols="auto">
+                        SUBOFICINAS
                     </b-col>
                     <b-col cols="auto">
                         <b-button @click="cargarDatos" variant="danger" size="sm">recargar</b-button>
@@ -19,39 +19,26 @@
             <table class="table">
                 <thead>
                     <tr>
-                    <th scope="col">Acciones</th>
                     <th scope="col">Id</th>
-                    <th scope="col">Nombre</th>   
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Tipo de documento</th>
-                    <th scope="col">Numero de documento</th>                    
-                    <th scope="col">Email</th>
-                    <th scope="col">Estado</th>
-               
-                    
+                    <th scope="col">Oficina</th>
+                    <th scope="col">Suboficina</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(user, index) in users" :key="`${index}-adm-user`">
-                         <td>
+                    <tr v-for="(office, index) in suboffices" :key="`${index}-adm-office`">
+                        <th scope="row">{{ office.attributes.id }}</th>
+                        <td>{{ office.attributes.name }}</td>
+                        <td>{{ office.attributes.office_name }}</td>
+                        <td>{{ office.attributes.status }}</td>
+                        <td>
                             <b-button 
-                                :to="{ name: 'user-edit', params: { id: user.attributes.id }}"
+                                :to="{ name: 'suboffice-edit', params: { id: office.attributes.id }}"
                                 variant="info"
                                 size="sm">editar
                             </b-button>
                         </td>
-                        <th scope="row">{{ user.attributes.id }}</th>
-                        <td>{{ user.attributes.name }}</td>
-                        <td>{{ user.attributes.last_name }}</td>
-                        <td>{{ user.attributes.role_name }}</td>         
-                        <td>{{ user.attributes.phone }}</td>
-                        <td>{{ user.attributes.doc_type }}</td>
-                        <td>{{ user.attributes.doc_number }}</td>
-                        <td>{{ user.attributes.email }}</td>
-                        <td>{{ user.attributes.status }}</td>
-                      
                     </tr>
                 </tbody>
             </table>
@@ -65,19 +52,20 @@
                 </base-pagination>
             </template>
         </b-card>
-
     </div>
 </template>
 
 <script>
-import { getUsers } from '@/api/user'
+import { getSuboffices } from '@/api/suboffice'
 
 export default {
+    name: 'SubofficesTable',
+
     data () {
         return {
-            usersLoading: false,
+            subofficesLoading: false,
             //
-            users: [],
+            suboffices: [],
             //
             meta: {}
         }
@@ -89,11 +77,11 @@ export default {
 
     methods: {
         cargarDatos (pPage) {
-            this.usersLoading = true
-            getUsers(pPage)
+            this.subofficesLoading = true
+            getSuboffices(pPage)
                 .then (response => {
                     if (response.data.data) {
-                        this.users = response.data.data;
+                        this.suboffices = response.data.data;
                         [this.meta]=[response.data.meta];
                     }
                 })
@@ -101,8 +89,8 @@ export default {
                     console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
                 })
                 .finally ( () => {
-                    this.usersLoading = false
-                    console.log('peticion de users terminada')
+                    this.subofficesLoading = false
+                    console.log('peticion de suboffices terminada')
                 })
         }
     },
@@ -110,6 +98,7 @@ export default {
 
 }
 </script>
+
 <style scoped>
 .loader-expedients {
     display: flex;

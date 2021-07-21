@@ -9,7 +9,7 @@
                 <admin-dropdown class="nav-link pr-0">
                     <div class="media align-items-center" slot="title">
                         <div class="media-body ml-2 d-none d-lg-block mr-3">
-                            <span class="mb-0 text-sm  font-weight-bold"> LERCC </span>
+                            <span class="mb-0 text-sm  font-weight-bold">{{ this.$store.state.user.data.name }} {{ this.$store.state.user.data.last_name }}</span>
                         </div>
                         <span class="avatar avatar-sm rounded-circle rounded-circle apk-employee opacity-8">
                           <img class="apk-employee-img" alt="employee" src="/img/icons/apk/logo_social-262x262.png">

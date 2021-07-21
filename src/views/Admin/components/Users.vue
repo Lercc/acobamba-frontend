@@ -1,11 +1,11 @@
 <template>
     <div>
-        <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
+        <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
         
         <b-row>
             <b-col>
-                <b-button :to="{ name: 'users' }" >LISTA DE USUARIOS</b-button>
-                <b-button :to="{ name: 'user-create' }" >CREAR USUARIO</b-button>
+                <b-button :to="{ name: 'users' }" >LISTA DE ADMINISTRADORES</b-button>
+                <b-button :to="{ name: 'user-create' }" >CREAR ADMINISTRADOR</b-button>
             </b-col>
         </b-row>
 
