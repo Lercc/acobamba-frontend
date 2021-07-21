@@ -369,6 +369,11 @@ export default new Router({
           path: 'detalle-expediente/:id',
           name: 'externo-detalle-expediente',
           component: () => import(/* webpackChunkName: "externo-bandeja" */ '@/views/Externo/components/DetalleExpediente.vue')
+        },
+        {
+          path: 'perfil-user/:id',
+          name: 'perfil-user',
+          component: () => import(/* webpackChunkName: "perfil-user" */ '@/views/Externo/components/PerfilUser.vue')
         }
       ],
       beforeEnter: (to, from, next) => {
