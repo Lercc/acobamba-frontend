@@ -48,6 +48,16 @@ export default new Router({
           name: 'login',
           component: () => import(/* webpackChunkName: "login" */ '@/views/Page/components/Login.vue')
         },
+        {
+          path: 'password-recovery/:emailId',
+          name: 'password-recorery',
+          component: () => import(/* webpackChunkName: "login" */ '@/views/Page/components/PasswordRecovery.vue')
+        },
+        {
+          path: 'ddd',
+          name: 'ddd',
+          component: () => import(/* webpackChunkName: "login" */ '@/views/Page/components/DDDDD.vue')
+        },
       ],
       beforeEnter: (to, from, next) => {
         if (Object.keys(store.state.user.data).length !== 0) {
