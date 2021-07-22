@@ -30,8 +30,17 @@ function updateDerivation (pId, pFormData) {
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
     return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
 }
+
+
+function updateStatusDerivation(pId,pFormData){ 
+    const REQUEST = `api/updatestatederivation/${pId}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
+}
+
 export {
     storeDerivation,
     getDerivation,
-    updateDerivation
+    updateDerivation,
+    updateStatusDerivation
 }

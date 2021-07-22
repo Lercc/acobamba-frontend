@@ -20,6 +20,10 @@
                       <i class="ni ni-user-run"></i>
                       <span @click="cerrarSesion">Logout</span>
                     </p>
+                    <p class="dropdown-item mb-0" style="cursor:pointer" @click="enterProfile" >
+                      <i class="ni ni-single-02"></i>
+                      <span >Mi perfil</span>
+                    </p>
                 </admin-dropdown>
             </li>
         </ul>
@@ -55,6 +59,10 @@
 
         this.$store.dispatch('user/userLogout' , null, {root : true})
 
+      },
+
+       enterProfile(){
+             this.$router.push({name:'perfil-interno'})      
       }
 
     },

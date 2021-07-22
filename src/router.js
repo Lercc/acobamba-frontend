@@ -320,6 +320,11 @@ export default new Router({
               next()
             }
           }
+        },
+        {
+          path: 'perfil-interno',
+          name: 'perfil-interno',
+          component: () => import(/* webpackChunkName: "perfil-interno" */ '@/views/Interno/components/PerfilInterno.vue')
         }
       ],
       beforeEnter: (to, from, next) => {
@@ -371,9 +376,9 @@ export default new Router({
           component: () => import(/* webpackChunkName: "externo-bandeja" */ '@/views/Externo/components/DetalleExpediente.vue')
         },
         {
-          path: 'perfil-user/:id',
-          name: 'perfil-user',
-          component: () => import(/* webpackChunkName: "perfil-user" */ '@/views/Externo/components/PerfilUser.vue')
+          path: 'perfil-externo',
+          name: 'perfil-externo',
+          component: () => import(/* webpackChunkName: "perfil-externo" */ '@/views/Externo/components/PerfilExterno.vue')
         }
       ],
       beforeEnter: (to, from, next) => {

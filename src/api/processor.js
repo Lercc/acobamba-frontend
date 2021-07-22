@@ -12,12 +12,18 @@ function getProcessors(pPage = 1) {
 }
 
 //get
-function getProcessor(pIdEmployee) {
-    const REQUEST = `api/processors/${pIdEmployee}`
+function getProcessor(pIdProcessor) {
+    const REQUEST = `api/processors/${pIdProcessor}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+// //show
+// function showProcessor(pIdProcessor) {
+//     const REQUEST = `api/processors/${pIdProcessor}`
+//     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+//     return axios.get(`${API_URL}/${REQUEST}`, { headers })
+// }
 
 // POST
 // function storeProcessor(pFormData) {
@@ -40,5 +46,5 @@ function updateProcessor(pIdProcessor, pFormData) {
 
 
 export {
-    getProcessors ,getProcessor, storeProcessor ,updateProcessor
+    getProcessors ,getProcessor, storeProcessor ,updateProcessor 
 }
