@@ -14,7 +14,7 @@
                 <template #header>
                         <b-row align-h="between">
                                 <b-col cols="auto">
-                                    EDITAR USUARIOS 
+                                    EDITAR USUARIOS DE LA MUNICIPALIDAD DISTRITAL DE ACOBAMBA
                                 </b-col>
                                 <b-col cols="auto">
                                     <b-button @click="cargarDatos" variant="success" size="sm">recargar</b-button>
@@ -25,7 +25,7 @@
             <b-form-row>
                 <b-col>
                     <b-form-group
-                        label="NAME"
+                        label="NOMBRES"
                     >
                         <b-form-input 
                             type="text"
@@ -40,7 +40,7 @@
                 </b-col>
             </b-form-row>
 
-            <!-- LAST_user_name   -->
+            <!-- LAST_NAME   -->
             <b-form-row>
                 <b-col>
                     <b-form-group
@@ -59,7 +59,7 @@
                 </b-col>
             </b-form-row>
 
-                 <!-- EMAIL   -->
+                <!-- EMAIL   -->
             <b-form-row>
                 <b-col>
                     <b-form-group
@@ -71,7 +71,7 @@
                             :state="showInputStatus('user_email')"
                         >
                           </b-form-input>
-                        <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('user_email')" :key="`${index}-user_input-email`" class="text-danger">
+                        <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('user_email')" :key="`${index}-input-user_email`" class="text-danger">
                                     {{ inputError }}
                          </b-form-invalid-feedback>
 
@@ -99,46 +99,59 @@
             </b-form-row>
 
 
-                  <!-- OFICINAS  -->
-                <b-form-row>
-                <b-col>
-                    <b-form-group
-                    label="OFICINA"
-                    >
-                    <b-form-select
-                        v-model="userInternoData.attributes.office_id"
-                        :options="officeOptions"
-                        :state="showInputStatus('office_name')"
-                    >
-                    </b-form-select>
+              <b-form-row>
+                            <b-col>
+                                <b-form-group>
+                                    <b-form-radio-group
+                                        v-model="typeOfficeRadioSelect"
+                                        class="d-flex justify-content-around"
+                                        buttons
+                                        button-variant="outline-info"
+                                          @change="inputRadioOfficeSubofficeChanged"
+                                    >
+                                        <b-form-radio value="office">Selecciona una oficina</b-form-radio>
+                                        <b-form-radio value="suboffice">Selecciona una sub-oficina</b-form-radio>
+                                    </b-form-radio-group>
+                                </b-form-group>
+                            </b-col>
+                        </b-form-row>
 
-                    <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('office_name')" :key="`${index}-input-status`" class="text-danger">
-                        {{ inputError }}
-                    </b-form-invalid-feedback>
-                    </b-form-group>
-                </b-col>
-                </b-form-row>
+                        <b-form-row v-if="typeOfficeRadioSelect == 'office'">
+                            <b-col>
+                                <b-form-group
+                                    label="Selecciona la Oficina: "
+                                >                               
 
-       <!-- sUB-OFICINAS  -->
-                <b-form-row>
-                <b-col>
-                    <b-form-group
-                    label="SUB_OFICINA"
-                    >
-                    <b-form-select
-                        v-model="userInternoData.attributes.suboffice_id"
-                        :options="subofficeOptions"
-                        :state="showInputStatus('suboffice_name')"
-                    >
-                    </b-form-select>
+                                    <b-form-select
+                                        placeholder="Selecione office"
+                                        v-model="userInternoData.attributes.office_id"
+                                        :options="officeOptions"
+                                    >
+                                      <template #first>
+                                            <b-form-select-option value='' disabled>-- Selecciona un oficina --</b-form-select-option>
+                                        </template>
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                        </b-form-row>
 
-                    <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('office_name')" :key="`${index}-input-status`" class="text-danger">
-                        {{ inputError }}
-                    </b-form-invalid-feedback>
-                    </b-form-group>
-                </b-col>
-                </b-form-row>       
-
+                        <b-form-row v-else>
+                            <b-col>
+                                <b-form-group
+                                    label="Selecciona la Suboficina: "
+                                >
+                                    <b-form-select
+                                        placeholder="Selecione suboffice"
+                                        v-model="userInternoData.attributes.suboffice_id"
+                                        :options="subofficeOptions"
+                                    >
+                                      <template #first>
+                                            <b-form-select-option value='' disabled>-- Selecciona una suboficina --</b-form-select-option>
+                                        </template>
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                        </b-form-row>
                  <b-form-row>
                     <b-col>
                             <b-form-group
@@ -208,8 +221,13 @@ export default {
             inputInitialValues: true,
     
 
-        }
+     }
     },
+    // },
+
+    //   beforeMount () {
+    //     this.cargarDatos()
+    // },
 
       beforeMount () {
         this.cargarDatos()
@@ -247,8 +265,7 @@ export default {
                 const userInternoFormData =  new FormData()
                     userInternoFormData.append('.method','put')  
                     userInternoFormData.append('user_name', this.userInternoData.attributes.user_name) 
-                    userInternoFormData.append('last_user_name' , this.userInternoData.attributes.last_user_name ) 
-                    userInternoFormData.append('role_user_name',this.userInternoData.role_user_name) 
+                    userInternoFormData.append('user_last_name' , this.userInternoData.attributes.user_last_name ) 
                     userInternoFormData.append('phone',this.userInternoData.phone )
                     userInternoFormData.append('doc_type',this.userInternoData.doc_type)
                     userInternoFormData.append('doc_number',this.userInternoData.attributes.doc_number)
@@ -265,7 +282,7 @@ export default {
                             swal('¡Actualización correcta!', 'Ok', 'success')
                                 .then( res =>{
                                      if(res == null || res == true || res == false)
-                                        this.router.push({name:'userInternos'})
+                                        this.$router.push({name:'userInternos'})
                                 })
                     })
                     .catch(err => {
@@ -305,9 +322,10 @@ export default {
                         this.subofficeOptions = res.data.data.map( e => ({ 'value': e.attributes.id, 'text': e.attributes.name}))
                 })
             },
-    }
+    
 
 }
+    }
 </script>
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');

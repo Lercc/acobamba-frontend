@@ -4,8 +4,8 @@
         
         <b-row>
             <b-col>
-                <b-button :to="{ name: 'users' }" >LISTA DE USUARIOS</b-button>
-                <b-button :to="{ name: 'user-create' }" >CREAR USUARIO</b-button>
+                <b-button :to="{ name: 'users' }" >LISTA DE ADMINISTRADORES</b-button>
+                <b-button :to="{ name: 'user-create' }" >CREAR ADMINISTRADOR</b-button>
             </b-col>
         </b-row>
 

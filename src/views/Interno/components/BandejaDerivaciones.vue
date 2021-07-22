@@ -51,10 +51,14 @@
                                             {{derivation.attributes.user_name}}
                                         </td>
                                         <td>{{ derivation.attributes.createdAt }}</td>
-                                    <td>{{ derivation.attributes.status }}</td>
+
                                         <td>
-                                        <b-button
-                                            :to="{name: 'interno-detalle-expediente-derivar', params: {derivation_id: derivation.attributes.id, expedient_id: derivation.attributes.expedient_id }}"
+                                            <span :class=" derivation.attributes.status == 'nuevo' ? 'badge badge-success' : 'badge badge-warning' "> {{derivation.attributes.status}}</span>
+                                        </td>
+                                                                    
+                                        <td>
+                                        <b-button 
+                                            @click="changeStatus(derivation.attributes.id,derivation.attributes.expedient_id)"                                            
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
@@ -80,6 +84,7 @@
 </template>
 <script>
 import { getEmployeeDerivations } from '@/api/employee'
+import { updateStatusDerivation } from '@/api/derivation'
 
 export default {
     data () {
@@ -107,7 +112,7 @@ export default {
                     console.log(response);
                     if (response.data.data) {
                         this.hasDerivations = true
-                        this.derivations = response.data.data.filter(el => (el.attributes.status == 'en-proceso' || el.attributes.status == 'nuevo'));
+                        this.derivations = response.data.data.filter(el => (el.attributes.status == 'en proceso' || el.attributes.status == 'nuevo'));
                         [this.meta]=[response.data.meta];
                         if (this.derivations.length == 0 ) this.hasDerivations = false
                     } else {
@@ -121,9 +126,26 @@ export default {
                     console.log('peticion de  expedientes terminada')
                     this.expedientsLoading = false
                 })
+        },
+
+        changeStatus(pDerivationId ,pExpedientId){
+
+            const updateStatusForm =  new FormData() 
+            updateStatusForm.append('.method','put')  
+            updateStatusForm.append('status','en proceso')
+           
+            updateStatusDerivation(pDerivationId, updateStatusForm)
+           .then((response) =>{   
+               console.log(response)           
+                this.$router.push({
+                    name:'interno-detalle-expediente-derivar',
+                    params : { 
+                        derivation_id : pDerivationId , 
+                        expedient_id : pExpedientId 
+                    }})                    
+            })
         }
     },
-
 
 }
 </script>

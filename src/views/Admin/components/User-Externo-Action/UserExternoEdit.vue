@@ -1,181 +1,144 @@
 <template>
     <div>
-        <h2>  template office edit {{ this.$route.params.id}}</h2>
+            <b-card v-show="processorLoading" class="loader-processors" no-body>
+                <moon-loader loading :size="60" :color="'#225ba5'" /> 
+            </b-card>  
 
-        <!-- 
-            <b-card v-show="!this.$route.params.id" class="loader-users" no-body>
-                <p v-show="!this.$route.params.id" class="text-center">Selecciona un usuario para editar</p>
-                <moon-loader v-show="userLoading" :size="100" :color="'#225ba5'" /> 
-            </b-card>   
-            <b-container v-show="!this.$route.params.id" fluid class="mt--3">
-        -->
-        
+             <b-card v-show="isNotFound" class="loader-userInternos" no-body>
+                {{errStatus}}
+                {{errStatusText}}
+            </b-card> 
 
-        <b-container fluid class="mt--3">
-            <b-row >
-                <b-col cols="12">             
-                    <b-card
-                        header="EDITAR USUARIO"
+            <b-card v-show="!processorLoading && !isNotFound" >
+                <template #header>
+                        <b-row align-h="between">
+                                <b-col cols="auto">
+                                    EDITAR USUARIO EXTERNO
+                                </b-col>
+                                <b-col cols="auto">
+                                    <b-button @click="cargarDatos" variant="success" size="sm">recargar</b-button>
+                                </b-col>
+                            </b-row>
+                </template>
+
+            <b-form-row>
+                <b-col>
+                    <b-form-group
+                        label="NAME"
                     >
-                     <!-- NAME  -->
-                        <b-form-row>
-                            <b-col>
-                                <b-form-group
-                                    label="NAME"
-                                >
-                                    <b-form-input 
-                                      type="text"
-                                      v-model="name"
-                                      :state="inputStatus('name')"
-                                  />
-                                </b-form-group>
-                            </b-col>
-                        </b-form-row>
-
-                     <!-- LAST_NAME   -->
-                        <b-form-row>
-                            <b-col>
-                                <b-form-group
-                                    label="APELLIDO"
-                                >
-                                    <b-form-input 
-                                      type="text"
-                                      v-model="last_name"
-                                      :state="inputStatus('last_name')"
-                                  />
-                                </b-form-group>
-                            </b-col>
-                        </b-form-row>
-
-                        
-                   <!-- PHONE   -->
-                        <b-form-row>
-                            <b-col>
-                                <b-form-group
-                                    label="NUMERO DE CELULAR"
-                                >
-                                   <b-form-input 
-                                      type="number"
-                                      v-model="phone"
-                                      :state="inputStatus('phone')"
-                                  />
-                                </b-form-group>
-                            </b-col>
-                        </b-form-row>
-
-                   <!-- TIPO DOCUMENTO   -->
-                        <b-form-row>
-                            <b-col>
-                                <b-form-group
-                                    label="TIPO DOCUMENTO"
-                                >
-                                    <b-form-select
-                                        v-model="doc_type"
-                                        :options="options"
-                                        :state="inputStatus('doc_type')"
-                                    />
-                                </b-form-group>
-                            </b-col>
-                        </b-form-row>
-                      <!-- NUMERO DE DOCUMENTO  -->
-                                <b-form-row>
-                                    <b-col>
-                                        <b-form-group
-                                            label="NUMERO DE DOCUMENTO"
-                                        >
-                                          <b-form-input 
-                                              type="number"
-                                              v-model="doc_number"
-                                              :state="inputStatus('doc_number')"
-                                          />
-                                        </b-form-group>
-                                    </b-col>
-                                </b-form-row>
-
-                      <!-- EMAIL   -->
-                        <b-form-row>
-                            <b-col>
-                                <b-form-group
-                                    label="CORREO ELECTRONICO"
-                                >
-                                <b-form-input 
-                                      type="email"
-                                      v-model="email"
-                                      :state="inputStatus('email')"
-                                  />
-                                </b-form-group>
-                            </b-col>
-                        </b-form-row>
-
-                    <!-- PASSWORD   -->
-                        <b-form-row>
-                            <b-col>
-                                <b-form-group
-                                    label="CONTRASEÑA"
-                                >
-                                <b-form-input 
-                                      type="password"
-                                      v-model="password"
-                                      :state="inputStatus('password')"
-                                  />
-                                </b-form-group>
-                            </b-col>
-                        </b-form-row>
-
-                       <!-- CONFIRMA PASSWORD   -->
-                        <b-form-row>
-                            <b-col>
-                                <b-form-group
-                                    label="CONFIRMA TU CONTRASEÑA"
-                                >
-                                <b-form-input 
-                                      type="password"
-                                      v-model="password_confirmation"
-                                      :state="inputStatus('password_confirmation')"
-                                  />
-                                </b-form-group>
-                            </b-col>
-                        </b-form-row>
-
-                        <b-button @click="cancelEdit">
-                          Cancelar
-                        </b-button>
-
-                         <b-button @click="ediUser">
-                          Actualizar
-                        </b-button>
-
-                    </b-card>
+                        <b-form-input 
+                            type="text"
+                            v-model="processorData.attributes.user_name"
+                            :state="showInputStatus('user_name')"
+                        >
+                        </b-form-input>
+                        <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('user_name')" :key="`${index}-input-user_name`" class="text-danger">
+                            {{ inputError }}
+                        </b-form-invalid-feedback>
+                    </b-form-group>
                 </b-col>
-            </b-row>
-        </b-container>
+            </b-form-row>
+
+            <!-- LAST_NAME   -->
+            <b-form-row>
+                <b-col>
+                    <b-form-group
+                        label="APELLIDOS"
+                    >
+                        <b-form-input 
+                            type="text"
+                            v-model="processorData.attributes.user_last_name"
+                            :state="showInputStatus('user_last_name')"
+                        >
+                          </b-form-input>
+                            <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('user_last_name')" :key="`${index}-input-user_last_name`" class="text-danger">
+                            {{ inputError }}
+                           </b-form-invalid-feedback>
+                    </b-form-group>
+                </b-col>
+            </b-form-row>
+
+            <!-- EMAIL   -->
+            <b-form-row>
+                <b-col>
+                    <b-form-group
+                        label="CORREO ELECTRONICO"
+                    >
+                    <b-form-input 
+                            type="email"
+                            v-model="processorData.attributes.user_email"
+                            :state="showInputStatus('user_email')"
+                        >
+                          </b-form-input>
+                        <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('user_email')" :key="`${index}-input-email`" class="text-danger">
+                                    {{ inputError }}
+                         </b-form-invalid-feedback>
+
+                    </b-form-group>
+                </b-col>
+            </b-form-row>
+
+
+            <b-form-row>
+                <b-col>
+                    <b-form-group
+                    label="ESTADO"
+                    >
+                    <b-form-select
+                        v-model="processorData.attributes.user_status"
+                        :options="statusOptions"
+                        :state="showInputStatus('user_status')"
+                    >
+                    </b-form-select>
+
+                    <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('user_status')" :key="`${index}-input-user_status`" class="text-danger">
+                        {{ inputError }}
+                    </b-form-invalid-feedback>
+                    </b-form-group>
+                </b-col>
+          </b-form-row>
+
+      <b-form-row >
+          <b-col class="d-flex justify-content-center">
+            <b-button variant="info" @click="updateDateProcessor">ACTUALIZAR</b-button>
+          </b-col>
+        </b-form-row>
+
+        </b-card>
 
     </div>
 </template>
 
 <script>
-import { storeExpedient } from '@/api/expedient'
+import { getProcessor , updateProcessor } from '@/api/processor'
 import swal from 'sweetalert'
 
 export default {
     data () {
         return {
-            state: false,
-            exitIdUser: false , 
-            userLoading : false , 
-            name: '',
-            last_name : '',
-            phone: '',
-            doc_type: 'DNI',
-            doc_number: '',
-            email: '',
-            password: '',
-            password_confirmation: '',
-            options: [
-                { value: 'DNI', text: 'DNI'},
-                { value: 'EXTRANJERIA', text: 'EXTRANJERIA' },
+            processorLoading : false , 
+             errStatus: '',
+            errStatusText: '',
+            isNotFound: false,
+            processorData : {
+                attributes : {
+                    id: this.$route.params.id , 
+                    user_name: '',
+                    user_last_name : '',
+                    user_email: '',
+                    user_status: 'activado',
+                }
+            }, 
+
+            statusOptions: [
+                  { value: 'activado', text: 'activado'},
+                   { value: 'desactivado', text: 'desactivado'}    
             ],
             //
+            doc_typeOptions: [
+                   { value: 'dni', text: 'dni'},
+                   { value: 'extranjeria', text: 'extranjeria'}    
+            ],
             inputErrors: {},
             //
             inputInitialValues: true,
@@ -183,74 +146,75 @@ export default {
 
         }
     },
-
-    computed: {
-        setHeader () {
-            const time = new Date()
-            return `${this.document_type}-${time.getDate()}/${time.getMonth() + 1}/${time.getFullYear()}`
-        }
+    beforeMount () {
+        this.cargarDatos()  
     },
 
+
     methods: {
-        createExpedient () {
+         cargarDatos () {
+            this.userExternoLoading = true
+            this.inputsInitialValues = true
             this.inputErrors = {}
-            let expedientFormData = new FormData()
 
-            expedientFormData.append('processor_id', this.$store.state.user.data.processor_id)
-            expedientFormData.append('document_type', this.document_type)
-            expedientFormData.append('header', this.setHeader)
-            expedientFormData.append('subject', this.subject)
-            expedientFormData.append('folios', this.folios)
-            expedientFormData.append('file', this.file)
-            expedientFormData.append('status', 'activado')
-
-            // console.log(expedientFormData.get('file'))
-            storeExpedient(expedientFormData)
+            getProcessor (this.$route.params.id)
                 .then(response => {
-                    if (response.status == 201) {
-                        swal('Registro exitoso!', `codigo de expediente: ${response.data.data.attributes.code}`, 'success')
-                            .then( res => {
-                                    console.log(res);
-
-                                switch (res) {
-                                    case true:
-                                    case null:
-                                    case false :
-                                        this.$router.push({name: 'externo-tramites-realizados'})
-                                        break
-                                    default :
-                                        console.log('swal break exp')
-                                }
-                            })
-                       this.clearData()
-                    }
+                    if (response.data.data) this.processorData = response.data.data
                 })
                 .catch(err => {
-                    if (err.response){
-                        if (err.response.status == 422) {
-                            this.inputErrors = err.response.data.errors
-                        }
-                    }
+                    if (err.response.status == 404)
+                        this.isNotFound = true
+                        this.errStatus = err.response.status
+                        this.errStatusText = err.response.statusText
                 })
                 .finally(() => {
-                    this.inputInitialValues = false
-                    console.log('request de exp terminada!');
+                    this.userExternoLoading = false
+                    console.log('peticion user externo terminada!');
                 })
-        },
+            },
+
+            updateDateProcessor(){
+                this.inputErrors = {}
+
+                const processorFormData =  new FormData()
+                    processorFormData.append('.method','put')  
+                    processorFormData.append('name', this.processorData.attributes.user_name) 
+                    processorFormData.append('last_name' , this.processorData.attributes.user_last_name ) 
+                    processorFormData.append('email',this.processorData.attributes.user_email)
+                    processorFormData.append('status',this.processorData.attributes.user_status)
+     
+     
+                updateProcessor(this.$route.params.id,processorFormData)
+                    .then(response => {
+                        if(response.data.data)
+                            this.processorFormData  =  response.data.data
+                            swal('¡Registro correcto!', 'Ok', 'success')
+                                .then( res =>{
+                                     if(res == null || res == true || res == false)
+                                        this.$router.push({name:'users-externos'})
+                                })
+                    })
+                    .catch(err => {
+                        console.log(err.response);
+                        if(err.response.status == 422) this.inputErrors = err.response.data.errors
+                    })
+                    .finally( () => {
+                        this.inputInitialValues = false
+                        console.log('peticion update de user externo terminada!');
+                    })
+            }, 
 
         showInputErrors(pInput) {
-            const errorKeys = Object.keys(this.inputErrors)
-            if (errorKeys.includes(pInput)) return this.inputErrors[pInput]
+            if(Object.keys(this.inputErrors).includes(pInput)) return this.inputErrors[pInput]
             else return []
         },
 
-        inputStatus(pInput) {
-            if (this.inputInitialValues == true ) return null
-            else if (Object.keys(this.inputErrors).includes(pInput)) return false
-            else return true
+        showInputStatus(pInput) {
+            if (this.inputInitialValues) return null
+            else if (Object.keys(this.inputErrors).includes(pInput)) return !true
+            else return !false
         },
     }
-
 }
 </script>
 <style scoped>
@@ -262,7 +226,7 @@ export default {
     font-size: 2.5rem;
     text-align: center;
 }
-.loader-users {
+.loader-processors {
     display: flex;
     align-items: center;
     justify-content: center;

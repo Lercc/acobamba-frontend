@@ -263,8 +263,7 @@ export default {
              rolesOptions: [
                    { value: 'Interno', text: 'Interno'},
                    { value: 'Externo', text: 'Externo'} ,  
-                   { value: 'Admin', text: 'Admin'}    
-            ],
+                           ],
             inputErrors: {},
             //
             inputInitialValues: true,
@@ -324,7 +323,7 @@ export default {
                             swal('¡Actualización correcta!', 'Ok', 'success')
                                 .then( res =>{
                                      if(res == null || res == true || res == false)
-                                        this.router.push({name:'users'})
+                                        this.$router.push({name:'users'})
                                 })
                     })
                     .catch(err => {

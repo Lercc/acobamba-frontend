@@ -1,38 +1,41 @@
 <template>
-    <div>
-
-            <b-card v-show="userLoading" class="loader-users" no-body>
-                <moon-loader loading :size="60" :color="'#225ba5'" /> 
-            </b-card>  
-
-            <b-card v-show="!userLoading">
+    <b-container fluid class="py-5">
+        <b-row class="justify-content-center">
+            <b-col cols="12" sm="10" md="8" lg="6" xl="5">
+                <b-card v-show="processorLoading" class="loader-login" no-body>
+                    <moon-loader :size="100" :color="'#225ba5'" />
+                </b-card>
+                
+                <b-card v-show="!processorLoading">
                 <template #header>
-                        <b-row align-h="between">
-                                <b-col cols="auto">
-                                    CREAR ADMINISTRADOR
+                        <b-row align-h="between" >
+                                <b-col cols="auto" >
+                                <h2> REGISTRO DE USUARIO </h2>
+                                  
                                 </b-col>
                             </b-row>
                 </template>
+                    
 
-            <b-form-row>
-                <b-col>
-                    <b-form-group
-                        label="NAME"
-                    >
-                        <b-form-input 
-                            type="text"
-                            v-model="userData.attributes.name"
-                            :state="showInputStatus('name')"
-                        >
-                        </b-form-input>
-                        <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('name')" :key="`${index}-input-name`" class="text-danger">
-                            {{ inputError }}
-                        </b-form-invalid-feedback>
-                    </b-form-group>
-                </b-col>
-            </b-form-row>
-
-            <!-- LAST_NAME   -->
+              
+                      <b-form-row>
+                        <b-col>
+                            <b-form-group
+                                label="Nombre"
+                            >
+                                <b-form-input 
+                                    type="text"
+                                    v-model="processorData.attributes.name"
+                                    :state="showInputStatus('name')"
+                                >
+                                </b-form-input>
+                                <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('name')" :key="`${index}-input-name`" class="text-danger">
+                                    {{ inputError }}
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                        </b-col>
+                    </b-form-row>
+                      <!-- LAST_NAME   -->
             <b-form-row>
                 <b-col>
                     <b-form-group
@@ -40,7 +43,7 @@
                     >
                         <b-form-input 
                             type="text"
-                            v-model="userData.attributes.last_name"
+                            v-model="processorData.attributes.last_name"
                             :state="showInputStatus('last_name')"
                         >
                           </b-form-input>
@@ -59,7 +62,7 @@
                     >
                         <b-form-input 
                             type="number"
-                            v-model="userData.attributes.phone"
+                            v-model="processorData.attributes.phone"
                             :state="showInputStatus('phone')"
                         >
                           </b-form-input>
@@ -79,7 +82,7 @@
                         label="TIPO DOCUMENTO"
                     >
                         <b-form-select
-                            v-model="userData.attributes.doc_type"
+                            v-model="processorData.attributes.doc_type"
                             :options= "doc_typeOptions"
                             :state="showInputStatus('doc_type')"
                         >      
@@ -100,7 +103,7 @@
                             >
                                 <b-form-input 
                                     type="number"
-                                    v-model="userData.attributes.doc_number"
+                                    v-model="processorData.attributes.doc_number"
                                     :state="showInputStatus('doc_number')"
                                 >
                                   </b-form-input>
@@ -119,7 +122,7 @@
                     >
                     <b-form-input 
                             type="email"
-                            v-model="userData.attributes.email"
+                            v-model="processorData.attributes.email"
                             :state="showInputStatus('email')"
                         >
                           </b-form-input>
@@ -139,11 +142,11 @@
                     >
                     <b-form-input 
                             type="password"
-                            v-model="userData.attributes.password"
+                            v-model="processorData.attributes.password"
                             :state="showInputStatus('password')"
                     >
                       </b-form-input>
-                          <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('email')" :key="`${index}-input-email`" class="text-danger">
+                          <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('password')" :key="`${index}-input-email`" class="text-danger">
                                     {{ inputError }}
                          </b-form-invalid-feedback>
                     </b-form-group>
@@ -158,117 +161,93 @@
                     >
                     <b-form-input 
                             type="password"
-                            v-model="userData.attributes.password_confirmation"
+                            v-model="processorData.attributes.password_confirmation"
                             :state="showInputStatus('password_confirmation')"
                     >
                       </b-form-input>
                     </b-form-group>
                 </b-col>
-            </b-form-row>
-
-                 <b-form-row>
-          <b-col>
-            <b-form-group
-              label="estado"
-            >
-              <b-form-select
-                v-model="userData.attributes.status"
-                :options="statusOptions"
-                :state="showInputStatus('status')"
-              >
-              </b-form-select>
-
-              <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('status')" :key="`${index}-input-status`" class="text-danger">
-                {{ inputError }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </b-col>
-        </b-form-row>
-
-      <b-form-row >
-          <b-col class="d-flex justify-content-center">
-            <b-button variant="info" @click="createUser">CREAR</b-button>
-          </b-col>
-        </b-form-row>
-
-        </b-card>
-
-    </div>
+            </b-form-row>                        
+              <b-form-row class="justify-content-center borde">
+                        <b-col cols="12" sm="12"  class="borde" >
+                                <b-button class="col-12" variant="primary" @click="createProcessor">Registrarse</b-button>
+                        </b-col>
+                    </b-form-row>
+                </b-card>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
-import {  storeUser } from '@/api/user'
-import swal from 'sweetalert'
+
+ import {  storeProcessor } from '@/api/processor'
+ //import swal from 'sweetalert'
 
 export default {
+    'name': 'Register',
+
     data () {
         return {
-            userLoading : false , 
-            errStatus: '',
-            errStatusText: '',
-            isNotFound: false,
-            userData : {
+            processorLoading : false , 
+            processorData : {
                 attributes : {
                     id: this.$route.params.id , 
                     name: '',
                     last_name : '',
                     phone: '',
-                    doc_type: 'DNI',
+                    doc_type: 'dni',
                     doc_number: '',
                     role_id:1,
                     email: '',
                     password: '',
                     password_confirmation: '',
-                    status: ''
+                    status: 'activado'
                 }
             }, 
-
-            statusOptions: [
-                  { value: 'activado', text: 'activado'},
-                   { value: 'desactivado', text: 'desactivado'}    
-            ],
-            //
             doc_typeOptions: [
                    { value: 'dni', text: 'dni'},
                    { value: 'extranjeria', text: 'extranjeria'}    
             ],
-            inputErrors: {},
-            //
+               inputErrors: {},
             inputInitialValues: true,
-    
-
+          
         }
     },
 
     methods: {
+        createProcessor(){
+           this.inputErrors = {}
 
-            createUser(){
-                this.inputErrors = {}
+            const processorFormData =  new FormData()
+                processorFormData.append('.method','post')  
+                processorFormData.append('name', this.processorData.attributes.name) 
+                processorFormData.append('last_name' , this.processorData.attributes.last_name ) 
+                processorFormData.append('role_id',3) 
+                processorFormData.append('phone',this.processorData.attributes.phone )
+                processorFormData.append('doc_type',this.processorData.attributes.doc_type)
+                processorFormData.append('doc_number',this.processorData.attributes.doc_number)
+                processorFormData.append('email',this.processorData.attributes.email)
+                processorFormData.append('password',this.processorData.attributes.password)
+                processorFormData.append('password_confirmation',this.processorData.attributes.password_confirmation)
+                processorFormData.append('status',this.processorData.attributes.status)
 
-                const userFormData =  new FormData()
-                    userFormData.append('.method','post')  
-                    userFormData.append('name', this.userData.attributes.name) 
-                    userFormData.append('last_name' , this.userData.attributes.last_name ) 
-                    userFormData.append('role_id',1) 
-                    userFormData.append('phone',this.userData.attributes.phone )
-                    userFormData.append('doc_type',this.userData.attributes.doc_type)
-                    userFormData.append('doc_number',this.userData.attributes.doc_number)
-                    userFormData.append('email',this.userData.attributes.email)
-                    userFormData.append('password',this.userData.attributes.password)
-                    userFormData.append('password_confirmation',this.userData.attributes.password_confirmation)
-                    userFormData.append('status',this.userData.attributes.status)
-     
-     
-                storeUser(userFormData)
+
+                storeProcessor(processorFormData)
                     .then(response => {
-                        if(response.data.data)
-                            this.userFormData  =  response.data.data
-                            swal('¡Registro correcto!', 'Ok', 'success')
-                                .then( res =>{
-                                     if(res == null || res == true || res == false)
-                                        this.$router.push({name:'users'})
-                                })
-                    })
+                        if(response.data.data){
+                            this.processorData  =  response.data.data
+                        //    swal('¡Registro correcto!', 'Ok', 'success')
+                            //     .then( res =>{
+                            //         if(res == null || res == true || res == false)
+                            //             this.$router.push({name:'users-externos'})
+                            // })   
+                            this.$router.push({name:'login'})
+                            console.log(response)   
+                        }       
+                             
+                     })
+                            
                     .catch(err => {
                         console.log(err.response);
                         if(err.response.status == 422) this.inputErrors = err.response.data.errors
@@ -279,29 +258,24 @@ export default {
                     })
             }, 
 
-        showInputErrors(pInput) {
-            if(Object.keys(this.inputErrors).includes(pInput)) return this.inputErrors[pInput]
-            else return []
-        },
+            showInputErrors(pInput) {
+                    if(Object.keys(this.inputErrors).includes(pInput)) return this.inputErrors[pInput]
+                    else return []
+                },
 
-        showInputStatus(pInput) {
-            if (this.inputInitialValues) return null
-            else if (Object.keys(this.inputErrors).includes(pInput)) return !true
-            else return !false
-        },
-    }
+            showInputStatus(pInput) {
+                if (this.inputInitialValues) return null
+                else if (Object.keys(this.inputErrors).includes(pInput)) return !true
+                else return !false
+            },
+
+    },
+
 }
 </script>
+
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
-.welcome {
-    padding: 0 25px;
-    color: white;
-    font-family: 'Bungee', cursive;
-    font-size: 2.5rem;
-    text-align: center;
-}
-.loader-users {
+.loader-login {
     display: flex;
     align-items: center;
     justify-content: center;

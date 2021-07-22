@@ -58,6 +58,11 @@ export default new Router({
           name: 'ddd',
           component: () => import(/* webpackChunkName: "login" */ '@/views/Page/components/DDDDD.vue')
         },
+        {
+          path: 'register',
+          name: 'register',
+          component: () => import(/* webpackChunkName: "register" */ '@/views/Page/components/Register.vue')
+        },
       ],
       beforeEnter: (to, from, next) => {
         if (Object.keys(store.state.user.data).length !== 0) {
@@ -325,6 +330,11 @@ export default new Router({
               next()
             }
           }
+        },
+        {
+          path: 'perfil-interno',
+          name: 'perfil-interno',
+          component: () => import(/* webpackChunkName: "perfil-interno" */ '@/views/Interno/components/PerfilInterno.vue')
         }
       ],
       beforeEnter: (to, from, next) => {
@@ -374,6 +384,11 @@ export default new Router({
           path: 'detalle-expediente/:id',
           name: 'externo-detalle-expediente',
           component: () => import(/* webpackChunkName: "externo-bandeja" */ '@/views/Externo/components/DetalleExpediente.vue')
+        },
+        {
+          path: 'perfil-externo',
+          name: 'perfil-externo',
+          component: () => import(/* webpackChunkName: "perfil-externo" */ '@/views/Externo/components/PerfilExterno.vue')
         }
       ],
       beforeEnter: (to, from, next) => {

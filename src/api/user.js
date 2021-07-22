@@ -27,6 +27,13 @@ function getUser(pIdUser) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+// POST
+function storeUser(pFormData) {
+    const REQUEST = `api/users`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
+}
+
 // UPDATE
 function updateUser(pIdUser, pFormData) {
     const REQUEST = `api/users/${pIdUser}`
@@ -38,4 +45,4 @@ function updateUser(pIdUser, pFormData) {
 
 
 
-export { getUserDerivations, getUserArchivations,getUsers,getUser,updateUser }
+export { getUserDerivations, getUserArchivations,getUsers,getUser,storeUser,updateUser }
