@@ -11,7 +11,7 @@ module.exports = {
     ]
   },
   pwa: {
-    name: 'apk',
+    name: 'GESTRAM-MDA',
     themeColor: '#221d4b',
     msTileColor: '#221d4b',
     appleMobileWebAppCapable: 'yes',

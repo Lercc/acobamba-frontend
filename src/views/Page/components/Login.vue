@@ -68,7 +68,7 @@
                     </b-form-row>
 
                       <b-form-row class="justify-content-center borde mt-5">
-                        <a href="#">¿Olvidates tu contraseña?</a>
+                        <b-button :to="{name: 'ddd'}" variant="link">¿Olvidates tu contraseña  ?</b-button>
                     </b-form-row>
 
                 </b-card>
