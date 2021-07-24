@@ -11,7 +11,6 @@ import { VueSpinners } from '@saeris/vue-spinners'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import vSelect from "vue-select";
 
 import './registerServiceWorker'
 import ArgonDashboard from './plugins/argon-dashboard'
@@ -23,12 +22,6 @@ Vue.use(ArgonDashboard)
 Vue.use(VueSpinners)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)// Optionally install the BootstrapVue
-Vue.component("v-select", vSelect);
-// router.beforeEach((to, from, next) => {
-//   if (to.name == 'detalles-voucher' || to.name == 'inicio') localStorage.removeItem('detalleClienteId')
-//   else if (to.name == 'detalles-aplicante') localStorage.setItem('detalleClienteId', to.params.clientId)
-//   next()
-// })
 
 new Vue({
   router,

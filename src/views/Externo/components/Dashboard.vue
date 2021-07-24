@@ -61,7 +61,6 @@ export default {
         getNotifications() {
             getProcessorNotifications (this.$store.state.user.data.processor_id)
                 .then (response => {
-                    console.log(response);
                     this.notifications = response.data.data.filter((el, index) => index < 3)
                 })
                 .catch (err => {

@@ -8,6 +8,14 @@
                     <p class="welcome">PERFIL DEL TRABAJADOR MUNICIPAL </p>
                 </b-col>
             </b-row>
+
+            <b-row>
+                <b-col>
+                    <b-button :to="{ name: 'interno-actualizar-password' }">
+                        Cambiar contraseña
+                    </b-button>
+                </b-col>
+            </b-row>
         </base-header>
         
         <b-container fluid class="mt--6" >
