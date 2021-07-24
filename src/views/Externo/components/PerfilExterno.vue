@@ -8,6 +8,14 @@
                     <p class="welcome">PERFIL DEL USUARIO</p>
                 </b-col>
             </b-row>
+
+            <b-row>
+                <b-col>
+                    <b-button :to="{ name: 'externo-actualizar-password' }">
+                        Cambiar contraseña
+                    </b-button>
+                </b-col>
+            </b-row>
         </base-header>
         
         <b-container fluid class="mt--6" >

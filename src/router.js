@@ -335,6 +335,11 @@ export default new Router({
           path: 'perfil-interno',
           name: 'perfil-interno',
           component: () => import(/* webpackChunkName: "perfil-interno" */ '@/views/Interno/components/PerfilInterno.vue')
+        },
+        {
+          path: 'interno-actualizar-password',
+          name: 'interno-actualizar-password',
+          component: () => import(/* webpackChunkName: "perfil-externo" */ '@/views/Interno/components/UpdatePassword.vue')
         }
       ],
       beforeEnter: (to, from, next) => {
@@ -389,6 +394,11 @@ export default new Router({
           path: 'perfil-externo',
           name: 'perfil-externo',
           component: () => import(/* webpackChunkName: "perfil-externo" */ '@/views/Externo/components/PerfilExterno.vue')
+        },
+        {
+          path: 'externo-actualizar-password',
+          name: 'externo-actualizar-password',
+          component: () => import(/* webpackChunkName: "perfil-externo" */ '@/views/Externo/components/UpdatePassword.vue')
         }
       ],
       beforeEnter: (to, from, next) => {
