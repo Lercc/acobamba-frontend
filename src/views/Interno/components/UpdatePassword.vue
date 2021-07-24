@@ -119,8 +119,8 @@ export default {
       formData.append('password_confirmation',this.passwordConfirmation)
 
       updateCurrentPassword (this.$store.state.user.data.id, formData)
-        .then(response => {
-            swal(response.data, '¿Quieres cerrar la sesion?', 'success')
+        .then(() => {
+            swal('¡Actualización correcta!', '¿Quieres cerrar la sesion?', 'success')
               .then(res => {
                 switch (res) {
                   case true:
