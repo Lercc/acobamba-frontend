@@ -301,7 +301,7 @@ export default {
         },
 
         downloadFile() {
-            FileSaver.saveAs(`http://localhost:8000/storage/${this.expedientData.file}`);
+            FileSaver.saveAs(`${this.$store.state.api.url}/storage/${this.expedientData.file}`);
         }
     },
 }

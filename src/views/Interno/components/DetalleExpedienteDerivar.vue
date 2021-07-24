@@ -11,10 +11,10 @@
 
             <b-row>
                 <b-col>
-                    <b-button v-show="currentDerivationData.attributes.status == 'nuevo'" v-b-modal.modal-1>DERIVAR</b-button>
+                    <b-button v-show="currentDerivationData.attributes.status == 'nuevo' || currentDerivationData.attributes.status == 'en proceso'" v-b-modal.modal-1>DERIVAR</b-button>
                 </b-col>
                 <b-col>
-                    <b-button v-show="currentDerivationData.attributes.status == 'nuevo'" v-b-modal.modal-2>ARCHIVAR</b-button>
+                    <b-button v-show="currentDerivationData.attributes.status == 'nuevo' || currentDerivationData.attributes.status == 'en proceso'" v-b-modal.modal-2>ARCHIVAR</b-button>
                 </b-col>
             </b-row>
         </base-header>
@@ -476,7 +476,7 @@ export default {
         },
 
         downloadFile () {
-            FileSaver.saveAs(`http://localhost:8000/storage/${this.expedientData.file}`);
+            FileSaver.saveAs(`${this.$store.state.api.url}/storage/${this.expedientData.file}`);
         },
 
         // ARCHIVATIONS

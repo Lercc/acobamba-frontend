@@ -21,7 +21,9 @@
                                     type="email"
                                     placeholder="Ingrese su correo"
                                     v-model="email"
-                                    :state="inputStatus('email')">
+                                    :state="inputStatus('email')"
+                                    @keypress="registrarTest"
+                                    >
                                 </b-form-input>
 
                                 <b-form-invalid-feedback 
@@ -42,7 +44,9 @@
                                     type="password"
                                     placeholder="Ingrese su contraseña"
                                     v-model="password"
-                                    :state="inputStatus('password')">
+                                    :state="inputStatus('password')"
+                                    @keypress="registrarTest"
+                                    >
                                 </b-form-input>
                                 
                                 <b-form-invalid-feedback
@@ -134,6 +138,10 @@ export default {
                     return !Object.keys(this.inputErrors).includes(pInputValue)
                 }
             }
+        },
+
+        registrarTest (e) {
+            if (e.keyCode === 13) this.login()
         }
 
     },
