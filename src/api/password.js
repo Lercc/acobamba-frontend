@@ -15,12 +15,14 @@ function updateCurrentPassword(pIdUser, pFormData) {
     return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
 }
 
-
-
-
-
+function updateUserPassword(pIdUser, pFormData) {
+    const REQUEST = `api/updateUserPassword/${pIdUser}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
+}
 
 export {
     updateRecoveryPassword,
-    updateCurrentPassword
+    updateCurrentPassword,
+    updateUserPassword
 }

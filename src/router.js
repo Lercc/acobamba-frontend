@@ -209,6 +209,11 @@ export default new Router({
               component: () => import(/* webpackChunkName: "admin-users-created" */ '@/views/Admin/components/User-Interno-Action/UserInternoCreate.vue'),
             },
           ]
+        },
+        {
+          path: 'admin-actualizar-password/:user_id',
+          name: 'admin-actualizar-password',
+          component: () => import(/* webpackChunkName: "perfil-externo" */ '@/views/Admin/components/UpdatePassword.vue')
         }
       ],
       beforeEnter: (to, from, next) => {

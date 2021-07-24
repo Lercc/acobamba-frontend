@@ -16,7 +16,13 @@
                                     EDITAR USUARIO EXTERNO
                                 </b-col>
                                 <b-col cols="auto">
-                                    <b-button @click="cargarDatos" variant="success" size="sm">recargar</b-button>
+                                    <b-button 
+                                        :to="{ name: 'admin-actualizar-password', params: { 'user_id': userInternoData.attributes.user_id}}"
+                                        variant="success"
+                                        size="sm"
+                                    >
+                                        Cambiar contraseña
+                                    </b-button>
                                 </b-col>
                             </b-row>
                 </template>
