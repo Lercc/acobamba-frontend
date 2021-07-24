@@ -16,7 +16,14 @@ function getEmailPasswordRecovery(pEmailId) {
     return axios.get(`${API_URL}/${REQUEST}`)
 }
 
+// update
+function updateEmailPasswordRecovery(pEmailId, pFormData) {
+    const REQUEST = `api/email-password-recovery/${pEmailId}`
+    return axios.post(`${API_URL}/${REQUEST}`, pFormData)
+}
+
 export {
     storeEmailPasswordRecovery,
-    getEmailPasswordRecovery
+    getEmailPasswordRecovery,
+    updateEmailPasswordRecovery
 }

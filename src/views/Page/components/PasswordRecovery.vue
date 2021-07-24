@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { getEmailPasswordRecovery } from '@/api/email'
+import { getEmailPasswordRecovery, updateEmailPasswordRecovery } from '@/api/email'
 import { updateRecoveryPassword } from '@/api/password'
 
 export default {
@@ -105,7 +105,7 @@ export default {
       getEmailPasswordRecovery(this.$route.params.emailId)
         .then(response => {
           const currentTime = new Date().getTime()
-          if (currentTime > response.data.expiration_at) {
+          if (response.data.status == 'invalido' || currentTime > response.data.expiration_at * 1000) {
             this.messageState = true
             this.requestMessage = 'Tiempo agotado, realize una nueva petición'
           }
@@ -138,6 +138,21 @@ export default {
         .then(() => {
           this.messageState = true
           this.requestMessage = '¡Contraseña actualizada correctamente!'
+
+          const formData = new FormData()
+          formData.append('.method', 'put')
+          formData.append('status', 'invalido')
+          updateEmailPasswordRecovery(this.$route.params.emailId, formData)
+            .then(res => {
+              console.log('update emailPasswordRecovery', res);
+            })
+            .catch(err => {
+              console.log('update emailPasswordRecovery ERRor: ',err.response);
+            })
+            .finally(() => {
+              this.initialValues = false
+              console.log('request updateEmailPasswordRecovery  end!');
+            })
           })
         .catch(err => {
           console.log(err.response);
