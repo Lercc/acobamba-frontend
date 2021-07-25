@@ -38,9 +38,16 @@ function updateStatusDerivation(pId,pFormData){
     return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
 }
 
+function deleteDerivation(pId){ 
+    const REQUEST = `api/derivations/${pId}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.delete(`${API_URL}/${REQUEST}`, { headers })
+}
+
 export {
     storeDerivation,
     getDerivation,
     updateDerivation,
-    updateStatusDerivation
+    updateStatusDerivation,
+    deleteDerivation
 }

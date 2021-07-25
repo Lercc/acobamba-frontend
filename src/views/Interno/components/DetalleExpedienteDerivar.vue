@@ -427,6 +427,7 @@ export default {
             DerivationFormData.append('expedient_id', this.$route.params.expedient_id)
             DerivationFormData.append('user_id', this.$store.state.user.data.id)
             DerivationFormData.append('employee_id', this.employeeId)
+            DerivationFormData.append('previous_derivation_id', this.currentDerivationData.attributes.id)
             DerivationFormData.append('status', 'nuevo')
             storeDerivation(DerivationFormData)
                 .then(res =>{
@@ -471,7 +472,7 @@ export default {
             this.employeeId = ''
         },
        
-       inputRadioOfficeSubofficeChanged () {
+        inputRadioOfficeSubofficeChanged () {
             this.employeeId = ''
         },
 
@@ -485,6 +486,7 @@ export default {
             archivationFormData.append('expedient_id', this.$route.params.expedient_id)
             archivationFormData.append('user_id', this.$store.state.user.data.id)
             archivationFormData.append('observations', this.archivationObservations)
+            archivationFormData.append('previous_derivation_id', this.currentDerivationData.attributes.id)
             archivationFormData.append('status', 'archivado')
 
             storeArchivation (archivationFormData)

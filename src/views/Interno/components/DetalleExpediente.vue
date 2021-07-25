@@ -9,11 +9,11 @@
                 </b-col>
             </b-row>
 
-            <!-- <b-row>
+            <b-row>
                 <b-col>
-                    <b-button v-show="currentDerivationData.attributes.status == 'nuevo'" v-b-modal.modal-1>DERIVAR</b-button>
+                    <b-button variant="danger" @click="deleteCurrentDerivation">Eliminar</b-button>
                 </b-col>
-            </b-row> -->
+            </b-row>
         </base-header>
         
         <b-container fluid class="mt--6">
@@ -300,7 +300,8 @@ import { getExpedient, getExpedientsDerivations, getExpedientsArchivations} from
 import { getAllOffices } from '@/api/office';
 import { getAllSuboffices } from '@/api/suboffice';
 import { getAllEmployees } from '@/api/employee';
-import { storeDerivation, getDerivation, updateDerivation } from '@/api/derivation';
+import { storeDerivation, getDerivation, updateDerivation, deleteDerivation} from '@/api/derivation';
+import swal from 'sweetalert'
 
 import FileSaver from 'file-saver';
 
@@ -477,12 +478,37 @@ export default {
             this.employeeId = ''
         },
        
-       inputRadioOfficeSubofficeChanged () {
+        inputRadioOfficeSubofficeChanged () {
             this.employeeId = ''
         },
 
         downloadFile() {
             FileSaver.saveAs(`${this.$store.state.api.url}/storage/${this.expedientData.file}`);
+        },
+
+        deleteCurrentDerivation () {
+            deleteDerivation (this.currentDerivationData.attributes.id)
+                .then(() => {
+                    const UpdatePreviusDerivationFormData = new FormData()
+                    UpdatePreviusDerivationFormData.append('.method', 'put')
+                    UpdatePreviusDerivationFormData.append('status', 'en proceso')
+
+                    updateDerivation(this.currentDerivationData.attributes.previous_derivation_id, UpdatePreviusDerivationFormData)
+                        .then(() => {
+                            swal('Eliminacion exitosa!', 'redirigiendo a bandeja...', 'success')
+                                .then( res => {
+                                    switch (res) {
+                                        case true:
+                                        case null:
+                                        case false :
+                                            this.$router.push({name: 'interno-bandeja-derivaciones'})
+                                            break
+                                        default :
+                                            console.log('swal break restore')
+                                    }
+                                })
+                        })
+                })
         }
     },
 

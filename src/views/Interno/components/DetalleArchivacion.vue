@@ -9,11 +9,11 @@
                 </b-col>
             </b-row>
 
-            <!-- <b-row>
+            <b-row>
                 <b-col>
-                    <b-button v-show="currentDerivationData.attributes.status == 'nuevo'" v-b-modal.modal-1>DERIVAR</b-button>
+                    <b-button variant="danger" @click="deleteCurrentArchivation">Eliminar</b-button>
                 </b-col>
-            </b-row> -->
+            </b-row>
         </base-header>
         
         <b-container fluid class="mt--6">
@@ -199,7 +199,10 @@
 
 <script>
 import { getExpedient, getExpedientsDerivations, getExpedientsArchivations} from '@/api/expedient';
-import { getArchivation } from '@/api/archivation';
+import { getArchivation, deleteArchivation} from '@/api/archivation';
+import { updateDerivation } from '@/api/derivation';
+
+import swal from 'sweetalert'
 
 import FileSaver from 'file-saver';
 
@@ -302,6 +305,31 @@ export default {
 
         downloadFile() {
             FileSaver.saveAs(`${this.$store.state.api.url}/storage/${this.expedientData.file}`);
+        },
+
+        deleteCurrentArchivation () {
+            deleteArchivation (this.currentArchivationData.attributes.id)
+                .then(() => {
+                    const UpdatePreviusDerivationFormData = new FormData()
+                    UpdatePreviusDerivationFormData.append('.method', 'put')
+                    UpdatePreviusDerivationFormData.append('status', 'en proceso')
+
+                    updateDerivation(this.currentArchivationData.attributes.previous_derivation_id, UpdatePreviusDerivationFormData)
+                        .then(() => {
+                            swal('Eliminacion exitosa!', 'redirigiendo a bandeja...', 'success')
+                                .then( res => {
+                                    switch (res) {
+                                        case true:
+                                        case null:
+                                        case false :
+                                            this.$router.push({name: 'interno-bandeja-derivaciones'})
+                                            break
+                                        default :
+                                            console.log('swal break restore')
+                                    }
+                                })
+                        })
+                })
         }
     },
 }

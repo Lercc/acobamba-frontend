@@ -25,13 +25,13 @@ function getArchivation(pId) {
 // }
 
 // UPDATE
-// function updateDerivation (pId, pFormData) {
-//     const REQUEST = `api/derivations/${pId}`
-//     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
-//     return axios.post(`${API_URL}/${REQUEST}`, pFormData, { headers })
-// }
-
+function deleteArchivation(pId){ 
+    const REQUEST = `api/archivations/${pId}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.delete(`${API_URL}/${REQUEST}`, { headers })
+}
 export {
     storeArchivation,
-    getArchivation
+    getArchivation,
+    deleteArchivation
 }
