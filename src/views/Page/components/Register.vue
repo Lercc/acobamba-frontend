@@ -25,6 +25,7 @@
                   class="d-flex justify-content-around"
                   buttons
                   button-variant="outline-info"
+                  @change="inputRadioTypeUserExterno"
                 >
                   <b-form-radio value="usuario_externo"
                     >Registrarse como usuario</b-form-radio
@@ -393,7 +394,7 @@
                 >Registrarse</b-button
               >
             </b-col>
-          </b-form-row>
+          </b-form-row> 
         </b-card>
       </b-col>
     </b-row>
@@ -402,7 +403,7 @@
 
 <script>
 import { storeProcessor } from "@/api/processor";
-//import swal from 'sweetalert'
+//import swal from "sweetalert"
 
 export default {
   name: "Register",
@@ -451,17 +452,16 @@ export default {
       processorFormData.append("doc_number", this.processorData.attributes.doc_number);
       processorFormData.append("email", this.processorData.attributes.email);
       processorFormData.append("password", this.processorData.attributes.password);
-      processorFormData.append(
-        "password_confirmation",
-        this.processorData.attributes.password_confirmation
-      );
-      processorFormData.append("status", this.processorData.attributes.status);
+      processorFormData.append("password_confirmation",this.processorData.attributes.password_confirmation);
+      processorFormData.append("dni_represent",this.processorData.attributes.dni_represent);
+      processorFormData.append("status", 'activado');
 
       storeProcessor(processorFormData)
         .then((response) => {
           if (response.data.data) {
             this.processorData = response.data.data;
-            //    swal('¡Registro correcto!', 'Ok', 'success')
+            alert('¡Registro exitoso!'); 
+            //    swal('¡Registro correcto!','Ok','success')
             //     .then( res =>{
             //         if(res == null || res == true || res == false)
             //             this.$router.push({name:'users-externos'})
@@ -491,6 +491,16 @@ export default {
       else if (Object.keys(this.inputErrors).includes(pInput)) return !true;
       else return !false;
     },
+    inputRadioTypeUserExterno () {
+          this.processorData.attributes.name ='';
+          this.processorData.attributes.last_name='';
+          this.processorData.attributes.phone='';
+          this.processorData.attributes.doc_type='';
+          this.processorData.attributes.doc_number='';
+          this.processorData.attributes.email='';
+          this.processorData.attributes.password='';
+          this.processorData.attributes.password_confirmation='';
+        }
   },
 };
 </script>

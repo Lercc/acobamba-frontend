@@ -14,7 +14,7 @@
             Realiza tus trámites sin salir de casa
             </p>
        
-            <b-button variant="primary" href="#">Iniciar Sesión</b-button>
+            <b-button variant="primary" href="#"  >Iniciar Sesión</b-button>
             <b-button variant="danger" href="#">Registrate</b-button>
         </b-jumbotron>
    
