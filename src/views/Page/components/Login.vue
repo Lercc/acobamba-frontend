@@ -116,8 +116,6 @@ export default {
             // llama a la accion userLoading definida en VUEX
             this.$store.dispatch('user/userLogin', { 'email':this.email, 'password':this.password }, { root: true})
             // redirigir dependiendo del rol del que logeo
-
-           
         },
 
         showInputErrors (pInputName) {

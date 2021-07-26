@@ -59,8 +59,10 @@ export default {
 
             login(context.rootState.api.url, userFormData)
                 .then( response => {
-                    if (Object.keys(response.data.attributes).length !== 0) {
+                    if (Object.keys(response.data.attributes).length !== 0 && response.data.attributes.status == 'activado') {
                         context.commit('SET_USER_DATA', response.data.attributes)
+                    } else {
+                        context.commit('SET_API_REQUEST_ERROR_MESSAGE', 'cuenta desactivada')
                     }
                 })
                 .catch( err => {
