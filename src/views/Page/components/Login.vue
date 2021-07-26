@@ -7,8 +7,7 @@
                 </b-card>
                 
                 <b-card v-show="!loginLoading">
-                    <b-card-title class="text-center borde">LOGIN</b-card-title>
-
+                    <b-card-title class="text-center borde login-class">LOGIN  </b-card-title>
                     <b-alert variant="danger" :show="showErrorAlert">
                         {{ apiRequestErrorMessage }}
                     </b-alert>
@@ -16,7 +15,7 @@
                     <b-form-row>
                         <b-col cols="12" class="borde">
                             <b-form-group
-                                label="Correo :">
+                                label="Correo ">
                                 <b-form-input
                                     type="email"
                                     placeholder="Ingrese su correo"
@@ -198,5 +197,9 @@ export default {
     align-items: center;
     justify-content: center;
     min-height: 400px;
+}
+.login-class {
+    font-size:40px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 </style>

@@ -18,6 +18,12 @@ function getExpedients(pProcessorId, pPage = 1) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+function searchExpedients(pProcessorId, buscar,criterio) {
+    const REQUEST = `api/search-expedient/processor?id=${pProcessorId}&buscar=${buscar}&criterio=${criterio}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
 function getEmployeeExpedients(pEmployeeId, pPage = 1) {
     const REQUEST = `api/employees/${pEmployeeId}/expedients?page=${pPage}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
@@ -47,5 +53,6 @@ export {
     getExpedient,
     getExpedientsDerivations,
     getExpedientsArchivations,
-    getEmployeeExpedients
+    getEmployeeExpedients,
+    searchExpedients
 }

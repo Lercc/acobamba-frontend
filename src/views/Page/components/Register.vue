@@ -10,9 +10,7 @@
           <template #header>
             <b-row align-h="between">
               <b-col cols="auto" class="text-center">
-                <h1>¡¡¡¡¡ REGISTRATE !!!!!</h1>
-                <br />
-                SISTEMA DE TRÁMITE DOCUMENTARIO - MUNICIPALIDAD DISTRITAL DE ACOBAMBA
+                <h1 class="register-class mx-9">¡¡¡¡¡ REGISTRATE !!!!!</h1>
               </b-col>
             </b-row>
           </template>
@@ -395,6 +393,11 @@
               >
             </b-col>
           </b-form-row> 
+
+          <b-form-row class="justify-content-center borde mt-5">
+                <b-button :to="{name: 'login'}" variant="link">Volver al Inicio</b-button>
+            </b-form-row>
+
         </b-card>
       </b-col>
     </b-row>
@@ -511,5 +514,9 @@ export default {
   align-items: center;
   justify-content: center;
   min-height: 400px;
+}
+.register-class {
+    font-size:40px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 </style>

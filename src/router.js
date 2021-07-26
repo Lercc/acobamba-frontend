@@ -404,6 +404,11 @@ export default new Router({
           path: 'externo-actualizar-password',
           name: 'externo-actualizar-password',
           component: () => import(/* webpackChunkName: "perfil-externo" */ '@/views/Externo/components/UpdatePassword.vue')
+        },
+        {
+          path: 'externo-date-update',
+          name: 'externo-date-update',
+          component: () => import(/* webpackChunkName: "externo-date-update" */ '@/views/Externo/components/ExternoDateUpdate.vue')
         }
       ],
       beforeEnter: (to, from, next) => {

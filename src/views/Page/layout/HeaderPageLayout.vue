@@ -9,8 +9,7 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="ml-auto">
                     <b-navbar-nav>
-                        <b-nav-item :to="{name: 'about'}">TUPA</b-nav-item>
-                        <b-nav-item :to="{name: 'info'}"> MUNICIPALIDAD</b-nav-item>
+                        <b-nav-item :to="{name: 'home'}">INICIO</b-nav-item>
                         <b-nav-item :to="{name: 'login'}">Iniciar Sesión</b-nav-item>
                     </b-navbar-nav>
                 </b-navbar-nav>

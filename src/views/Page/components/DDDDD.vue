@@ -13,7 +13,7 @@
           </span>
 
           <b-card-body v-show="!loading && !messageState">
-            <b-card-title class="text-uppercase text-center py-3">
+            <b-card-title class="text-uppercase text-center py-3 recovery-class">
               Enviar correo de recuperación
             </b-card-title>
 
@@ -36,9 +36,14 @@
                 </b-col>
 
                 <b-col class="d-flex justify-content-center py-3">
-                  <b-button @click="recuperarContra">Enviar correo</b-button>
+                  <b-button variant="primary"  @click="recuperarContra">Enviar correo</b-button>
                 </b-col>
               </b-form-row>
+              
+          <b-form-row class="justify-content-center borde mt-5">
+                <b-button :to="{name: 'home'}" variant="link">Volver al Inicio</b-button>
+            </b-form-row>
+
           </b-card-body>
 
         </b-card>
@@ -111,3 +116,11 @@ export default {
 
 }
 </script>
+
+<style scoped>
+
+.recovery-class {
+    font-size:40px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+</style>
