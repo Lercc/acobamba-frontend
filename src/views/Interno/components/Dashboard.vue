@@ -26,53 +26,58 @@
                 </b-col>
             </b-row>
         </base-header>
+        
+        <b-container fluid class="border border-red mt--6">
+            <b-row align-h="center">
+                <b-col cols="10" md="8" xl="6">
+                    <b-card no-body class="p-4" v-if="derivations.length > 0">
+                        <chart-estado 
+                            v-if="derivations.length > 0"
+                            :nuevoData="nuevoAmount"
+                            :enProcesoData="enProcesoAmount"
+                            :derivadoData="derivadoAmount"
+                        />
+                    </b-card>
 
-        <b-container  class="border border-red">
-            <h2>fdfdf</h2>
-           
-        </b-container>
-             
-    <!--    <b-container fluid class="border border-red mt--6">
-            <b-row>
-                <b-col cols="12">
-                    <b-card img-src="/img/guide/guide.png" overlay></b-card>
-                </b-col>    
+                    <b-card no-body class="p-9 text-center" v-else>
+                        <b-card-text>
+                            No tienes derivaciones
+                        </b-card-text>
+                    </b-card>
+                </b-col>
             </b-row>
-        </b-container>  -->
-
+        </b-container>
     </div>
 </template>
 <script>
 import { getEmployeeNotifications } from '@/api/notification'
 import { getEmployeeDerivationsState } from '@/api/employee'
-//import ChartEstado from './ViewsCharts/ChartEstado.vue'
+import ChartEstado from './ViewsCharts/ChartEstado.vue'
 
 
 export default {
     components: {
-       // ChartEstado
+       ChartEstado
     },
     data () {
         return {
             derivations:[],
             status: [], 
             notifications: {},
+
+            // charDATA
+            nuevoAmount: 0,
+            enProcesoAmount: 0,
+            derivadoAmount: 0
         }
     }, 
-    
-    computed:{
-  
-      // statusDerivado(){
-        //  var statusNew = this.derivations.filter(status => status = "nuevo")
-        //    console.log(statusNew.lenght); 
-      //  },
-
-
-    },
-   
 
     beforeMount() {
         this.getNotifications()
+        // this.cargarDatosEmpDerivations()
+    },
+
+    created() {
         this.cargarDatosEmpDerivations()
     },
 
@@ -89,16 +94,31 @@ export default {
                     console.log('peticion de notificaciones terminada')
                 })
         },
-        cargarDatosEmpDerivations(){
-   
+
+        cargarDatosEmpDerivations() {
             getEmployeeDerivationsState(this.$store.state.user.data.employee_id)
-               .then (response => {
-                    console.log('EmploDerivationAll :', response);
-                     if (response.data.data) {
-                        this.derivations = response.data.data;
+                .then (({ data }) => {
+                    console.log('EmploDerivationAll :', data);
+                    this.derivations = data.data
+                    for(const el in data.data) {
+                        switch (data.data[el].attributes.status) {
+                            case 'nuevo':
+                                this.nuevoAmount += 1
+                                break;
+
+                            case 'en proceso':
+                                this.enProcesoAmount += 1
+                                break;
+
+                            case 'derivado':
+                                this.derivadoAmount += 1
+                                break;
+                        
+                            default:
+                                console.log('for break default');
+                                break;
+                        }
                     }
-                       var statusNew = this.derivations.length ; 
-                        console.log('dd' , statusNew)
                 })
                 .catch ((err) => {
                     console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
@@ -108,7 +128,6 @@ export default {
                 })
         }
     },
-
 
 }
 </script>
