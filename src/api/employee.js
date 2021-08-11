@@ -10,6 +10,12 @@ function getEmployeeDerivations(pEmployeeId, pPage = 1) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+function getEmployeeDerivationsState(pEmployeeId) {
+    const REQUEST = `api/employees/${pEmployeeId}/derivations`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
 function getAllEmployees() {
     const REQUEST = `api/employeesall`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
@@ -60,5 +66,6 @@ export {
      getEmployee,
      storeEmployee,
      getSecretariaTramDoc,
-     updateEmployee
+     updateEmployee,
+     getEmployeeDerivationsState
 }

@@ -36,25 +36,57 @@
         <b-container fluid class="border border-red mt--6">
             <b-row>
                 <b-col cols="12">
-                    <b-card img-src="/img/guide/guide.png" overlay></b-card>
+                  <!--       <chart-estado></chart-estado>  -->
+                    <div>
+                        <h1></h1>
+                    </div>
+
                 </b-col>    
             </b-row>
         </b-container>
+             
+    <!--    <b-container fluid class="border border-red mt--6">
+            <b-row>
+                <b-col cols="12">
+                    <b-card img-src="/img/guide/guide.png" overlay></b-card>
+                </b-col>    
+            </b-row>
+        </b-container>  -->
 
     </div>
 </template>
 <script>
 import { getEmployeeNotifications } from '@/api/notification'
+import { getEmployeeDerivationsState } from '@/api/employee'
+//import ChartEstado from './ViewsCharts/ChartEstado.vue'
+
 
 export default {
+    components: {
+       // ChartEstado
+    },
     data () {
         return {
+            derivations:[],
+            status: [], 
             notifications: {},
         }
+    }, 
+    
+    computed:{
+  
+      // statusDerivado(){
+        //  var statusNew = this.derivations.filter(status => status = "nuevo")
+        //    console.log(statusNew.lenght); 
+      //  },
+
+
     },
+   
 
     beforeMount() {
         this.getNotifications()
+        this.cargarDatosEmpDerivations()
     },
 
     methods: {
@@ -68,6 +100,24 @@ export default {
                 })
                 .finally ( () => {
                     console.log('peticion de notificaciones terminada')
+                })
+        },
+        cargarDatosEmpDerivations(){
+   
+            getEmployeeDerivationsState(this.$store.state.user.data.employee_id)
+               .then (response => {
+                    console.log('EmploDerivationAll :', response);
+                     if (response.data.data) {
+                        this.derivations = response.data.data;
+                    }
+                       var statusNew = this.derivations.length ; 
+                        console.log('dd' , statusNew)
+                })
+                .catch ((err) => {
+                    console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
+                })
+                .finally ( () => {
+                    console.log('peticion de status de derivations terminada')
                 })
         }
     },

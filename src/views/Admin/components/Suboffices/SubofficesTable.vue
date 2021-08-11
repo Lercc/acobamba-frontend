@@ -19,26 +19,28 @@
             <table class="table">
                 <thead>
                     <tr>
+                    <th scope="col">Acciones</th>
                     <th scope="col">Id</th>
-                    <th scope="col">Oficina</th>
                     <th scope="col">Suboficina</th>
+                    <th scope="col">Oficina</th>                 
                     <th scope="col">Status</th>
-                    <th scope="col"></th>
+               
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(office, index) in suboffices" :key="`${index}-adm-office`">
-                        <th scope="row">{{ office.attributes.id }}</th>
-                        <td>{{ office.attributes.name }}</td>
-                        <td>{{ office.attributes.office_name }}</td>
-                        <td>{{ office.attributes.status }}</td>
-                        <td>
+                         <td>
                             <b-button 
                                 :to="{ name: 'suboffice-edit', params: { id: office.attributes.id }}"
                                 variant="info"
                                 size="sm">editar
                             </b-button>
                         </td>
+                        <th scope="row">{{ office.attributes.id }}</th>
+                        <td>{{ office.attributes.name }}</td>    
+                        <td>{{ office.attributes.office_name }}</td>                                
+                        <td>{{ office.attributes.status }}</td>
+                       
                     </tr>
                 </tbody>
             </table>

@@ -14,7 +14,7 @@
                 <template #header>
                         <b-row align-h="between">
                                 <b-col cols="auto">
-                                    EDITAR USUARIOS 
+                                    EDITAR ADMINISTRADOR
                                 </b-col>
                                 <b-col cols="auto">
                                     <b-button @click="cargarDatos" variant="success" size="sm">recargar</b-button>
@@ -53,25 +53,6 @@
                         >
                           </b-form-input>
                             <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('last_name')" :key="`${index}-input-last_name`" class="text-danger">
-                            {{ inputError }}
-                           </b-form-invalid-feedback>
-                    </b-form-group>
-                </b-col>
-            </b-form-row>
-
-                  <!-- ROLE_NAME   -->
-            <b-form-row>
-                <b-col>
-                    <b-form-group
-                        label="TIPO DE ROL"
-                    >
-                        <b-form-select
-                            v-model="userData.attributes.role_name"
-                            :options="rolesOptions"
-                            :state="showInputStatus('role_name')"
-                        >
-                        </b-form-select>
-                            <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('role_name')" :key="`${index}-input-role_name`" class="text-danger">
                             {{ inputError }}
                            </b-form-invalid-feedback>
                     </b-form-group>
@@ -139,79 +120,43 @@
                         </b-col>
                     </b-form-row>
 
-            <!-- EMAIL   -->
-            <b-form-row>
-                <b-col>
-                    <b-form-group
-                        label="CORREO ELECTRONICO"
-                    >
-                    <b-form-input 
-                            type="email"
-                            v-model="userData.attributes.email"
-                            :state="showInputStatus('email')"
+                <!-- EMAIL   -->
+                <b-form-row>
+                    <b-col>
+                        <b-form-group
+                            label="CORREO ELECTRONICO"
                         >
-                          </b-form-input>
-                        <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('email')" :key="`${index}-input-email`" class="text-danger">
-                                    {{ inputError }}
-                         </b-form-invalid-feedback>
+                        <b-form-input 
+                                type="email"
+                                v-model="userData.attributes.email"
+                                :state="showInputStatus('email')"
+                            >
+                            </b-form-input>
+                            <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('email')" :key="`${index}-input-email`" class="text-danger">
+                                        {{ inputError }}
+                            </b-form-invalid-feedback>
 
-                    </b-form-group>
-                </b-col>
-            </b-form-row>
+                        </b-form-group>
+                    </b-col>
+                </b-form-row>
+                <b-form-row>
+                    <b-col>
+                        <b-form-group
+                        label="ESTADO"
+                        >
+                        <b-form-select
+                            v-model="userData.attributes.status"
+                            :options="statusOptions"
+                            :state="showInputStatus('status')"
+                        >
+                        </b-form-select>
 
-        <!-- PASSWORD   -->
-            <b-form-row>
-                <b-col>
-                    <b-form-group
-                        label="CONTRASEÑA"
-                    >
-                    <b-form-input 
-                            type="password"
-                            v-model="userData.attributes.password"
-                            :state="showInputStatus('password')"
-                    >
-                      </b-form-input>
-                          <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('email')" :key="`${index}-input-email`" class="text-danger">
-                                    {{ inputError }}
-                         </b-form-invalid-feedback>
-                    </b-form-group>
-                </b-col>
-            </b-form-row>
-
-            <!-- CONFIRMA PASSWORD   -->
-            <b-form-row>
-                <b-col>
-                    <b-form-group
-                        label="CONFIRMA TU CONTRASEÑA"
-                    >
-                    <b-form-input 
-                            type="password"
-                            v-model="userData.attributes.password_confirmation"
-                            :state="showInputStatus('password_confirmation')"
-                    >
-                      </b-form-input>
-                    </b-form-group>
-                </b-col>
-            </b-form-row>
-
-                 <b-form-row>
-          <b-col>
-            <b-form-group
-              label="estado"
-            >
-              <b-form-select
-                v-model="userData.attributes.status"
-                :options="statusOptions"
-                :state="showInputStatus('status')"
-              >
-              </b-form-select>
-
-              <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('status')" :key="`${index}-input-status`" class="text-danger">
-                {{ inputError }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </b-col>
-        </b-form-row>
+                        <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('status')" :key="`${index}-input-status`" class="text-danger">
+                            {{ inputError }}
+                        </b-form-invalid-feedback>
+                        </b-form-group>
+                    </b-col>
+              </b-form-row>
 
       <b-form-row >
           <b-col class="d-flex justify-content-center">
@@ -243,10 +188,7 @@ export default {
                     phone: '',
                     doc_type: 'DNI',
                     doc_number: '',
-                    role_name:'',
                     email: '',
-                    password: '',
-                    password_confirmation: '',
                     status: ''
                 }
             }, 
@@ -260,10 +202,6 @@ export default {
                    { value: 'dni', text: 'dni'},
                    { value: 'extranjeria', text: 'extranjeria'}    
             ],
-             rolesOptions: [
-                   { value: 'Interno', text: 'Interno'},
-                   { value: 'Externo', text: 'Externo'} ,  
-                           ],
             inputErrors: {},
             //
             inputInitialValues: true,
@@ -304,15 +242,13 @@ export default {
 
                 const userFormData =  new FormData()
                     userFormData.append('.method','put')  
+                    userFormData.append('id', this.userData.attributes.id) 
                     userFormData.append('name', this.userData.attributes.name) 
                     userFormData.append('last_name' , this.userData.attributes.last_name ) 
-                    userFormData.append('role_name',this.userData.role_name) 
-                    userFormData.append('phone',this.userData.phone )
+                    userFormData.append('phone',this.userData.attributes.phone )
                     userFormData.append('doc_type',this.userData.doc_type)
                     userFormData.append('doc_number',this.userData.attributes.doc_number)
                     userFormData.append('email',this.userData.attributes.email)
-                    userFormData.append('password',this.userData.attributes.password)
-                    userFormData.append('password_confirmation',this.userData.attributes.password_confirmation)
                     userFormData.append('status',this.userData.attributes.status)
      
      

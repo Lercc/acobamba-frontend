@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div> 
             <b-card v-show="processorLoading" class="loader-processors" no-body>
                 <moon-loader loading :size="60" :color="'#225ba5'" /> 
             </b-card>  
@@ -17,7 +17,7 @@
                                 </b-col>
                                 <b-col cols="auto">
                                     <b-button 
-                                        :to="{ name: 'admin-actualizar-password', params: { 'user_id': userInternoData.attributes.user_id}}"
+                                        :to="{ name: 'admin-actualizar-password', params: { 'user_id': processorData.attributes.user_id}}"
                                         variant="success"
                                         size="sm"
                                     >
@@ -63,6 +63,47 @@
                     </b-form-group>
                 </b-col>
             </b-form-row>
+
+
+            
+        <!-- TIPO DOCUMENTO   -->
+            <b-form-row>
+                <b-col>
+                    <b-form-group
+                        label="TIPO DOCUMENTO"
+                    >
+                        <b-form-select
+                            v-model="processorData.attributes.user_doc_type"
+                            :options= "doc_typeOptions"
+                            :state="showInputStatus('user_doc_type')"
+                        >      
+                        </b-form-select>
+
+                        <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('user_doc_type')" :key="`${index}-input-user_doc_type`" class="text-danger">
+                            {{ inputError }}
+                        </b-form-invalid-feedback>
+
+                    </b-form-group>
+                </b-col>
+            </b-form-row>
+            <!-- NUMERO DE DOCUMENTO  -->
+                    <b-form-row>
+                        <b-col>
+                            <b-form-group
+                                label="NUMERO DE DOCUMENTO"
+                            >
+                                <b-form-input 
+                                    type="number"
+                                    v-model="processorData.attributes.user_doc_number"
+                                    :state="showInputStatus('user_doc_number')"
+                                >
+                                  </b-form-input>
+                                  <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('user_doc_number')" :key="`${index}-input-user_doc_number`" class="text-danger">
+                                    {{ inputError }}
+                                </b-form-invalid-feedback>
+                            </b-form-group>
+                        </b-col>
+                    </b-form-row>
 
             <!-- EMAIL   -->
             <b-form-row>
@@ -143,7 +184,8 @@ export default {
             //
             doc_typeOptions: [
                    { value: 'dni', text: 'dni'},
-                   { value: 'extranjeria', text: 'extranjeria'}    
+                   { value: 'extranjeria', text: 'extranjeria'},
+                   { value: 'ruc', text: 'ruc'}        
             ],
             inputErrors: {},
             //
@@ -184,8 +226,11 @@ export default {
 
                 const processorFormData =  new FormData()
                     processorFormData.append('.method','put')  
+                    processorFormData.append("role_id", 3);
                     processorFormData.append('name', this.processorData.attributes.user_name) 
                     processorFormData.append('last_name' , this.processorData.attributes.user_last_name ) 
+                    processorFormData.append('doc_type',this.processorData.attributes.user_doc_type)
+                    processorFormData.append('doc_number',this.processorData.attributes.user_doc_number)
                     processorFormData.append('email',this.processorData.attributes.user_email)
                     processorFormData.append('status',this.processorData.attributes.user_status)
      

@@ -24,26 +24,7 @@
         <b-form-row>
           <b-col>
             <b-form-group
-              label="oficina"
-            >
-              <b-form-select
-                v-model="subofficeData.attributes.office_id"
-                :options="officeOptions"
-                :state="showInputStatus('office_id')"
-              >
-              </b-form-select>
-
-              <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('office_id')" :key="`${index}-input-status`" class="text-danger">
-                {{ inputError }}
-              </b-form-invalid-feedback>
-            </b-form-group>
-          </b-col>
-        </b-form-row>
-
-        <b-form-row>
-          <b-col>
-            <b-form-group
-              label="nombre"
+              label="SUB_OFICINA"
             >
               <b-form-input
                 type="text"
@@ -53,6 +34,25 @@
               </b-form-input>
 
               <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('name')" :key="`${index}-input-name`" class="text-danger">
+                {{ inputError }}
+              </b-form-invalid-feedback>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+
+        <b-form-row>
+          <b-col>
+            <b-form-group
+              label="OFICINA"
+            >
+              <b-form-select
+                v-model="subofficeData.attributes.office_id"
+                :options="officeOptions"
+                :state="showInputStatus('office_id')"
+              >
+              </b-form-select>
+
+              <b-form-invalid-feedback v-for="(inputError, index) in showInputErrors('office_id')" :key="`${index}-input-status`" class="text-danger">
                 {{ inputError }}
               </b-form-invalid-feedback>
             </b-form-group>

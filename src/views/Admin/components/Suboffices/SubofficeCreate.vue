@@ -8,7 +8,7 @@
         <template #header>
             <b-row align-h="between">
                 <b-col cols="auto">
-                    cREAR OFICINA
+                    CREAR OFICINA
                 </b-col>
             </b-row>
         </template>
@@ -16,7 +16,7 @@
         <b-form-row>
           <b-col>
             <b-form-group
-              label="oficina"
+              label="NOMBRE DE LA OFICINA"
             >
               <b-form-select
                 v-model="subofficeData.attributes.office_id"
@@ -35,7 +35,7 @@
         <b-form-row>
           <b-col>
             <b-form-group
-              label="nombre"
+              label="NOMBRE DE LA SUB_OFICINA"
             >
               <b-form-input
                 type="text"
@@ -55,7 +55,7 @@
         <b-form-row>
           <b-col>
             <b-form-group
-              label="estado"
+              label="ESTADO"
             >
               <b-form-select
                 v-model="subofficeData.attributes.status"
@@ -81,8 +81,10 @@
 </template>
 
 <script>
-import { getOffices } from '@/api/office'
+
+import { getAllOffices }  from '@/api/office'
 import { storeSuboffice } from '@/api/suboffice'
+
 import swal from 'sweetalert'
 
 export default {
@@ -94,7 +96,7 @@ export default {
       //
       subofficeData: {
         attributes: {
-          office_id: 1,
+          office_id: "",
           name: "",
           status: "activado"
         }
@@ -155,7 +157,7 @@ export default {
     },
 
     getOfficesOptions () {
-      getOffices()
+      getAllOffices()
         .then( res => {
           console.log(res);
           if (res.data.data)
