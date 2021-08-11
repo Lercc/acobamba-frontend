@@ -22,27 +22,14 @@
                                 <b-button :to="{name: 'interno-detalle-tramite', params: {expedient_id: notification.attributes.expedient_id}}" variant="info" size="sm">ver trámite</b-button>
                             </div>
                         </template>
-                    </b-card>
+                 
                 </b-col>
-
-                <!-- <b-col cols="12" class="py-4">
-                    <p class="text-center m-0">
-                        <a href="" class="text-white text-underline opacity-7">+ VER TODO</a>
-                    </p>
-                </b-col> -->
             </b-row>
         </base-header>
-        
-        <b-container fluid class="border border-red mt--6">
-            <b-row>
-                <b-col cols="12">
-                  <!--       <chart-estado></chart-estado>  -->
-                    <div>
-                        <h1></h1>
-                    </div>
 
-                </b-col>    
-            </b-row>
+        <b-container  class="border border-red">
+            <h2>fdfdf</h2>
+           
         </b-container>
              
     <!--    <b-container fluid class="border border-red mt--6">
@@ -133,5 +120,9 @@ export default {
     font-family: 'Bungee', cursive;
     font-size: 2.5rem;
     text-align: center;
+}
+.gtr {
+    background: green;
+    background-color: red;
 }
 </style>
