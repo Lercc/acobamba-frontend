@@ -22,7 +22,7 @@
                                 <b-button :to="{name: 'interno-detalle-tramite', params: {expedient_id: notification.attributes.expedient_id}}" variant="info" size="sm">ver trámite</b-button>
                             </div>
                         </template>
-                 
+                   </b-card>
                 </b-col>
             </b-row>
         </base-header>
