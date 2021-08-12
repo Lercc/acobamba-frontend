@@ -21,27 +21,27 @@
                                         :state="inputStatus('document_type')"
                                     />
                                 </b-form-group>
-                            </b-col>
-                        </b-form-row>
-
+                                
                         <!-- HEADER -->
-                        <b-form-row>
-                            <b-col cols="12">
+                            </b-col>
+                            <b-col >
                                 <b-form-group
                                     label="HEADER"
                                 >
                                     <b-form-input 
                                         type="text"
                                         v-model="setHeader"
+                                        disabled
                                         :state="inputStatus('header')"
                                     />
                                 </b-form-group>
                             </b-col>
                         </b-form-row>
 
+
                         <!-- SUBJECT -->
                         <b-form-row>
-                            <b-col cols="12">
+                            <b-col>
                                 <b-form-group
                                     label="SUBJECT"
                                 >
@@ -66,7 +66,7 @@
                       
                         <!-- FOLIOS -->
                         <b-form-row>
-                            <b-col cols="12">
+                            <b-col>
                                 <b-form-group
                                     label="FOLIOS"
                                 >
@@ -79,11 +79,8 @@
                                     <b-form-valid-feedback> todo ok!</b-form-valid-feedback>
                                 </b-form-group>
                             </b-col>
-                        </b-form-row>
-
                         <!-- FILE -->
-                        <b-form-row>
-                            <b-col>
+                             <b-col>
                                 <b-form-group
                                     label="FILE"
                                 >
@@ -103,11 +100,12 @@
                                 </b-form-group>
                             </b-col>
                         </b-form-row>
-
-                        <b-button @click="createExpedient">
+                        
+                        <b-form-row class="justify-content-center">
+                        <b-button variant="info" @click="createExpedient">
                             Registrar
                         </b-button>
-
+                    </b-form-row>
                     </b-card>
                 </b-col>
             </b-row>

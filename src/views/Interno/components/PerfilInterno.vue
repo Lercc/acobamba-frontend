@@ -60,8 +60,6 @@
                                 </tr>                              
                             </tbody>
                         </table>
-
-                           <b-button variant="info" href="#">Actualizar Datos</b-button>
                     </b-card>
                 </b-col>
             </b-row>

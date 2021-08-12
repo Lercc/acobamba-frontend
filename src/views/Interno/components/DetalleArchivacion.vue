@@ -5,7 +5,7 @@
             <!-- Card stats -->
             <b-row >
                 <b-col class="justify-content-center pb-5">
-                    <p class="welcome">DETALLES DEL EXPEDIENTE DERIVADO</p>
+                    <p class="welcome">DETALLES DEL EXPEDIENTE ARCHIVADO</p>
                 </b-col>
             </b-row>
 

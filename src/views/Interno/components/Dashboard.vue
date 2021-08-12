@@ -29,8 +29,9 @@
         
         <b-container fluid class="border border-red mt--6">
             <b-row align-h="center">
-                <b-col cols="10" md="8" xl="6">
+                <b-col cols="9" md="6" xl="4">
                     <b-card no-body class="p-4" v-if="derivations.length > 0">
+                      <p class="welcomete">Estadística de los Estado de Expedientes</p>
                         <chart-estado 
                             v-if="derivations.length > 0"
                             :nuevoData="nuevoAmount"
@@ -138,6 +139,13 @@ export default {
     color: white;
     font-family: 'Bungee', cursive;
     font-size: 2.5rem;
+    text-align: center;
+}
+.welcomete {
+    padding: 0 25px;
+    color: rgb(10, 10, 10);
+    font-family: 'Bungee', cursive;
+    font-size: 1.5rem;
     text-align: center;
 }
 .gtr {

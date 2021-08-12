@@ -1,5 +1,4 @@
 <template>
-
     <div>
         <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
@@ -25,14 +24,26 @@
                     </b-card>
 
                     <b-card v-show="hasExpedients" class="table-responsive">
-                        <template #header>
-                            <b-row align-h="between">
-                                <b-col cols="auto">
-                                    TRÁMITES
-                                </b-col>
-                                <b-col cols="auto">
-                                    <b-button @click="cargarDatos" variant="danger" size="sm">recargar</b-button>
-                                </b-col>
+                          <template #header>
+                            <b-row align-h="between"  >
+                                    <b-col>
+                                        <b-form-group>
+                                        <b-form-select 
+                                            v-model="criterio" 
+                                            :options= "tramitesOptions">                                        
+                                            </b-form-select>
+                                        </b-form-group>
+                                    </b-col>
+                                    <b-col >
+                                        <b-form-group >                                      
+                                            <b-form-input type="text" v-model="buscar" @keyup.enter="searchExpedientTotal"  placeholder="Texto a buscar"/>                                            
+                                        </b-form-group>
+                                    </b-col>     
+                                    <b-col >
+                                        <b-form-group >               
+                                            <b-button type="submit" @click="searchExpedientTotal"  variant="danger" ><i class="fa fa-search"></i> Buscar</b-button>
+                                        </b-form-group>
+                                    </b-col>
                             </b-row>
                         </template>
 
@@ -80,6 +91,7 @@
 </template>
 <script>
 import { getEmployeeExpedients } from '@/api/expedient'
+import { searchExpedientsEmployees} from '@/api/expedient' 
 
 export default {
     data () {
@@ -89,7 +101,14 @@ export default {
             //
             expedients: [],
             //
-            meta: {}
+            meta: {},            
+            criterio : 'code',
+            buscar : '',
+
+            tramitesOptions: [
+                   { value: 'code', text: 'codigo'},
+                   { value: 'subject', text: 'asunto'}  ,
+            ],
         }
     },
 
@@ -119,6 +138,32 @@ export default {
                     console.log('peticion de  expedientes terminada')
                     this.expedientsLoading = false
                 })
+        },
+
+        searchExpedientTotal(){
+             this.expedientsLoading = true
+            this.hasExpedients = false
+
+            searchExpedientsEmployees(this.$store.state.user.data.employee_id,this.buscar, this.criterio)
+         
+                .then (response => {
+                     console.log('GET=EXP : ' ,response);
+                    if (response.data.data) {
+                        this.hasExpedients = true
+                        this.expedients = response.data.data;
+                    } else {
+                        this.hasExpedients = false
+                    }
+                })
+                .catch (err => {
+                    console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
+                })
+                .finally ( () => {
+
+               console.log('peticion de  filtradp terminada')
+                    this.expedientsLoading = false
+                })
+
         }
     },
 

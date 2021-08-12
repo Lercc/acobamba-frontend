@@ -280,7 +280,7 @@
 
                         <b-form-row>
                             <b-col class="d-flex justify-content-center">
-                                <b-button @click="makeArchivation"  variant="success">Realizar Derivacion</b-button>
+                                <b-button @click="makeArchivation"  variant="success">Realizar Archivación</b-button>
                             </b-col>
                         </b-form-row>
                      </b-col>
