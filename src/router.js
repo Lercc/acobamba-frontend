@@ -345,6 +345,11 @@ export default new Router({
           path: 'interno-actualizar-password',
           name: 'interno-actualizar-password',
           component: () => import(/* webpackChunkName: "perfil-externo" */ '@/views/Interno/components/UpdatePassword.vue')
+        },
+        {
+          path: 'reporte-tramites',
+          name: 'reporte-tramites',
+          component: () => import(/* webpackChunkName: "reporte-tramites" */ '@/views/Interno/components/ReportTramites.vue')
         }
       ],
       beforeEnter: (to, from, next) => {

@@ -20,6 +20,7 @@
           v-show="this.$store.state.user.data.employee_type === 'trabajador' ? false : true "
           :link="{name: 'Lista de Archivaciones realizadas', icon: 'ni ni-single-02 text-orange', path: '/interno/lista-archivaciones'}" 
         />
+        <sidebar-item :link="{name: 'Reporte de Trámites', icon: 'ni ni-tag text-green', path: '/interno/reporte-tramites'}" />
       </template>
     </side-bar>
 
