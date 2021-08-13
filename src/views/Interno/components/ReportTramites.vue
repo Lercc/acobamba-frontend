@@ -25,21 +25,27 @@
                                 <b-row align-h="between"  >
                                     <b-col  cols="12"   >
                                         <b-form-group label="Fecha de Inicio" >                                      
-                                            <b-form-input type="date" v-model="start" />                                            
+                                            <b-form-input type="date" v-model="start" required/>
                                         </b-form-group>
                                     </b-col>     
                                 </b-row>
                                 <b-row align-h="between"  >    
                                     <b-col cols="12"  >
-                                        <b-form-group label="Fecha de Final">                                      
-                                            <b-form-input type="date" v-model="end" />                                            
+                                        <b-form-group label="Fecha de Final">
+                                            <b-form-input type="date" v-model="end" required/>
                                         </b-form-group>
                                     </b-col>  
                                 </b-row>
                                 <b-row align-h="between"  >     
-                                    <b-col cols="12"    >
+                                    <b-col cols="6"    >
                                         <b-form-group >               
                                             <b-button type="submit" @click="searchDateExpedientTotal"  variant="danger" ><i class="fa fa-search"></i> Buscar</b-button>
+                                        </b-form-group>
+                                    </b-col>
+                                  
+                                    <b-col cols="6"    >
+                                        <b-form-group >               
+                                            <b-button  @click="descargarPDF"  variant="info" ><i class="fa fa-search"></i> descargar</b-button>
                                         </b-form-group>
                                     </b-col>
                                 </b-row>
@@ -48,78 +54,66 @@
                 </b-col>
                 <b-col cols="7">
 
-                    <b-card v-show="!hasExpedients" class="loader-expedients" no-body>
+                    <b-card v-show="!hasDerivations" class="loader-expedients" no-body>
                         <p v-show="!expedientsLoading" class="text-center">No tiene tramites realizados</p>
                         <moon-loader v-show="expedientsLoading" :size="100" :color="'#225ba5'" />
                     </b-card>
 
-                    <b-card v-show="hasExpedients" class="table-responsive">
-                              <p class="welcomete">lISTA DE TRÁMITES</p>
-                        <b-row align-h="center" class="mb-5">
-                      
-                            <b-button 
-                                    :to="{name: 'interno-detalle-tramite'}"
-                                    variant="success"
-                                    size="sm">Descargar
-                            </b-button>
-                        </b-row>
+                    <b-card v-show="hasDerivations" class="table-responsive" id="page">
+                        <p class="welcomete">lISTA DE TRÁMITES</p>
+                       
         
 
-                        <table class="table">
+                        <table class="table" >
                             <thead>
                                 <tr>
-                                <th scope="col">Código</th>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Cabecera</th>
-                                <th scope="col">Asunto</th>
+                                <th scope="col">Código</th>                             
+                                <th scope="col">Derivado por </th>
+                                <th scope="col">Fecha de Derivación</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(expedient, index) in expedients" :key="`${index}-ext-exp-ent`">
-                                    <th scope="row">{{ expedient.attributes.code }}</th>
-                                    <td>{{ expedient.attributes.document_type }}</td>
-                                    <td>{{ expedient.attributes.header }}</td>
-                                    <td>{{ expedient.attributes.subject }}</td>
+                                <tr v-for="(derivation, index) in derivations" :key="`${index}-ext-exp-ent`">
+                                    <th scope="row">{{ derivation.attributes.expedient_code }}</th>
                                     <td>
-                                        <b-button 
-                                            :to="{name: 'interno-detalle-tramite', params: {expedient_id: expedient.attributes.id}}"
-                                            variant="info"
-                                            size="sm">ver detalles
-                                        </b-button>
+                                        {{derivation.attributes.user_area}}
+                                        <br>
+                                        {{derivation.attributes.user_name}}
+                                    </td>
+
+                                    <td>{{ derivation.attributes.createdAt }}</td>
+
+                                    <td>
+                                        <span :class=" derivation.attributes.status == 'nuevo' ? 'badge badge-success' : derivation.attributes.status == 'en proceso' ? 'badge badge-primary' : 'badge badge-warning'"> {{derivation.attributes.status}}</span>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <template #footer>
-                            <base-pagination 
-                                :pageCount="meta.last_page" 
-                                :perPage="meta.per_page"
-                                :value="meta.current_page"
-                                @input="cargarDatos">
-                            </base-pagination>
-                        </template>
                     </b-card>
                 </b-col>
-            </b-row>
-            </b-col>    
+
+                </b-row>
+            </b-col>
         </b-row>
     </b-container>
 
     </div>
 </template>
 <script>
-import { getEmployeeExpedients } from '@/api/expedient'
-import { searchDateExpedientsEmployees} from '@/api/expedient' 
+import { getEmployeeDerivations, searchDateDerivationsEmployees } from '@/api/employee'
+
+import html2PDF from 'jspdf-html2canvas';
 
 export default {
     data () {
         return {
-            hasExpedients: false,
+            hasDerivations: false,
             expedientsLoading: false,
             //
-            expedients: [],
+            derivations: [],
             //
             meta: {},            
             start : '',
@@ -134,19 +128,21 @@ export default {
     methods: {
         cargarDatos (pPage) {
             this.expedientsLoading = true
-            this.hasExpedients = false
+            this.hasDerivations = false
 
-            getEmployeeExpedients(this.$store.state.user.data.employee_id, pPage)
-                    .then (response => {
+            getEmployeeDerivations(this.$store.state.user.data.employee_id, pPage) 
+                .then (response => {
+                    console.log(response);
                     if (response.data.data) {
-                        this.hasExpedients = true
-                        this.expedients = response.data.data;
+                        this.hasDerivations = true
+                        this.derivations = response.data.data;
                         [this.meta]=[response.data.meta];
+                        if (this.derivations.length == 0 ) this.hasDerivations = false
                     } else {
-                        this.hasExpedients = false
+                        this.hasDerivations = false
                     }
                 })
-                .catch (err => {
+                .catch ((err) => {
                     console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
                 })
                 .finally ( () => {
@@ -155,19 +151,18 @@ export default {
                 })
         },
 
-        searchDateExpedientTotal(){
-             this.expedientsLoading = true
-            this.hasExpedients = false
+        searchDateExpedientTotal (){
+            this.expedientsLoading = true
+            this.hasDerivations = false
 
-            searchDateExpedientsEmployees(this.$store.state.user.data.employee_id,this.start, this.end)
-         
+            searchDateDerivationsEmployees(this.$store.state.user.data.employee_id, this.start, this.end)
                 .then (response => {
                      console.log('DATE=EXP : ' ,response);
                     if (response.data.data) {
-                        this.hasExpedients = true
-                        this.expedients = response.data.data;
+                        this.hasDerivations = true
+                        this.derivations = response.data.data;
                     } else {
-                        this.hasExpedients = false
+                        this.hasDerivations = false
                     }
                 })
                 .catch (err => {
@@ -179,6 +174,18 @@ export default {
                     this.expedientsLoading = false
                 })
 
+        },
+
+        descargarPDF () {
+            let page = document.getElementById('page');
+
+            html2PDF(page, {
+                jsPDF: {
+                    format: 'a4',
+                },
+                imageType: 'image/jpeg',
+                output: './pdf/generate.pdf'
+            });
         }
     },
 
