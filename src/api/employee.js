@@ -10,6 +10,19 @@ function getEmployeeDerivations(pEmployeeId, pPage = 1) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+// function searchDateExpedientsEmployees(pEmployeeId,from,until) {
+//     const REQUEST = `api/search-expedient-date/employee?id=${pEmployeeId}&start=${from}&end=${until}`
+//     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+//     return axios.get(`${API_URL}/${REQUEST}`, { headers })
+// }
+
+
+function searchDateDerivationsEmployees(pEmployeeId,from,until) {
+    const REQUEST = `api/search-derivation-date/employee?id=${pEmployeeId}&start=${from}&end=${until}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
 function getEmployeeDerivationsState(pEmployeeId) {
     const REQUEST = `api/employees/${pEmployeeId}/derivations`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
@@ -67,5 +80,6 @@ export {
      storeEmployee,
      getSecretariaTramDoc,
      updateEmployee,
-     getEmployeeDerivationsState
+     getEmployeeDerivationsState,
+     searchDateDerivationsEmployees
 }
