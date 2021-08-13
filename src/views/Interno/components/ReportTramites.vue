@@ -102,7 +102,7 @@
     </div>
 </template>
 <script>
-import { getEmployeeDerivations, searchDateDerivationsEmployees } from '@/api/employee'
+import {  searchDateDerivationsEmployees } from '@/api/employee'
 
 import html2PDF from 'jspdf-html2canvas';
 
@@ -120,36 +120,10 @@ export default {
         }
     },
 
-    beforeMount() {
-        this.cargarDatos()
-    },
+
 
     methods: {
-        cargarDatos (pPage) {
-            this.expedientsLoading = true
-            this.hasDerivations = false
-
-            getEmployeeDerivations(this.$store.state.user.data.employee_id, pPage) 
-                .then (response => {
-                    console.log(response);
-                    if (response.data.data) {
-                        this.hasDerivations = true
-                        this.derivations = response.data.data;
-                        [this.meta]=[response.data.meta];
-                        if (this.derivations.length == 0 ) this.hasDerivations = false
-                    } else {
-                        this.hasDerivations = false
-                    }
-                })
-                .catch ((err) => {
-                    console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
-                })
-                .finally ( () => {
-                    console.log('peticion de  expedientes terminada')
-                    this.expedientsLoading = false
-                })
-        },
-
+ 
         searchDateExpedientTotal (){
             this.expedientsLoading = true
             this.hasDerivations = false
