@@ -58,7 +58,7 @@
                         <b-row align-h="center" class="mb-5">
                       
                             <b-button 
-                                    :to="{name: 'interno-detalle-tramite'}"
+                                
                                     variant="success"
                                     size="sm">Descargar
                             </b-button>
