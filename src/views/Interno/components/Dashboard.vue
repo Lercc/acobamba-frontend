@@ -3,17 +3,18 @@
     <div>
         <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
+             <b-container>
             <b-row >
-                <b-col class="justify-content-center pb-5">
+                <b-col  cols="12" class="justify-content-center pb-5">
                     <p class="welcome">Bienvenido a la Mesa de Partes Virtual</p>
                 </b-col>
             </b-row>
 
             <b-row>
-                <b-col lg="6" xl="4" v-for="(notification, index) in notifications" :key="`${index}-dash-notif`">
+                <b-col cols="12" lg="6" xl="4" v-for="(notification, index) in notifications" :key="`${index}-dash-notif`">
                     <b-card class="mb-4 mb-xl-0" >
                         <b-card-text class="text-justify">
-                            Tu expediente de codigo <span class="text-blue">{{notification.attributes.expedient_code}}</span> ha sido <span class="text-blue">{{notification.attributes.exp_status}}</span> <span v-show="notification.attributes.exp_status === 'archivado' ? false : true" > a el area: <span class="text-blue">{{notification.attributes.area}}</span></span>.
+                            Tu expediente de codigo <span class="text-blue">{{notification.attributes.expedient_code}}</span> ha sido <span class="text-blue">{{notification.attributes.exp_status}}</span> <span v-show="notification.attributes.exp_status === 'archivado' ? false : true" > al area de : <span class="text-blue">{{notification.attributes.area}}</span></span>.
                             <b-badge variant="info">{{ notification.attributes.status === 'visto' ? 'visto' : 'nuevo'}}</b-badge>
                         </b-card-text>
                         <template #footer>
@@ -25,13 +26,15 @@
                    </b-card>
                 </b-col>
             </b-row>
+
+            </b-container>
         </base-header>
         
         <b-container fluid class="border border-red mt--6">
             <b-row align-h="center">
                 <b-col cols="9" md="6" xl="4">
                     <b-card no-body class="p-4" v-if="derivations.length > 0">
-                      <p class="welcomete">Estadística de los Estado de Expedientes</p>
+                      <p class="welcomete">Estadística de los Estados de los Expedientes Municipales</p>
                         <chart-estado 
                             v-if="derivations.length > 0"
                             :nuevoData="nuevoAmount"
@@ -152,4 +155,9 @@ export default {
     background: green;
     background-color: red;
 }
+
+@media (max-width: 761px) {
+  .welcome { display: none !important; }
+}
+
 </style>

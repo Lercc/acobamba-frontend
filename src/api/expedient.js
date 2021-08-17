@@ -53,6 +53,22 @@ function getExpedientsArchivations(pExpedientId) {
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
+
+
+function getExpedientsDerivationsAll() {
+    const REQUEST = `api/derivations`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
+
+function getExpedientsArchivationsAll() {
+    const REQUEST = `api/archivations`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
+
 export { 
     storeExpedient,
     getExpedients,
@@ -62,4 +78,7 @@ export {
     getEmployeeExpedients,
     searchExpedients,
     searchExpedientsEmployees,
+    getExpedientsDerivationsAll,
+    getExpedientsArchivationsAll
+
 }

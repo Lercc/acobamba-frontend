@@ -12,6 +12,8 @@
         <sidebar-item :link="{name: 'Administradores', icon: 'ni ni-single-02 text-orange', path: '/admin/users'}" />
         <sidebar-item :link="{name: 'Usuarios Externos', icon: 'ni ni-single-02 text-orange', path: '/admin/users-externos'}" />
         <sidebar-item :link="{name: 'Usuarios Internos', icon: 'ni ni-single-02 text-orange', path: '/admin/users-internos'}" />
+        <sidebar-item :link="{name: 'Expedientes Derivados Generales', icon: 'ni ni-single-02 text-orange', path: '/admin/expedientes-derivados'}" />
+        <sidebar-item :link="{name: 'Expedientes Archivados Generales', icon: 'ni ni-single-02 text-orange', path: '/admin/expedientes-archivados'}" />
       </template>
     </side-bar>
 

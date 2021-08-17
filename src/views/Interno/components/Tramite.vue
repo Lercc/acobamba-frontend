@@ -11,7 +11,7 @@
                     >
                         <!-- TIPO DOCUMENTO   -->
                         <b-form-row>
-                            <b-col>
+                            <b-col cols="12" sm="6" >
                                 <b-form-group
                                     label="TIPO DOCUMENTO"
                                 >
@@ -23,9 +23,9 @@
                                 </b-form-group>
                             </b-col>
 
-                           <b-col>
+                           <b-col cols="12" sm="6" >
                                 <b-form-group
-                                    label="HEADER"
+                                    label="ASUNTO"
                                 >
                                     <b-form-input 
                                         type="text"
@@ -63,7 +63,7 @@
                       
                         <!-- FOLIOS -->
                         <b-form-row>
-                            <b-col >
+                            <b-col cols="12" sm="6" >
                                 <b-form-group
                                     label="FOLIOS"
                                 >
@@ -78,7 +78,7 @@
                             </b-col>
 
                         <!-- FILE -->
-                             <b-col>
+                             <b-col cols="12" sm="6" >
                                 <b-form-group
                                     label="FILE"
                                 >

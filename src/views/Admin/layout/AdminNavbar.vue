@@ -19,7 +19,7 @@
                     <p class="dropdown-item mb-0" style="cursor:pointer">
                       <i class="ni ni-user-run"></i>
                       <span @click="cerrarSesion">Logout</span>
-                    </p>
+                    </p>                    
                 </admin-dropdown>
             </li>
         </ul>

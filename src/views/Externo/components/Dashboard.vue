@@ -13,7 +13,7 @@
                 <b-col lg="6" xl="4" v-for="(notification, index) in notifications" :key="`${index}-dash-notif`">
                     <b-card class="mb-4 mb-xl-0" >
                         <b-card-text class="text-justify">
-                            Tu expediente de codigo <span class="text-blue">{{notification.attributes.expedient_code}}</span> ha sido <span class="text-blue">{{notification.attributes.exp_status}}</span> <span v-show="notification.attributes.exp_status === 'archivado' ? false : true" >  a el area: <span class="text-blue">{{notification.attributes.area}}</span></span>.
+                            Tu expediente de codigo <span class="text-blue">{{notification.attributes.expedient_code}}</span> ha sido <span class="text-blue">{{notification.attributes.exp_status}}</span> <span v-show="notification.attributes.exp_status === 'archivado' ? false : true" >  al area de: <span class="text-blue">{{notification.attributes.area}}</span></span>.
                             <b-badge variant="info">{{ notification.attributes.status === 'visto' ? 'visto' : 'nuevo'}}</b-badge>
                         </b-card-text>
                         <template #footer>

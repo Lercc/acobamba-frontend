@@ -11,7 +11,7 @@
                     >
                         <!-- TIPO DOCUMENTO   -->
                         <b-form-row>
-                            <b-col>
+                            <b-col cols="12" sm="6">
                                 <b-form-group
                                     label="TIPO DOCUMENTO"
                                 >
@@ -24,9 +24,9 @@
                                 
                         <!-- HEADER -->
                             </b-col>
-                            <b-col >
+                            <b-col cols="12" sm="6" >
                                 <b-form-group
-                                    label="HEADER"
+                                    label="CABECERA"
                                 >
                                     <b-form-input 
                                         type="text"
@@ -41,9 +41,9 @@
 
                         <!-- SUBJECT -->
                         <b-form-row>
-                            <b-col>
+                            <b-col cols="12" >
                                 <b-form-group
-                                    label="SUBJECT"
+                                    label="ASUNTO"
                                 >
                                     <b-form-textarea
                                         type="text"
@@ -66,7 +66,7 @@
                       
                         <!-- FOLIOS -->
                         <b-form-row>
-                            <b-col>
+                            <b-col cols="12" sm="6">
                                 <b-form-group
                                     label="FOLIOS"
                                 >
@@ -80,7 +80,7 @@
                                 </b-form-group>
                             </b-col>
                         <!-- FILE -->
-                             <b-col>
+                             <b-col cols="12" sm="6" >
                                 <b-form-group
                                     label="FILE"
                                 >

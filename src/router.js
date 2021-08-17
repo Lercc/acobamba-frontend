@@ -214,7 +214,17 @@ export default new Router({
           path: 'admin-actualizar-password/:user_id',
           name: 'admin-actualizar-password',
           component: () => import(/* webpackChunkName: "perfil-externo" */ '@/views/Admin/components/UpdatePassword.vue')
-        }
+        },
+        {
+          path: 'expedientes-derivados',
+          name: 'expedientes-derivados',
+          component: () => import(/* webpackChunkName: "admin-expedientes-derivados" */ '@/views/Admin/components/ExpedientesDerivados.vue')
+        },
+        {
+          path: 'expedientes-archivados',
+          name: 'expedientes-archivados',
+          component: () => import(/* webpackChunkName: "admin-expedientes-archivados" */ '@/views/Admin/components/ExpedientesArchivados.vue')
+        },
       ],
       beforeEnter: (to, from, next) => {
         if (Object.keys(store.state.user.data).length !== 0) {

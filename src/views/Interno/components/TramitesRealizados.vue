@@ -26,7 +26,9 @@
                     <b-card v-show="hasExpedients" class="table-responsive">
                           <template #header>
                             <b-row align-h="between"  >
-                                    <b-col>
+                                 <b-container>
+                                      <b-form-row>
+                                    <b-col cols="12" sm="4" md="4" >
                                         <b-form-group>
                                         <b-form-select 
                                             v-model="criterio" 
@@ -34,42 +36,46 @@
                                             </b-form-select>
                                         </b-form-group>
                                     </b-col>
-                                    <b-col >
+                                    <b-col cols="12" sm="4" md="4">
                                         <b-form-group >                                      
                                             <b-form-input type="text" v-model="buscar" @keyup.enter="searchExpedientTotal"  placeholder="Texto a buscar"/>                                            
                                         </b-form-group>
                                     </b-col>     
-                                    <b-col >
+                                    <b-col cols="12" sm="4" md="4" >
                                         <b-form-group >               
                                             <b-button type="submit" @click="searchExpedientTotal"  variant="danger" ><i class="fa fa-search"></i> Buscar</b-button>
                                         </b-form-group>
                                     </b-col>
+                                </b-form-row>
+                              </b-container>
                             </b-row>
                         </template>
 
                         <table class="table">
                             <thead>
                                 <tr>
+                                <th scope="col">Acciones</th>
                                 <th scope="col">Código</th>
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Cabecera</th>
                                 <th scope="col">Asunto</th>
-                                <th scope="col"></th>
+                            
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(expedient, index) in expedients" :key="`${index}-ext-exp-ent`">
-                                    <th scope="row">{{ expedient.attributes.code }}</th>
-                                    <td>{{ expedient.attributes.document_type }}</td>
-                                    <td>{{ expedient.attributes.header }}</td>
-                                    <td>{{ expedient.attributes.subject }}</td>
-                                    <td>
+                                     <td>
                                         <b-button 
                                             :to="{name: 'interno-detalle-tramite', params: {expedient_id: expedient.attributes.id}}"
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
                                     </td>
+                                    <th scope="row">{{ expedient.attributes.code }}</th>
+                                    <td>{{ expedient.attributes.document_type }}</td>
+                                    <td>{{ expedient.attributes.header }}</td>
+                                    <td>{{ expedient.attributes.subject }}</td>
+                              
                                 </tr>
                             </tbody>
                         </table>
