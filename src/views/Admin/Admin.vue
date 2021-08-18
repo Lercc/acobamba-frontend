@@ -5,15 +5,15 @@
       short-title="apk"
       title="apk">
       <template slot="links">
-        <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-folder-17 text-blue', path: '/admin'}" />
-        <sidebar-item :link="{name: 'Oficinas', icon: 'ni ni-tag text-green', path: '/admin/offices'}" />
-        <sidebar-item :link="{name: 'Suboficinas', icon: 'ni ni-single-02 text-orange', path: '/admin/suboffices'}" />
-        <sidebar-item :link="{name: 'Roles', icon: 'ni ni-single-02 text-orange', path: '/admin/roles'}" />
-        <sidebar-item :link="{name: 'Administradores', icon: 'ni ni-single-02 text-orange', path: '/admin/users'}" />
-        <sidebar-item :link="{name: 'Usuarios Externos', icon: 'ni ni-single-02 text-orange', path: '/admin/users-externos'}" />
-        <sidebar-item :link="{name: 'Usuarios Internos', icon: 'ni ni-single-02 text-orange', path: '/admin/users-internos'}" />
-        <sidebar-item :link="{name: 'Expedientes Derivados Generales', icon: 'ni ni-single-02 text-orange', path: '/admin/expedientes-derivados'}" />
-        <sidebar-item :link="{name: 'Expedientes Archivados Generales', icon: 'ni ni-single-02 text-orange', path: '/admin/expedientes-archivados'}" />
+        <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-chart-bar-32 text-red', path: '/admin'}" />
+        <sidebar-item :link="{name: 'Oficinas', icon: 'ni ni-badge text-green', path: '/admin/offices'}" />
+        <sidebar-item :link="{name: 'Suboficinas', icon: 'ni ni-badge text-orange', path: '/admin/suboffices'}" />
+        <sidebar-item :link="{name: 'Roles', icon: 'ni ni-single-02 text-blue', path: '/admin/roles'}" />
+        <sidebar-item :link="{name: 'Administradores', icon: 'ni ni-single-02 text-yellow', path: '/admin/users'}" />
+        <sidebar-item :link="{name: 'Usuarios Externos', icon: 'ni ni-single-02 text-pinki', path: '/admin/users-externos'}" />
+        <sidebar-item :link="{name: 'Usuarios Internos', icon: 'ni ni-single-02 text-green', path: '/admin/users-internos'}" />
+        <sidebar-item :link="{name: 'Expedientes Derivados Generales', icon: 'ni ni-send text-orange', path: '/admin/expedientes-derivados'}" />
+        <sidebar-item :link="{name: 'Expedientes Archivados Generales', icon: 'ni ni-single-copy-04 text-orange', path: '/admin/expedientes-archivados'}" />
       </template>
     </side-bar>
 

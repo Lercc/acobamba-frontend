@@ -32,9 +32,9 @@
         
         <b-container fluid class="border border-red mt--6">
             <b-row align-h="center">
-                <b-col cols="9" md="6" xl="4">
+                <b-col cols="12" sm="9" md="9" lg="6" xl="6">
                     <b-card no-body class="p-4" v-if="derivations.length > 0">
-                      <p class="welcomete">Estadística de los Estados de los Expedientes Municipales</p>
+                      <p class="welcomete">Estadística de los Estados de los Expedientes Derivados</p>
                         <chart-estado 
                             v-if="derivations.length > 0"
                             :nuevoData="nuevoAmount"
@@ -159,5 +159,13 @@ export default {
 @media (max-width: 761px) {
   .welcome { display: none !important; }
 }
+
+@media (max-width: 576px) {
+  .welcomete{ 
+     font-size: 1.2rem;
+      color: rgb(33, 33, 37); }
+}
+
+
 
 </style>

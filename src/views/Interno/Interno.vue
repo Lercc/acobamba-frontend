@@ -5,9 +5,9 @@
       short-title="apk"
       title="apk">
       <template slot="links">
-        <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-folder-17 text-blue', path: '/interno'}" />
-        <sidebar-item :link="{name: 'Nuevo Trámite', icon: 'ni ni-tag text-green', path: '/interno/tramite'}" />
-        <sidebar-item :link="{name: 'Trámites Realizados', icon: 'ni ni-single-02 text-orange', path: '/interno/tramites-realizados'}" />
+        <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-chart-bar-32 text-red', path: '/interno'}" />
+        <sidebar-item :link="{name: 'Nuevo Trámite', icon: 'ni ni-folder-17 text-blue', path: '/interno/tramite'}" />
+        <sidebar-item :link="{name: 'Trámites Realizados', icon: 'ni ni-bullet-list-67 text-green', path: '/interno/tramites-realizados'}" />
         <sidebar-item 
           v-show="this.$store.state.user.data.employee_type === 'trabajador' ? false : true "
           :link="{name: 'Lista de Derivaciones realizadas', icon: 'ni ni-single-02 text-orange', path: '/interno/lista-derivaciones'}" 
@@ -20,7 +20,9 @@
           v-show="this.$store.state.user.data.employee_type === 'trabajador' ? false : true "
           :link="{name: 'Lista de Archivaciones realizadas', icon: 'ni ni-single-02 text-orange', path: '/interno/lista-archivaciones'}" 
         />
-        <sidebar-item :link="{name: 'Reporte de Trámites', icon: 'ni ni-tag text-green', path: '/interno/reporte-tramites'}" />
+        <sidebar-item
+         v-show="this.$store.state.user.data.employee_type === 'trabajador' ? false : true "
+         :link="{name: 'Reporte de Trámites', icon: 'ni ni-tag text-green', path: '/interno/reporte-tramites'}" />
       </template>
     </side-bar>
 

@@ -5,7 +5,7 @@
             <!-- Card stats -->
             <b-row >
                 <b-col class="justify-content-center pb-5">
-                    <p class="welcome">DETALLES DEL EXPEDIENTE DERIVADO</p>
+                    <p class="welcome">DETALLE DEL EXPEDIENTE DERIVADO</p>
                 </b-col>
             </b-row>
 
@@ -546,4 +546,10 @@ export default {
     border: 1px solid #cad1d7;
     border-radius: 0.375rem;
 }
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.2rem;
+      color: rgb(233, 233, 248); }
+}
+
 </style>

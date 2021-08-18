@@ -1,13 +1,19 @@
 <template>
     <div>
         <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
+                <!-- Card stats -->
+            <b-row >
+                <b-col class="justify-content-center pb-5">
+                    <p class="welcome">REGISTRA TU TRÁMITE</p>
+                </b-col>
+            </b-row>
         </base-header>
         
         <b-container fluid class="mt--6">
             <b-row>
                 <b-col cols="12">
                     <b-card
-                        header="REGISTRAR NUEVO TRÁMITE"
+                        header="TRÁMITE DOCUMENTARIO"
                     >
                         <!-- TIPO DOCUMENTO   -->
                         <b-form-row>
@@ -25,7 +31,7 @@
 
                            <b-col cols="12" sm="6" >
                                 <b-form-group
-                                    label="ASUNTO"
+                                    label="CABECERA"
                                 >
                                     <b-form-input 
                                         type="text"
@@ -40,7 +46,7 @@
                         <b-form-row>
                             <b-col cols="12">
                                 <b-form-group
-                                    label="SUBJECT"
+                                    label="ASUNTO"
                                 >
                                     <b-form-textarea
                                         type="text"
@@ -240,3 +246,21 @@ export default {
 
 }
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+.welcome {
+    padding: 0 25px;
+    color: white;
+    font-family: 'Bungee', cursive;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.5rem;
+      color: rgb(233, 233, 248); }
+}
+
+</style>

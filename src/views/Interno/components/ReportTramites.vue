@@ -7,52 +7,41 @@
                     <p class="welcome">REPORTES DE TRÁMITES</p>
                 </b-col>
             </b-row>
-
-            <b-row align-h="end">
-                <b-col cols="auto" class="mb-2">
-                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md" >nuevo trámite</b-button>
-                </b-col>
-            </b-row>
         </base-header>
         
         <b-container fluid class="mt--6">
-            <b-row>
-                <b-col cols="12">
-                <b-row>
-                <b-col cols="4">
+            <b-row style="border:2px solid green">
+                <b-col cols="12" sm="12" md="12" lg="4" xl="5">
                       <b-card class="table-responsive">
                           <template #header>
                                 <b-row align-h="between"  >
-                                    <b-col  cols="12"   >
+                                    <b-col  cols="12" sm="6" md="6" lg="6" xl="6"   >
                                         <b-form-group label="Fecha de Inicio" >                                      
                                             <b-form-input type="date" v-model="start" required/>
                                         </b-form-group>
-                                    </b-col>     
-                                </b-row>
-                                <b-row align-h="between"  >    
-                                    <b-col cols="12"  >
+                                    </b-col>       
+                                    <b-col cols="12"  sm="6" md="6" lg="6" xl="6"    >
                                         <b-form-group label="Fecha de Final">
                                             <b-form-input type="date" v-model="end" required/>
                                         </b-form-group>
                                     </b-col>  
                                 </b-row>
-                                <b-row align-h="between"  >     
-                                    <b-col cols="6"    >
-                                        <b-form-group >               
+                                <b-row align-h="center"> 
+                                    <b-col cols="12"  sm="6" md="6" lg="6" xl="6"    >
+                                        <b-form-group  >               
                                             <b-button type="submit" @click="searchDateExpedientTotal"  variant="danger" ><i class="fa fa-search"></i> Buscar</b-button>
                                         </b-form-group>
-                                    </b-col>
-                                  
-                                    <b-col cols="6"    >
+                                    </b-col>                                 
+                                    <b-col cols="12"  sm="6" md="6" lg="6" xl="6"  >
                                         <b-form-group >               
-                                            <b-button  @click="descargarPDF"  variant="info" ><i class="fa fa-search"></i> descargar</b-button>
+                                            <b-button  @click="descargarPDF"  variant="info" ><i class="fa fa-download"></i> descargar</b-button>
                                         </b-form-group>
                                     </b-col>
                                 </b-row>
                         </template>
                         </b-card>
                 </b-col>
-                <b-col cols="7">
+                <b-col cols="12" sm="12" md="12" lg="8" xl="7">
 
                     <b-card v-show="!hasDerivations" class="loader-expedients" no-body>
                         <p v-show="!expedientsLoading" class="text-center">No tiene tramites realizados</p>
@@ -93,9 +82,6 @@
 
                     </b-card>
                 </b-col>
-
-                </b-row>
-            </b-col>
         </b-row>
     </b-container>
 
@@ -186,5 +172,10 @@ export default {
     align-items: center;
     justify-content: center;
     min-height: 400px;
+}
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.2rem;
+      color: rgb(233, 233, 248); }
 }
 </style>

@@ -42,26 +42,28 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                <th scope="col">Acciones</th>
                                 <th scope="col">Código</th>
                                 <th scope="col">Derivado a  </th>
                                 <th scope="col">Fecha de Derivado</th>
-                                <th scope="col"></th>
+                              
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(derivation, index) in derivations" :key="`${index}-ext-exp-ent`">
-                                    <th scope="row">{{ derivation.attributes.expedient_code }}</th>
-                                      
-                               <!--        {{ derivation.attributes.employee_name }} -->
-                                        <td>{{derivation.attributes.employee_area}} <br>{{derivation.attributes.employee_name}} </td>
-                                        <td>{{ derivation.attributes.createdAt }}</td>
-                                        <td>
+                                    <td>
                                         <b-button 
                                             :to="{name: 'interno-detalle-expediente', params: {derivation_id: derivation.attributes.id, expedient_id: derivation.attributes.expedient_id }}"
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
-                                    </td>
+                                     </td>
+                                    <th scope="row">{{ derivation.attributes.expedient_code }}</th>
+                                      
+                               <!--        {{ derivation.attributes.employee_name }} -->
+                                        <td>{{derivation.attributes.employee_area}} <br>{{derivation.attributes.employee_name}} </td>
+                                        <td>{{ derivation.attributes.createdAt }}</td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
@@ -148,4 +150,12 @@ export default {
     justify-content: center;
     min-height: 400px;
 }
+
+
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.2rem;
+      color: rgb(233, 233, 248); }
+}
+
 </style>

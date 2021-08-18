@@ -42,30 +42,29 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                <th scope="col">Acciones</th>
                                 <th scope="col">Código</th>              
                                  <th scope="col">Fecha de Archivado</th>
                                 <th scope="col">Observaciones</th>
                                  <th scope="col">Status</th>
-                                <th scope="col"></th>
+                       
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(archivation, index) in archivations" :key="`${index}-ext-exp-ent`">
+                                      <td>
+                                            <b-button 
+                                                :to="{name: 'interno-detalle-archivacion', params: { archivation_id: archivation.attributes.id, expedient_id: archivation.attributes.expedient_id }}"
+                                                variant="info"
+                                                size="sm">ver detalles
+                                            </b-button>
+                                      </td> 
                                     <th scope="row">{{ archivation.attributes.expedient_code }}</th>
-                                      
+                                     
                                <!--        {{ archivation.attributes.employee_name }} -->
                                         <td>{{ archivation.attributes.createdAt }}</td>
                                         <td>{{ archivation.attributes.observations.substring(0, 30) }}...</td>                         
                                         <td>{{ archivation.attributes.status }}</td>
-                                                       
-                             
-                                        <td>
-                                        <b-button 
-                                            :to="{name: 'interno-detalle-archivacion', params: { archivation_id: archivation.attributes.id, expedient_id: archivation.attributes.expedient_id }}"
-                                            variant="info"
-                                            size="sm">ver detalles
-                                        </b-button>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -146,5 +145,11 @@ export default {
     align-items: center;
     justify-content: center;
     min-height: 400px;
+}
+
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.2rem;
+      color: rgb(233, 233, 248); }
 }
 </style>

@@ -10,7 +10,9 @@
 
             <b-row align-h="end">
                 <b-col cols="auto" class="mb-2">
-                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md" >nuevo trámite</b-button>
+                     <b-container>
+                    <b-button :to="{name: 'externo-tramite'}" variant="info" size="md" >Volver al  Dashboard</b-button>
+                     </b-container>
                 </b-col>
             </b-row>
         </base-header>
@@ -191,4 +193,11 @@ export default {
     justify-content: center;
     min-height: 400px;
 }
+
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.3rem;
+      color: rgb(233, 233, 248); }
+}
+
 </style>

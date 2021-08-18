@@ -34,35 +34,38 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                <th scope="col">Acciones</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">Código</th>                             
                                 <th scope="col">Derivado por </th>
                                 <th scope="col">Fecha de Derivación</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
+                          
+                        
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(derivation, index) in derivations" :key="`${index}-ext-exp-ent`">
-                                        <th scope="row">{{ derivation.attributes.expedient_code }}</th>
-                                        <td>
-                                            {{derivation.attributes.user_area}}
-                                            <br>
-                                            {{derivation.attributes.user_name}}
-                                        </td>
-                                        <td>{{ derivation.attributes.createdAt }}</td>
-
-                                        <td>
-                                            <span :class=" derivation.attributes.status == 'nuevo' ? 'badge badge-success' : 'badge badge-warning' "> {{derivation.attributes.status}}</span>
-                                        </td>
-                                                                    
-                                        <td>
+                                     <td>
                                         <b-button 
                                             @click="changeStatus(derivation.attributes.id,derivation.attributes.expedient_id)"                                            
                                             variant="info"
                                             size="sm">ver detalles
                                         </b-button>
                                     </td>
+                                     <td>
+                                        <span :class=" derivation.attributes.status == 'nuevo' ? 'badge badge-success' : 'badge badge-warning' "> {{derivation.attributes.status}}</span>
+                                    </td>
+                                    <th scope="row">{{ derivation.attributes.expedient_code }}</th>
+                                    <td>
+                                        {{derivation.attributes.user_area}}
+                                        <br>
+                                        {{derivation.attributes.user_name}}
+                                    </td>
+                                    <td>{{ derivation.attributes.createdAt }}</td>
+
+                                   
+                                                                    
+                                      
                                 </tr>
                             </tbody>
                         </table>
@@ -163,5 +166,11 @@ export default {
     align-items: center;
     justify-content: center;
     min-height: 400px;
+}
+
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.2rem;
+      color: rgb(233, 233, 248); }
 }
 </style>
