@@ -10,19 +10,19 @@
         <sidebar-item :link="{name: 'Trámites Realizados', icon: 'ni ni-bullet-list-67 text-green', path: '/interno/tramites-realizados'}" />
         <sidebar-item 
           v-show="this.$store.state.user.data.employee_type === 'trabajador' ? false : true "
-          :link="{name: 'Lista de Derivaciones realizadas', icon: 'ni ni-single-02 text-orange', path: '/interno/lista-derivaciones'}" 
+          :link="{name: 'Lista de Derivaciones realizadas', icon: 'ni ni-collection text-orange', path: '/interno/lista-derivaciones'}" 
         />
         <sidebar-item 
           v-show="this.$store.state.user.data.employee_type === 'trabajador' ? false : true "
-          :link="{name: 'Bandeja de Derivaciones', icon: 'ni ni-single-02 text-orange', path: '/interno/bandeja-derivaciones'}" 
+          :link="{name: 'Bandeja de Derivaciones', icon: 'ni ni-send text-orange', path: '/interno/bandeja-derivaciones'}" 
         />
         <sidebar-item
           v-show="this.$store.state.user.data.employee_type === 'trabajador' ? false : true "
-          :link="{name: 'Lista de Archivaciones realizadas', icon: 'ni ni-single-02 text-orange', path: '/interno/lista-archivaciones'}" 
+          :link="{name: 'Lista de Archivaciones realizadas', icon: 'ni ni-single-copy-04 text-orange', path: '/interno/lista-archivaciones'}" 
         />
         <sidebar-item
          v-show="this.$store.state.user.data.employee_type === 'trabajador' ? false : true "
-         :link="{name: 'Reporte de Trámites', icon: 'ni ni-tag text-green', path: '/interno/reporte-tramites'}" />
+         :link="{name: 'Reporte de Trámites', icon: 'ni ni-ungroup text-green', path: '/interno/reporte-tramites'}" />
       </template>
     </side-bar>
 

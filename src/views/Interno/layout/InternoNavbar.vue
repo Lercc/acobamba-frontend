@@ -16,7 +16,7 @@
                         </span>
                     </div>
 
-                    <p class="dropdown-item mb-0" style="cursor:pointer">
+                    <p class="dropdown-item mb-0" style="cursor:pointer" @click="cerrarSesion" >
                       <i class="ni ni-user-run"></i>
                       <span @click="cerrarSesion">Logout</span>
                     </p>
