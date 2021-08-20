@@ -10,10 +10,15 @@
         
         <b-container fluid class="mt--6">
             <b-row>
-                <b-col cols="12">              
+                <b-col cols="12">
+                    <!-- loader -->
+                     <b-card v-show="tramiteLoading" class="loader-tramite" no-body>
+                        <moon-loader :size="100" :color="'#225ba5'" />
+                    </b-card>
 
                     <b-card
                         header="TRÁMITE DOCUMENTARIO"
+                        v-show="!tramiteLoading"
                     >
                         <!-- TIPO DOCUMENTO   -->
                         <b-form-row>
@@ -43,7 +48,6 @@
                                 </b-form-group>
                             </b-col>
                         </b-form-row>
-
 
                         <!-- SUBJECT -->
                         <b-form-row>
@@ -108,20 +112,14 @@
                         </b-form-row>
                         
                         <b-form-row class="justify-content-center">
-                        <b-button variant="info" @click="createExpedient">
-                            Registrar
-                        </b-button>
-                    </b-form-row>
+                            <b-button variant="info" @click="createExpedient">
+                                Registrar
+                            </b-button>
+                        </b-form-row>
                     </b-card>
-
-                    <b-card class="loader-expedients" no-body>
-                        <moon-loader v-show="expedientsLoading" :size="100" :color="'#225ba5'" />
-                    </b-card>
-
                 </b-col>
             </b-row>
         </b-container>
-
     </div>
 </template>
 
@@ -134,7 +132,7 @@ import swal from 'sweetalert'
 export default {
     data () {
         return {
-            expedientsLoading: false,
+            tramiteLoading: false,
             state: false,
             //
             document_type: 'solicitud',
@@ -175,7 +173,7 @@ export default {
 
     methods: {
         createExpedient () {
-            this.expedientsLoading = true
+            this.tramiteLoading = true
             this.inputErrors = {}
             let expedientFormData = new FormData()
 
@@ -231,7 +229,7 @@ export default {
                 })
                 .finally(() => {
                     this.inputInitialValues = false
-                    this.expedientsLoading = false
+                    this.tramiteLoading = false
                     console.log('request de exp terminada!');
                 })
         },
@@ -267,12 +265,13 @@ export default {
     font-size: 2.5rem;
     text-align: center;
 }
-.loader-expedients {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 400px;
+.loader-tramite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
 }
+
 @media (max-width: 576px) {
   .welcome{ 
      font-size: 1.5rem;

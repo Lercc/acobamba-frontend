@@ -42,6 +42,7 @@
                                 </b-form-group>
                             </b-col>
                         </b-form-row>
+
                         <!-- SUBJECT -->
                         <b-form-row>
                             <b-col cols="12">
@@ -66,7 +67,7 @@
                                 </b-form-group>
                             </b-col>
                         </b-form-row>
-                      
+
                         <!-- FOLIOS -->
                         <b-form-row>
                             <b-col cols="12" sm="6" >
@@ -105,11 +106,11 @@
                             </b-col>
                         </b-form-row>
 
-                    <b-form-row class="justify-content-center">
-                        <b-button variant="info" @click="createExpedient">
-                            Registrar
-                        </b-button>
-                    </b-form-row>
+                        <b-form-row class="justify-content-center">
+                            <b-button variant="info" @click="createExpedient">
+                                Registrar
+                            </b-button>
+                        </b-form-row>
                     </b-card>
                 </b-col>
             </b-row>

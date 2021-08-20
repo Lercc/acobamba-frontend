@@ -2,11 +2,11 @@
   <b-container fluid class="py-5">
     <b-row class="justify-content-center">
       <b-col cols="12" sm="10" md="8" lg="7" xl="6">
-        <b-card v-show="processorLoading" class="loader-login" no-body>
+        <b-card v-show="registerLoading" class="loader-login" no-body>
           <moon-loader :size="100" :color="'#225ba5'" />
         </b-card>
 
-        <b-card v-show="!processorLoading">
+        <b-card v-show="!registerLoading">
            <b-row class="titulo" >
              <h1 class="register-class">REGISTRATE</h1>
          </b-row >
@@ -383,14 +383,16 @@
         </b-card>
       </b-col>
 
-      <b-modal id="modal-2" title="REGISTRO EXITOSO"  button-size="sm" hide-footer size="lg">
-          <b-col cols="12">
-              <b-form-row>
-                  <b-col class="d-flex justify-content-center">
-                      <b-button :to="{name: 'login'}"  variant="success" >Aceptar</b-button>
-                  </b-col>
-              </b-form-row>
+      <b-modal id="registerDone"  button-size="sm" hide-header hide-footer size="lg">
+        <b-row align-h="center" align-v="center">
+            <b-col cols="12" class="text-center">
+                <p class="my-6">REGISTRO EXITOSO!</p>
             </b-col>
+
+            <b-col class="d-flex justify-content-center">
+                <b-button :to="{name: 'login'}"  variant="success" >Aceptar</b-button>
+            </b-col>
+        </b-row>
       </b-modal>
 
     </b-row>
@@ -408,7 +410,6 @@ export default {
     return {
       registerLoading: false,
       typeOfficeRadioSelect: "usuario_externo",
-      processorLoading: false,
       processorData: {
         attributes: {
           id: this.$route.params.id,
@@ -437,7 +438,9 @@ export default {
 
   methods: {
     createProcessor() {
- 
+      //cargando
+      this.registerLoading = true
+
       this.inputErrors = {};
 
       const processorFormData = new FormData();
@@ -458,22 +461,9 @@ export default {
         .then((response) => {
           if (response.data.data) {
             this.processorData = response.data.data;
-            //cargando
-            this.registerLoading = true
-            //alert 
-
-
-            alert('¡Registro exitoso!'); 
-            //    swal('¡Registro correcto!','Ok','success')
-            //     .then( res =>{
-            //         if(res == null || res == true || res == false)
-            //             this.$router.push({name:'users-externos'})
-            // })
-            this.$router.push({ name: "login" });
-            console.log(response);
+            this.$bvModal.show('registerDone')
           }
         })
-
         .catch((err) => {
           console.log(err.response);
           if (err.response.status == 422) this.inputErrors = err.response.data.errors;
@@ -504,7 +494,7 @@ export default {
           this.processorData.attributes.email='';
           this.processorData.attributes.password='';
           this.processorData.attributes.password_confirmation='';
-        }
+    },
   },
 };
 </script>
