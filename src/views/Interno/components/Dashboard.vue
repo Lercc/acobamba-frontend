@@ -33,20 +33,24 @@
         <b-container fluid class="border border-red mt--6">
             <b-row align-h="center">
                 <b-col cols="12" sm="9" md="9" lg="6" xl="6">
-                    <b-card no-body class="p-4" v-if="derivations.length > 0">
-                      <p class="welcomete">Estadística de los Estados de los Expedientes Derivados</p>
-                        <chart-estado 
-                            v-if="derivations.length > 0"
+                    <b-card no-body class="p-4 text-center" v-if="showChar">
+                        <p class="welcomete">Estadística de los Estados de los Expedientes Derivados</p>
+
+                        <p v-show="derivations.length == 0">
+                            no tiene derivaciones
+                        </p>
+                        
+                        <p v-show="derivations.length == 0">
+                            no tiene archivaciones
+                        </p>
+
+                        <chart-estado
+                            v-show="!derivations.length == 0"
                             :nuevoData="nuevoAmount"
                             :enProcesoData="enProcesoAmount"
                             :derivadoData="derivadoAmount"
+                            :archivadoData="archivadoAmount"
                         />
-                    </b-card>
-
-                    <b-card no-body class="p-9 text-center" v-else>
-                        <b-card-text>
-                            No tienes derivaciones
-                        </b-card-text>
                     </b-card>
                 </b-col>
             </b-row>
@@ -56,6 +60,7 @@
 <script>
 import { getEmployeeNotifications } from '@/api/notification'
 import { getEmployeeDerivationsState } from '@/api/employee'
+import { getUserAmountArchivations } from '@/api/user'
 import ChartEstado from './ViewsCharts/ChartEstado.vue'
 
 
@@ -65,14 +70,19 @@ export default {
     },
     data () {
         return {
-            derivations:[],
+            //
+            showChar: false,
+
+            derivations: [],
+            archivations: [],
             status: [], 
             notifications: {},
 
             // charDATA
             nuevoAmount: 0,
             enProcesoAmount: 0,
-            derivadoAmount: 0
+            derivadoAmount: 0,
+            archivadoAmount: 0
         }
     }, 
 
@@ -100,36 +110,49 @@ export default {
         },
 
         cargarDatosEmpDerivations() {
+            this.showChar = false
+
             getEmployeeDerivationsState(this.$store.state.user.data.employee_id)
                 .then (({ data }) => {
-                    console.log('EmploDerivationAll :', data);
-                    this.derivations = data.data
-                    for(const el in data.data) {
-                        switch (data.data[el].attributes.status) {
-                            case 'nuevo':
-                                this.nuevoAmount += 1
-                                break;
+                    // console.log('EmploDerivationAll :', data);
+                    if (data.data) {
+                        this.derivations = data.data
 
-                            case 'en proceso':
-                                this.enProcesoAmount += 1
-                                break;
+                        for(const el in data.data) {
+                            switch (data.data[el].attributes.status) {
+                                case 'nuevo':
+                                    this.nuevoAmount += 1
+                                    break;
 
-                            case 'derivado':
-                                this.derivadoAmount += 1
-                                break;
-                        
-                            default:
-                                console.log('for break default');
-                                break;
+                                case 'en proceso':
+                                    this.enProcesoAmount += 1
+                                    break;
+
+                                case 'derivado':
+                                    this.derivadoAmount += 1
+                                    break;
+                            
+                                default:
+                                    console.log('for break default');
+                                    break;
+                            }
                         }
                     }
-                })
-                .catch ((err) => {
+                    getUserAmountArchivations(this.$store.state.user.data.id)
+                    .then(res => {
+                        // console.log('UserAmountArchivation :', res);
+                        this.archivations = res.data
+                        this.archivadoAmount = res.data.length
+                    })
+                    .catch ((err) => {
                     console.log( 'GLOBAL ERROR :', `${err.name} : ${err.message}`)
-                })
-                .finally ( () => {
-                    console.log('peticion de status de derivations terminada')
-                })
+                    })
+                    .finally ( () => {
+                        console.log('peticion de status de derivations terminada')
+                        this.showChar = true
+                    })
+               })
+                
         }
     },
 

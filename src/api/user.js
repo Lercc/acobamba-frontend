@@ -15,6 +15,12 @@ function getUserArchivations(pUserId, pPage = 1) {
     return axios.get(`${API_URL}/${REQUEST}`, { headers })
 }
 
+function getUserAmountArchivations (pUserId) {
+    const REQUEST = `api/userAmountArchivations/${pUserId}`
+    const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
+    return axios.get(`${API_URL}/${REQUEST}`, { headers })
+}
+
 function getUsers(pPage = 1) {
     const REQUEST = `api/users?page=${pPage}`
     const headers = { Authorization : `Bearer ${store.state.user.data.token}`}
@@ -45,4 +51,11 @@ function updateUser(pIdUser, pFormData) {
 
 
 
-export { getUserDerivations, getUserArchivations,getUsers,getUser,storeUser,updateUser }
+export { 
+    getUserDerivations,
+    getUserArchivations,
+    getUserAmountArchivations,
+    getUsers,
+    getUser,
+    storeUser,
+    updateUser }
