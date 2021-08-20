@@ -73,6 +73,11 @@
                       <b-form-row class="justify-content-center borde mt-5">
                         <b-button :to="{name: 'ddd'}" variant="link">¿Olvidates tu contraseña  ?</b-button>
                     </b-form-row>
+                    
+                    <b-form-row class="justify-content-center borde mt-5">
+                        <b-button :to="{name: 'home'}" variant="link">Volver al Inicio</b-button>
+                    </b-form-row>
+
 
                 </b-card>
             </b-col>

@@ -3,6 +3,7 @@
     <div>
         <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
+            <b-container>
             <b-row >
                 <b-col class="justify-content-center pb-5">
                     <p class="welcome">Bienvenido a la Mesa de Partes Virtual</p>
@@ -23,17 +24,13 @@
                             </div>
                         </template>
                     </b-card>
-                </b-col>
-
-                <!-- <b-col cols="12" class="py-4">
-                    <p class="text-center m-0">
-                        <a href="" class="text-white text-underline opacity-7">+ VER TODO</a>
-                    </p>
-                </b-col> -->
+                </b-col>  
+            
             </b-row>
+          </b-container>
         </base-header>
         
-        <b-container fluid class="border border-red mt--6">
+        <b-container fluid class="guia border border-red mt--6">
             <b-row>
                 <b-col cols="12">
                     <b-card img-src="/img/guide/guide.png" overlay></b-card>
@@ -83,5 +80,10 @@ export default {
     font-family: 'Bungee', cursive;
     font-size: 2.5rem;
     text-align: center;
+  
+}
+@media (max-width: 761px) {
+  .welcome { display: none !important; }
+  .guia {display: none !important;}
 }
 </style>

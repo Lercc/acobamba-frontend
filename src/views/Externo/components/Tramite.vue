@@ -1,13 +1,19 @@
 <template>
     <div>
         <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
+         <b-row >
+                <b-col class="justify-content-center pb-5">
+                    <p class="welcome">REGISTRA TU TRÁMITE</p>
+                </b-col>
+            </b-row>
         </base-header>
         
         <b-container fluid class="mt--6">
             <b-row>
-                <b-col cols="12">
+                <b-col cols="12">              
+
                     <b-card
-                        header="REGISTRAR NUEVO TRÁMITE"
+                        header="TRÁMITE DOCUMENTARIO"
                     >
                         <!-- TIPO DOCUMENTO   -->
                         <b-form-row>
@@ -107,6 +113,11 @@
                         </b-button>
                     </b-form-row>
                     </b-card>
+
+                    <b-card class="loader-expedients" no-body>
+                        <moon-loader v-show="expedientsLoading" :size="100" :color="'#225ba5'" />
+                    </b-card>
+
                 </b-col>
             </b-row>
         </b-container>
@@ -123,6 +134,7 @@ import swal from 'sweetalert'
 export default {
     data () {
         return {
+            expedientsLoading: false,
             state: false,
             //
             document_type: 'solicitud',
@@ -163,6 +175,7 @@ export default {
 
     methods: {
         createExpedient () {
+            this.expedientsLoading = true
             this.inputErrors = {}
             let expedientFormData = new FormData()
 
@@ -218,6 +231,7 @@ export default {
                 })
                 .finally(() => {
                     this.inputInitialValues = false
+                    this.expedientsLoading = false
                     console.log('request de exp terminada!');
                 })
         },
@@ -244,3 +258,25 @@ export default {
 
 }
 </script>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+.welcome {
+    padding: 0 25px;
+    color: white;
+    font-family: 'Bungee', cursive;
+    font-size: 2.5rem;
+    text-align: center;
+}
+.loader-expedients {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.5rem;
+      color: rgb(233, 233, 248); }
+}
+
+</style>

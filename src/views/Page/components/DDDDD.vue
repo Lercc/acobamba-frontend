@@ -123,4 +123,12 @@ export default {
     font-size:40px;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+
+
+@media (max-width: 576px) {
+  .recovery-class{ 
+     font-size: 25px;
+      color: rgb(17, 17, 41); }
+}
+ 
 </style>

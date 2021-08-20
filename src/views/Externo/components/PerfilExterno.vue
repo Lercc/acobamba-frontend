@@ -112,4 +112,13 @@ export default {
     justify-content: center;
     min-height: 400px;
 }
+
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.3rem;
+      color: rgb(233, 233, 248); 
+      text-align: center;
+      }
+}
+
 </style>

@@ -235,5 +235,12 @@ export default {
     font-size: 2.5rem;
     text-align: center;
 }
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.3rem;
+      color: rgb(233, 233, 248); }
+}
+
+
 </style>
 

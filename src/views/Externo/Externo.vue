@@ -5,10 +5,10 @@
       short-title="apk"
       title="apk">
       <template slot="links">
-        <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-folder-17 text-blue', path: '/externo'}" />
-        <sidebar-item :link="{name: 'Nuevo Trámite', icon: 'ni ni-tag text-green', path: '/externo/tramite'}" />
-        <sidebar-item :link="{name: 'Trámites Realizados', icon: 'ni ni-single-02 text-orange', path: '/externo/tramites-realizados'}" />
-        <sidebar-item :link="{name: ' Mi Perfil', icon: 'ni ni-single-02 text-orange', path: '/externo/perfil-externo'}" />
+        <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-chart-bar-32 text-red', path: '/externo'}" />
+        <sidebar-item :link="{name: 'Nuevo Trámite', icon: 'ni ni-folder-17 text-blue', path: '/externo/tramite'}" />
+        <sidebar-item :link="{name: 'Trámites Realizados', icon: 'ni ni-bullet-list-67 text-greee', path: '/externo/tramites-realizados'}" />
+        <sidebar-item :link="{name: ' Mi Perfil', icon: 'ni ni-single-02 text-green', path: '/externo/perfil-externo'}" />
       </template>
     </side-bar>
 

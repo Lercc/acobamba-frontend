@@ -23,6 +23,7 @@
         <sidebar-item
          v-show="this.$store.state.user.data.employee_type === 'trabajador' ? false : true "
          :link="{name: 'Reporte de Trámites', icon: 'ni ni-ungroup text-green', path: '/interno/reporte-tramites'}" />
+       <sidebar-item :link="{name: 'Perfil del Usuario', icon: 'ni ni-single-02 text-green', path: '/interno/perfil-interno'}" />
       </template>
     </side-bar>
 

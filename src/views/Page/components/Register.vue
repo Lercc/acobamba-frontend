@@ -1,20 +1,15 @@
 <template>
   <b-container fluid class="py-5">
     <b-row class="justify-content-center">
-      <b-col cols="12" sm="10" md="8" lg="6" xl="5">
+      <b-col cols="12" sm="10" md="8" lg="7" xl="6">
         <b-card v-show="processorLoading" class="loader-login" no-body>
           <moon-loader :size="100" :color="'#225ba5'" />
         </b-card>
 
         <b-card v-show="!processorLoading">
-          <template #header>
-            <b-row align-h="between">
-              <b-col cols="auto" class="text-center">
-                <h1 class="register-class mx-9">¡¡¡¡¡ REGISTRATE !!!!!</h1>
-              </b-col>
-            </b-row>
-          </template>
-
+           <b-row class="titulo" >
+             <h1 class="register-class">REGISTRATE</h1>
+         </b-row >
           <b-form-row>
             <b-col>
               <b-form-group>
@@ -37,9 +32,9 @@
           </b-form-row>
 
           <b-form-row v-if="typeOfficeRadioSelect == 'usuario_externo'">
-            <b-col>
+            <b-col >
               <b-form-row>
-                <b-col>
+                <b-col  cols="12" sm="6" >
                   <b-form-group label="NOMBRE">
                     <b-form-input
                       type="text"
@@ -56,10 +51,10 @@
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
-              </b-form-row>
+                
               <!-- LAST_NAME   -->
-              <b-form-row>
-                <b-col>
+
+                <b-col cols="12" sm="6" >
                   <b-form-group label="APELLIDOS">
                     <b-form-input
                       type="text"
@@ -76,33 +71,12 @@
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
+
               </b-form-row>
 
-              <!-- PHONE   -->
               <b-form-row>
-                <b-col>
-                  <b-form-group label="NUMERO DE CELULAR">
-                    <b-form-input
-                      type="number"
-                      v-model="processorData.attributes.phone"
-                      :state="showInputStatus('phone')"
-                    >
-                    </b-form-input>
-
-                    <b-form-invalid-feedback
-                      v-for="(inputError, index) in showInputErrors('phone')"
-                      :key="`${index}-input-phone`"
-                      class="text-danger"
-                    >
-                      {{ inputError }}
-                    </b-form-invalid-feedback>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-
-              <!-- TIPO DOCUMENTO   -->
-              <b-form-row>
-                <b-col>
+               <!-- TIPO DOCUMENTO   -->
+                <b-col cols="12" sm="6" >
                   <b-form-group label="TIPO DOCUMENTO">
                     <b-form-select
                       v-model="processorData.attributes.doc_type"
@@ -120,10 +94,8 @@
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
-              </b-form-row>
-              <!-- NUMERO DE DOCUMENTO  -->
-              <b-form-row>
-                <b-col>
+
+                <b-col cols="12" sm="6">
                   <b-form-group label="NUMERO DE DOCUMENTO">
                     <b-form-input
                       type="number"
@@ -142,9 +114,27 @@
                 </b-col>
               </b-form-row>
 
+              <b-form-row>             
+                <b-col cols="12" sm="6" >
+                  <b-form-group label="NUMERO DE CELULAR">
+                    <b-form-input
+                      type="number"
+                      v-model="processorData.attributes.phone"
+                      :state="showInputStatus('phone')"
+                    >
+                    </b-form-input>
+
+                    <b-form-invalid-feedback
+                      v-for="(inputError, index) in showInputErrors('phone')"
+                      :key="`${index}-input-phone`"
+                      class="text-danger"
+                    >
+                      {{ inputError }}
+                    </b-form-invalid-feedback>
+                  </b-form-group>
+                </b-col>                
               <!-- EMAIL   -->
-              <b-form-row>
-                <b-col>
+                <b-col cols="12" sm="6" >
                   <b-form-group label="CORREO ELECTRONICO">
                     <b-form-input
                       type="email"
@@ -163,9 +153,10 @@
                 </b-col>
               </b-form-row>
 
+
               <!-- PASSWORD   -->
               <b-form-row>
-                <b-col>
+                <b-col cols="12" sm="6" >
                   <b-form-group label="CONTRASEÑA">
                     <b-form-input
                       type="password"
@@ -182,11 +173,8 @@
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
-              </b-form-row>
-
-              <!-- CONFIRMA PASSWORD   -->
-              <b-form-row>
-                <b-col>
+                <!-- CONFIRMA PASSWORD   -->
+                 <b-col cols="12" sm="6" >
                   <b-form-group label="CONFIRMA TU CONTRASEÑA">
                     <b-form-input
                       type="password"
@@ -203,7 +191,7 @@
           <b-form-row v-else>
             <b-col>
               <b-form-row>
-                <b-col>
+                <b-col cols="12" sm="6"  >
                   <b-form-group label="NOMBRE DE LA EMPRESA">
                     <b-form-input
                       type="text"
@@ -220,11 +208,9 @@
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
-              </b-form-row>
-
-              <!-- PHONE   -->
-              <b-form-row>
-                <b-col>
+                
+                <!-- PHONE   -->
+                <b-col cols="12" sm="6"  >
                   <b-form-group label="NUMERO DE CELULAR">
                     <b-form-input
                       type="number"
@@ -242,11 +228,12 @@
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
+
               </b-form-row>
 
               <!-- TIPO DOCUMENTO   -->
               <b-form-row>
-                <b-col>
+                <b-col cols="12" sm="6"  >
                   <b-form-group label="TIPO DOCUMENTO">
                     <b-form-select
                       v-model="processorData.attributes.doc_type"
@@ -264,10 +251,9 @@
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
-              </b-form-row>
-              <!-- NUMERO DE DOCUMENTO  -->
-              <b-form-row>
-                <b-col>
+                  
+                  <!-- NUMERO DE DOCUMENTO  -->
+                 <b-col cols="12" sm="6"  >
                   <b-form-group label="NUMERO DE DOCUMENTO">
                     <b-form-input
                       type="number"
@@ -288,7 +274,7 @@
 
               <!-- EMAIL   -->
               <b-form-row>
-                <b-col>
+                <b-col cols="12" sm="6"  >
                   <b-form-group label="CORREO ELECTRONICO DE LA EMPRESA">
                     <b-form-input
                       type="email"
@@ -305,11 +291,8 @@
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
-              </b-form-row>
-
-              <!-- LAST_NAME   -->
-              <b-form-row>
-                <b-col>
+                <!-- LAST_NAME   -->
+                <b-col cols="12" sm="6"  >
                   <b-form-group label="NOMBRE DEL REPRESENTANTE">
                     <b-form-input
                       type="text"
@@ -328,9 +311,11 @@
                 </b-col>
               </b-form-row>
 
+  
+
               <!-- NUMERO DE DOCUMENTO  -->
               <b-form-row>
-                <b-col>
+                <b-col cols="12" sm="6" >
                   <b-form-group label="DNI DEL REPRESENTANTE">
                     <b-form-input
                       type="number"
@@ -351,7 +336,7 @@
 
               <!-- PASSWORD   -->
               <b-form-row>
-                <b-col>
+                <b-col cols="12" sm="6"  >
                   <b-form-group label="CONTRASEÑA">
                     <b-form-input
                       type="password"
@@ -368,23 +353,20 @@
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
-              </b-form-row>
-
-              <!-- CONFIRMA PASSWORD   -->
-              <b-form-row>
-                <b-col>
-                  <b-form-group label="CONFIRMA TU CONTRASEÑA">
-                    <b-form-input
-                      type="password"
-                      v-model="processorData.attributes.password_confirmation"
-                      :state="showInputStatus('password_confirmation')"
-                    >
-                    </b-form-input>
-                  </b-form-group>
+                <!-- CONFIRMA PASSWORD   -->
+                 <b-col cols="12" sm="6" >
+                    <b-form-group label="CONFIRMA TU CONTRASEÑA">
+                        <b-form-input
+                          type="password"
+                          v-model="processorData.attributes.password_confirmation"
+                          :state="showInputStatus('password_confirmation')"
+                        >
+                        </b-form-input>
+                      </b-form-group>
+                    </b-col>
+                  </b-form-row>
                 </b-col>
-              </b-form-row>
-            </b-col>
-          </b-form-row>
+              </b-form-row> 
 
           <b-form-row class="justify-content-center borde">
             <b-col cols="12" sm="12" class="borde">
@@ -395,7 +377,7 @@
           </b-form-row> 
 
           <b-form-row class="justify-content-center borde mt-5">
-                <b-button :to="{name: 'login'}" variant="link">Volver al Inicio</b-button>
+                <b-button :to="{name: 'login'}" variant="link">Volver al Login</b-button>
             </b-form-row>
 
         </b-card>
@@ -518,5 +500,19 @@ export default {
 .register-class {
     font-size:40px;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(17, 217, 243);
+}
+ .titulo {
+      text-align: center; 
+      justify-content: center ;
+  }
+
+@media (max-width: 576px) {
+
+
+  .register-class{ 
+     font-size: 30px;
+      color: rgb(17, 217, 243);
+      }
 }
 </style>

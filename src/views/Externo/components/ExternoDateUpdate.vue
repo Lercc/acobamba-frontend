@@ -1,5 +1,6 @@
 <template>
     <div>
+    
         <b-card v-show="processorLoading" class="loader-processors" no-body>
             <moon-loader loading :size="60" :color="'#225ba5'" /> 
         </b-card>  
@@ -10,16 +11,24 @@
         </b-card> 
 
         <b-card v-show="!processorLoading " >
-        <b-form-row v-if="this.processorData.attributes.dni_represent" >
-            <b-col  >
-                <b-form-row class="my-6">
-                        <b-col>
-                        <h2 class="welcome">  EDITAR ENTIDAD </h2>
-                        </b-col>
-                    </b-form-row>
+
+        <div v-if="this.processorData.attributes.dni_represent" >
+           <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
+            <b-row >
+                    <b-col class="justify-content-center pb-5">
+                        <p class="welcome">EDITAR ENTIDAD </p>
+                    </b-col>
+             </b-row>
+          </base-header>
+
+                  
+          <b-container fluid class="mt--6">
+            <b-row>
+               <b-col cols="12">      
+                <b-card>
          
                     <b-form-row>
-                        <b-col>
+                        <b-col cols="12" sm="6" >
                             <b-form-group
                                 label="NOMBRE DE LA EMPRESA"
                             >
@@ -34,11 +43,8 @@
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
-                    </b-form-row>
-
-                    <!-- LAST_NAME   -->
-                    <b-form-row>
-                        <b-col>
+                        
+                        <b-col cols="12" sm="6" >
                             <b-form-group
                                 label="APELLIDOS"
                             >
@@ -55,9 +61,10 @@
                         </b-col>
                     </b-form-row>
 
+
                     <!-- EMAIL   -->
                     <b-form-row>
-                        <b-col>
+                        <b-col cols="12" sm="6" >
                             <b-form-group
                                 label="CORREO ELECTRONICO"
                             >
@@ -73,10 +80,8 @@
 
                             </b-form-group>
                         </b-col>
-                    </b-form-row>
-                            <!-- DNI REPRESENT   -->
-                    <b-form-row>
-                        <b-col>
+                        
+                        <b-col cols="12" sm="6" >
                             <b-form-group
                                 label="DNI DEL REPRESENTANTE"
                             >
@@ -93,25 +98,33 @@
                         </b-col>
                     </b-form-row>
 
-            <b-form-row >
-                <b-col class="d-flex justify-content-center">
-                    <b-button variant="info" @click="updateDateProcessor">ACTUALIZAR</b-button>
-                </b-col>
-                </b-form-row>
-                
-            </b-col>
-        </b-form-row>
-
-        <b-form-row v-else>
-            <b-col class="mx-4 px-8 my-2 py-5" >
-                    <b-form-row class="my-6" >                      
-                        <b-col>
-                        <h2 class="welcome">  EDITAR USUARIO </h2>
+                    <b-form-row >
+                        <b-col class="d-flex justify-content-center">
+                            <b-button variant="info" @click="updateDateProcessor">ACTUALIZAR</b-button>
                         </b-col>
-                    </b-form-row>
-        
+                      </b-form-row>
+                </b-card>
+                    </b-col>    
+                </b-row>             
+             </b-container>
+                </div>
+
+            <div v-else>
+                <base-header type="gradient-info" class="pb-6 pb-8 pt-5 pt-md-8">
+                     <b-row >
+                        <b-col class="justify-content-center pb-5">
+                            <p class="welcome">EDITAR USUARIO </p>
+                        </b-col>
+                    </b-row>
+                </base-header>
+
+              <b-container fluid class="mt--6">
+                <b-row>
+
+                <b-col cols="12" >
+                  <b-card>        
                     <b-form-row>
-                        <b-col>
+                        <b-col cols="12" sm="6">
                             <b-form-group
                                 label="NOMBRES"
                             >
@@ -128,7 +141,7 @@
                                 
                             </b-form-group>                            
                         </b-col>
-                        <b-col>
+                        <b-col cols="12" sm="6">
                           <b-form-group
                                 label="APELLIDOS"
                             >
@@ -147,7 +160,7 @@
                     </b-form-row>
                     
                     <b-form-row>
-                        <b-col>
+                        <b-col cols="12" sm="6" >
                             <b-form-group
                                 label="TIPO DE DOCUMENTO"
                             >
@@ -164,7 +177,7 @@
                                 
                             </b-form-group>                            
                         </b-col>
-                        <b-col>
+                        <b-col cols="12" sm="6" >
                           <b-form-group
                                 label="NÚMERO DE DOCUMENTO"
                             >
@@ -184,7 +197,7 @@
 
                     <!-- EMAIL   -->
                     <b-form-row>
-                        <b-col>
+                        <b-col cols="12" sm="6">
                             <b-form-group
                                 label="CORREO ELECTRONICO"
                             >
@@ -204,13 +217,17 @@
                             </b-col>
                     </b-form-row>
 
-            <b-form-row class="mt-5" >
-                <b-col class="d-flex justify-content-center">
-                    <b-button variant="primary" @click="updateDateProcessor">ACTUALIZAR</b-button>
+                    <b-form-row class="mt-5" >
+                        <b-col class="d-flex justify-content-center">
+                            <b-button variant="primary" @click="updateDateProcessor">ACTUALIZAR</b-button>
+                        </b-col>
+                    </b-form-row>
+                    
+                 </b-card>
                 </b-col>
-                </b-form-row>
-            </b-col>
-        </b-form-row>            
+            </b-row>
+        </b-container>
+        </div>            
 
         </b-card>
 
@@ -332,7 +349,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
 .welcome {
     padding: 0 25px;
-    color: rgb(6, 6, 7);
+    color: rgb(223, 223, 223); 
     font-family: 'Bungee', cursive;
     font-size: 2.5rem;
     text-align: center;
@@ -343,5 +360,14 @@ export default {
     justify-content: center;
     min-height: 400px;
 }
+
+@media (max-width: 576px) {
+  .welcome{ 
+     font-size: 1.3rem;
+      color: rgb(248, 248, 250); 
+      text-align: center;
+      }
+}
+
 
 </style>
