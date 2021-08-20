@@ -382,6 +382,17 @@
 
         </b-card>
       </b-col>
+
+      <b-modal id="modal-2" title="REGISTRO EXITOSO"  button-size="sm" hide-footer size="lg">
+          <b-col cols="12">
+              <b-form-row>
+                  <b-col class="d-flex justify-content-center">
+                      <b-button :to="{name: 'login'}"  variant="success" >Aceptar</b-button>
+                  </b-col>
+              </b-form-row>
+            </b-col>
+      </b-modal>
+
     </b-row>
   </b-container>
 </template>
@@ -395,6 +406,7 @@ export default {
 
   data() {
     return {
+      registerLoading: false,
       typeOfficeRadioSelect: "usuario_externo",
       processorLoading: false,
       processorData: {
@@ -425,6 +437,7 @@ export default {
 
   methods: {
     createProcessor() {
+ 
       this.inputErrors = {};
 
       const processorFormData = new FormData();
@@ -439,12 +452,17 @@ export default {
       processorFormData.append("password", this.processorData.attributes.password);
       processorFormData.append("password_confirmation",this.processorData.attributes.password_confirmation);
       processorFormData.append("dni_represent",this.processorData.attributes.dni_represent);
-      processorFormData.append("status", 'activado');
+      processorFormData.append("status",'activado');
 
       storeProcessor(processorFormData)
         .then((response) => {
           if (response.data.data) {
             this.processorData = response.data.data;
+            //cargando
+            this.registerLoading = true
+            //alert 
+
+
             alert('¡Registro exitoso!'); 
             //    swal('¡Registro correcto!','Ok','success')
             //     .then( res =>{
@@ -462,6 +480,7 @@ export default {
         })
         .finally(() => {
           this.inputInitialValues = false;
+          this.registerLoading = false
           console.log("peticion update office terminada!");
         });
     },
